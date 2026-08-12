@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquire | Schubert Scriptorium</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <div class="nav-logo">SCHUBERT SCRIPTORIUM</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="collection.html">Collection</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Inquire</a>
+    </nav>
+</header>
+
+<div class="container">
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <h1>Begin an Inquiry</h1>
+        <p><strong>Chase Schubert</strong><br>
+        469-544-8232 | chasecschubert@gmail.com</p>
+        <p><em>Exclusively serving the DFW Metroplex. Hand-delivered to your door.</em></p>
+    </div>
+
+    <!-- Success Message (Hidden by default) -->
+    <div data-fs-success style="display:none; text-align: center; padding: 2rem; border: 1px solid var(--gold); background: #fff; margin-bottom: 2rem;">
+        <h3 style="color: var(--gold);">Message Received</h3>
+        <p>Thank you, Chase will reach out to you personally within 24-48 hours to discuss your facsimile.</p>
+    </div>
+
+    <!-- Error Message (Hidden by default) -->
+    <div data-fs-error style="display:none; text-align: center; padding: 1rem; border: 1px solid red; background: #fff; margin-bottom: 2rem;">
+        <p>There was an error sending your message. Please try again or call Chase directly.</p>
+    </div>
+
+    <form id="my-form">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" data-fs-field required>
+        <span data-fs-error="name"></span>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" data-fs-field required>
+        <span data-fs-error="email"></span>
+
+        <label for="interest">Manuscript Interest</label>
+        <select id="interest" name="interest" data-fs-field>
+            <option value="P52-Gallery">P52 Gallery Edition ($40-$55)</option>
+            <option value="P52-Prism">P52 Curator's Prism ($60-$90)</option>
+            <option value="Custom">Custom Manuscript Request (Bespoke Quote)</option>
+        </select>
+        <span data-fs-error="interest"></span>
+
+        <label for="message">Details or Questions</label>
+        <textarea id="message" name="message" rows="5" data-fs-field placeholder="If you would like engraving, please specify the text here."></textarea>
+        <span data-fs-error="message"></span>
+
+        <button type="submit" class="btn" data-fs-submit-btn>Send Inquiry</button>
+    </form>
+</div>
+
+<footer>
+    <p>SCHUBERT SCRIPTORIUM | Dallas-Fort Worth, TX</p>
+</footer>
+
+<!-- Formspree Scripts -->
+<script>
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+  formspree('initForm', { formElement: '#my-form', formId: 'xrpzkqrw' });
+</script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+</body>
+</html>
