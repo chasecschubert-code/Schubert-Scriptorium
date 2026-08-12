@@ -1,8 +1,9 @@
-/* Museum Aesthetic Theme */
+/* --- SCHUBERT SCRIPTORIUM: MUSEUM STYLE SHEET --- */
+
 :root {
-    --parchment: #F1CFA4;
-    --ink: #2C2C2C;
-    --gold: #A68966;
+    --parchment: #F1CFA4;  
+    --ink: #2C2C2C;        /* Dark Charcoal Text */
+    --gold: #A68966;       /* Gold Accents */
     --white: #ffffff;
 }
 
@@ -14,16 +15,23 @@ body {
     line-height: 1.6;
 }
 
+/* --- TYPOGRAPHY --- */
 h1, h2, h3, .nav-logo {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
     letter-spacing: 1px;
 }
 
+/* --- NAVIGATION --- */
 header {
     padding: 2rem;
     text-align: center;
     border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.nav-logo {
+    font-size: 2rem;
+    margin-bottom: 1rem;
 }
 
 nav a {
@@ -35,8 +43,9 @@ nav a {
     letter-spacing: 2px;
 }
 
+/* --- CONTAINERS --- */
 .container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: auto;
     padding: 2rem;
 }
@@ -46,80 +55,94 @@ nav a {
     padding: 4rem 1rem;
 }
 
+.hero h1 {
+    font-size: 2.5rem;
+}
+
+/* --- COLLECTION PAGE GRID --- */
+/* Forces products side-by-side on desktop */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(4, 1fr); /* Exactly 4 columns */
     gap: 2rem;
+    margin-top: 3rem;
 }
 
+/* --- PRODUCT CARDS --- */
+.card {
+    background: var(--white);
+    padding: 1rem;
+    text-align: center; /* Centers all text under the image */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Forces all images to the same height while maintaining a clean look */
 .card img {
-    width: 100%;           /* Makes the image fill the full width of the card */
-    height: 350px;         /* Forces every image to be the exact same height */
-    object-fit: cover;     /* This is the magic: it crops the photo to fit the 'frame' without stretching it */
-    display: block;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid #eee; /* Adds a clean museum-style divider under the photo */
+    width: 100%;
+    height: 300px;         /* Uniform height for all images */
+    object-fit: cover;     /* Crops to fit the box perfectly */
+    margin-bottom: 1.5rem;
+    border: 1px solid #f0f0f0;
 }
 
-/* This makes the grid look more substantial and "large" */
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
-    gap: 3rem; /* Gives the items more 'breathing room' like a gallery */
+/* Large Text Formatting (50% Larger than standard) */
+.card h3 {
+    font-size: 1.8rem;     /* Large Title */
+    margin: 10px 0;
+    line-height: 1.2;
 }
 
+.card p {
+    font-size: 1.3rem;     /* Large Description & Price */
+    margin-bottom: 1.5rem;
+    color: #555;
+}
+
+/* --- BUTTONS --- */
 .btn {
     display: inline-block;
-    padding: 10px 25px;
+    padding: 12px 20px;
     background: var(--ink);
     color: var(--white);
     text-decoration: none;
-    margin-top: 1rem;
+    font-size: 1.1rem;
     transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .btn:hover {
     background: var(--gold);
 }
 
+/* --- FOOTER --- */
 footer {
     text-align: center;
-    padding: 3rem;
-    font-size: 0.8rem;
+    padding: 4rem;
+    font-size: 1rem;
     border-top: 1px solid #ddd;
-    margin-top: 4rem;
+    margin-top: 5rem;
+    background-color: #fafafa;
 }
 
-/* Contact Form Styling */
-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 600px;
-    margin: auto;
+/* --- MOBILE RESPONSIVE --- */
+/* On phones, images will stack vertically so they aren't too tiny to see */
+@media (max-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 per row on tablets */
+    }
 }
 
-input, select, textarea {
-    padding: 10px;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    font-family: inherit;
+@media (max-width: 600px) {
+    .product-grid {
+        grid-template-columns: 1fr; /* 1 per row on phones */
+    }
+    
+    .card img {
+        height: auto; /* Let mobile images show fully */
+    }
 }
-/* Styling for Formspree Ajax states */
-[data-fs-success] {
-    font-family: 'Playfair Display', serif;
-    animation: fadeIn 0.5s ease-in;
-}
-
-[data-fs-error] {
-    color: #721c24;
-    font-size: 0.9rem;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
 /* Hide the form once success happens */
 form.fs-form-success {
     display: none;
