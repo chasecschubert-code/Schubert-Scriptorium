@@ -1,10 +1,10 @@
-/* --- SCHUBERT SCRIPTORIUM: MUSEUM STYLE SHEET --- */
+/* --- SCHUBERT SCRIPTORIUM: REFINED MUSEUM THEME --- */
 
 :root {
-    --parchment: #F1CFA4;  
-    --ink: #2C2C2C;        /* Dark Charcoal Text */
-    --gold: #A68966;       /* Gold Accents */
-    --white: #ffffff;
+    --parchment: #ffffff;
+    --ink: #2C2C2C;
+    --gold: #A68966;
+    --light-grey: #f4f4f4;
 }
 
 body {
@@ -15,135 +15,141 @@ body {
     line-height: 1.6;
 }
 
-/* --- TYPOGRAPHY --- */
-h1, h2, h3, .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
 /* --- NAVIGATION --- */
 header {
-    padding: 2rem;
+    padding: 2rem 1rem;
     text-align: center;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .nav-logo {
-    font-size: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
     margin-bottom: 1rem;
+    text-transform: uppercase;
 }
 
 nav a {
     text-decoration: none;
     color: var(--ink);
-    margin: 0 15px;
+    margin: 0 10px;
     text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
 }
 
 /* --- CONTAINERS --- */
 .container {
     max-width: 1200px;
     margin: auto;
-    padding: 2rem;
+    padding: 2rem 1rem;
 }
 
-.hero {
-    text-align: center;
-    padding: 4rem 1rem;
-}
-
-.hero h1 {
-    font-size: 2.5rem;
-}
-
-/* --- COLLECTION PAGE GRID --- */
-/* Forces products side-by-side on desktop */
+/* --- COLLECTION GRID (DESKTOP) --- */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Exactly 4 columns */
+    grid-template-columns: repeat(4, 1fr); /* 4 items side-by-side */
     gap: 2rem;
-    margin-top: 3rem;
 }
 
 /* --- PRODUCT CARDS --- */
 .card {
-    background: var(--white);
-    padding: 1rem;
-    text-align: center; /* Centers all text under the image */
+    background: #fff;
+    text-align: center;
     display: flex;
     flex-direction: column;
+    padding-bottom: 1rem;
 }
 
-/* Forces all images to the same height while maintaining a clean look */
+/* Forces all images to be perfectly aligned and sharp */
 .card img {
     width: 100%;
-    height: 300px;         /* Uniform height for all images */
-    object-fit: cover;     /* Crops to fit the box perfectly */
-    margin-bottom: 1.5rem;
+    height: 300px;         /* Uniform height on desktop */
+    object-fit: cover;     /* Professional crop */
+    margin-bottom: 1rem;
+    background-color: var(--light-grey);
     border: 1px solid #f0f0f0;
 }
 
-/* Large Text Formatting (50% Larger than standard) */
 .card h3 {
-    font-size: 1.8rem;     /* Large Title */
-    margin: 10px 0;
-    line-height: 1.2;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin: 0.5rem 0;
 }
 
 .card p {
-    font-size: 1.3rem;     /* Large Description & Price */
-    margin-bottom: 1.5rem;
-    color: #555;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1rem;
 }
 
 /* --- BUTTONS --- */
 .btn {
     display: inline-block;
-    padding: 12px 20px;
+    padding: 10px 15px;
     background: var(--ink);
-    color: var(--white);
+    color: #fff;
     text-decoration: none;
-    font-size: 1.1rem;
-    transition: 0.3s;
+    font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
+    transition: 0.2s;
 }
 
 .btn:hover {
     background: var(--gold);
 }
 
-/* --- FOOTER --- */
-footer {
-    text-align: center;
-    padding: 4rem;
-    font-size: 1rem;
-    border-top: 1px solid #ddd;
-    margin-top: 5rem;
-    background-color: #fafafa;
-}
+/* --- MOBILE & TABLET OPTIMIZATION (SHARP & MODERN) --- */
 
-/* --- MOBILE RESPONSIVE --- */
-/* On phones, images will stack vertically so they aren't too tiny to see */
 @media (max-width: 1024px) {
     .product-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 per row on tablets */
+        grid-template-columns: repeat(2, 1fr); /* 2 per row for a balanced look */
+        gap: 1.5rem;
     }
 }
 
 @media (max-width: 600px) {
+    /* This creates the 'sharp' 2x2 grid on mobile phones */
     .product-grid {
-        grid-template-columns: 1fr; /* 1 per row on phones */
+        grid-template-columns: 1fr 1fr; 
+        gap: 1rem;
+        padding: 0.5rem;
     }
-    
+
+    /* Smaller height for mobile so you can see multiple products at once */
     .card img {
-        height: auto; /* Let mobile images show fully */
+        height: 180px; 
+    }
+
+    /* Scaling down the text for the 2-column mobile layout */
+    .card h3 {
+        font-size: 1.1rem;
+        padding: 0 5px;
+    }
+
+    .card p {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        font-size: 0.75rem;
+        padding: 8px 10px;
+    }
+
+    .nav-logo {
+        font-size: 1.4rem;
     }
 }
-/* Hide the form once success happens */
-form.fs-form-success {
-    display: none;
+
+/* --- FOOTER --- */
+footer {
+    text-align: center;
+    padding: 3rem 1rem;
+    font-size: 0.9rem;
+    border-top: 1px solid #eee;
+    background: #fdfdfd;
+    margin-top: 4rem;
 }
