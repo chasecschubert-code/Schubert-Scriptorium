@@ -1,20 +1,18 @@
-/* --- SCHUBERT SCRIPTORIUM: FINAL ALIGNED THEME --- */
+/* --- SCHUBERT SCRIPTORIUM: REFINED LAYOUT --- */
 
 :root {
     --parchment: #ffffff;
     --ink: #2C2C2C;
     --gold: #A68966;
-    --grey: #f9f9f9;
 }
 
-/* Global Centering */
 body {
     font-family: 'Lato', sans-serif;
     background-color: var(--parchment);
     color: var(--ink);
     margin: 0;
     line-height: 1.6;
-    text-align: center; /* Forces all text everywhere to be centered */
+    text-align: center; /* Centers text globally */
 }
 
 /* --- NAVIGATION --- */
@@ -29,133 +27,115 @@ header {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
-    display: block;
-    margin: 0 auto 1rem auto;
+    margin-bottom: 1rem;
 }
 
 nav a {
     text-decoration: none;
     color: var(--ink);
-    margin: 0 10px;
+    margin: 0 15px;
     text-transform: uppercase;
     font-size: 0.85rem;
     letter-spacing: 1px;
 }
 
-/* --- HERO / HOME SECTION --- */
-.hero {
-    max-width: 900px;
+/* --- CONTAINERS --- */
+.container {
+    max-width: 1000px; /* Constrains the width so images don't get huge */
     margin: 0 auto;
-    padding: 4rem 1.5rem;
-    text-align: center;
+    padding: 3rem 1.5rem;
 }
 
 .hero img {
-    display: block;
-    margin: 2rem auto; /* Centers the homepage image */
-    max-width: 100%;
-    height: auto;
+    max-width: 600px; /* Shrinks the homepage hero image to a manageable size */
+    width: 100%;
+    margin: 2rem auto;
 }
 
-.container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
-}
-
-/* --- COLLECTION GRID (DESKTOP) --- */
+/* --- COLLECTION GRID --- */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 side-by-side */
-    gap: 2rem;
+    grid-template-columns: repeat(4, 1fr); /* FORCES 4 COLUMNS ON DESKTOP */
+    gap: 1.5rem;
     margin-top: 2rem;
 }
 
 /* --- PRODUCT CARDS --- */
 .card {
-    background: #fff;
-    padding-bottom: 1.5rem;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centers items inside the card */
+    align-items: center; /* Centers the image and text horizontally */
+    text-align: center;
 }
 
 .card img {
     width: 100%;
-    height: 300px;
+    height: 200px; /* Keeps images at a professional, uniform size */
     object-fit: cover;
-    margin-bottom: 1rem;
     border: 1px solid #f0f0f0;
+    margin-bottom: 1rem;
 }
 
 .card h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin: 0.5rem 0;
 }
 
 .card p {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 1rem;
+    color: #666;
 }
 
+.bespoke-section {
+    margin-top: 5rem;
+    padding: 3rem;
+    border: 1px solid #eee;
+    background: #fafafa;
+}
+
+/* --- BUTTONS --- */
 .btn {
     display: inline-block;
-    padding: 12px 20px;
+    padding: 10px 18px;
     background: var(--ink);
     color: #fff;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
-    transition: 0.3s;
+    letter-spacing: 1px;
 }
 
-.btn:hover {
-    background: var(--gold);
-}
-
-/* --- MOBILE FIXES --- */
+/* --- MOBILE & TABLET RE-FORMATTING --- */
 
 @media (max-width: 1024px) {
     .product-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr); /* 2 per row on tablets */
     }
 }
 
 @media (max-width: 600px) {
-    /* FORCES 2 COLUMNS ON MOBILE */
     .product-grid {
-        grid-template-columns: 1fr 1fr !important; 
-        gap: 10px !important;
-        padding: 5px;
+        grid-template-columns: 1fr 1fr !important; /* 2 per row on phones */
+        gap: 10px;
     }
-
-    /* Adjusts image height so they aren't massive on small screens */
+    
     .card img {
-        height: 160px !important;
+        height: 150px; /* Smaller images for the mobile grid */
     }
 
     .card h3 {
-        font-size: 1rem !important;
+        font-size: 0.9rem;
     }
 
     .card p {
-        font-size: 0.85rem !important;
-    }
-
-    .btn {
-        padding: 8px 10px;
-        font-size: 0.7rem;
-    }
-
-    .hero {
-        padding: 2rem 1rem;
+        font-size: 0.8rem;
     }
 }
 
 footer {
-    padding: 3rem 1rem;
-    background: #fdfdfd;
+    padding: 3rem;
     border-top: 1px solid #eee;
     margin-top: 4rem;
 }
