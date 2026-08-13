@@ -2,24 +2,24 @@
 
 :root {
     --nav-cobalt: #0f2027;
-    --steel-bg: #1a1a1a; /* Dark Steel/Grayscale */
+    --steel-bg: #1a1a1a; 
     --gold: #D4AF37;
     --tan: #D2B48C;
     --white: #ffffff;
     --glass: rgba(255, 255, 255, 0.05);
 }
 
-/* Global Centering - PERMANENT */
+/* Global Centering */
 body {
     font-family: 'Lato', sans-serif;
     background-color: var(--steel-bg);
     color: var(--white);
     margin: 0;
     line-height: 1.8;
-    text-align: center; /* Forced Centering */
+    text-align: center; 
 }
 
-/* --- STICKY NAVIGATION (LOCKED AT TOP) --- */
+/* --- STICKY NAVIGATION --- */
 header {
     position: sticky;
     top: 0;
@@ -29,7 +29,7 @@ header {
     border-bottom: 2px solid var(--gold);
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center Nav Items */
+    align-items: center; 
 }
 
 .nav-logo {
@@ -60,7 +60,7 @@ nav a:hover { color: var(--white); }
     padding: 4rem 1.5rem;
 }
 
-/* --- HOME PAGE HERO (BIG & CENTERED) --- */
+/* --- HOME PAGE HERO --- */
 .hero-image {
     width: 90%;
     max-width: 1000px;
@@ -71,7 +71,7 @@ nav a:hover { color: var(--white); }
     display: block;
 }
 
-/* --- COLLECTION GRID (LOCKED ALIGNMENT) --- */
+/* --- COLLECTION GRID (LOCKED ALIGNMENT FIX) --- */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -91,7 +91,10 @@ nav a:hover { color: var(--white); }
     color: inherit;
 }
 
-.card:hover { border-color: var(--gold); }
+.card:hover { 
+    border-color: var(--gold); 
+    background: rgba(255, 255, 255, 0.08); /* Subtle pop on hover */
+}
 
 .card img {
     width: 100%;
@@ -101,24 +104,33 @@ nav a:hover { color: var(--white); }
     margin-bottom: 1.5rem;
 }
 
-/* Forces Row Alignment */
+/* FIXED ALIGNMENT: Forces Titles to be the same height */
 .card h3 {
     font-family: 'Playfair Display', serif;
     color: var(--gold);
     font-size: 1.3rem;
-    min-height: 3.5rem; /* Locks Title Row */
+    min-height: 4.5rem; /* Locks Title Row height */
     margin: 0;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
+/* FIXED ALIGNMENT: Centers Price and creates space */
 .card .price {
     font-size: 1.4rem;
     color: var(--white);
-    margin: 1rem 0;
+    margin: 1.5rem 0;
 }
 
-/* --- FORMS (INQUIRE PAGE) --- */
+/* FIXED ALIGNMENT: Pushes Button to the exact same baseline */
+.card .btn {
+    margin-top: auto; 
+    width: 100%;
+    max-width: 180px;
+}
+
+/* --- FORMS (FIXED DROPDOWN VISIBILITY) --- */
 .form-container {
     background: rgba(0, 0, 0, 0.4);
     padding: 3rem;
@@ -146,6 +158,14 @@ nav a:hover { color: var(--white); }
     color: white;
     padding: 12px;
     text-align: center;
+    font-family: inherit;
+}
+
+/* Fix for Dropdown visibility in all browsers */
+select option {
+    background-color: var(--steel-bg); /* Match site background */
+    color: var(--white);
+    padding: 10px;
 }
 
 /* --- ABOUT PAGE TEXT --- */
@@ -179,6 +199,12 @@ footer {
     font-weight: bold;
     text-transform: uppercase;
     border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: var(--tan);
 }
 
 @media (max-width: 900px) {
