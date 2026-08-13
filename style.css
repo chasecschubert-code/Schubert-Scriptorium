@@ -1,117 +1,127 @@
-/* --- SCHUBERT SCRIPTORIUM: METALLIC COBALT & GOLD THEME --- */
+/* --- SCHUBERT SCRIPTORIUM: MUSEUM DISPLAY THEME --- */
 
 :root {
-    --cobalt-gradient: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-    --glass: rgba(255, 255, 255, 0.05);
+    --nav-cobalt: #0f2027;
+    --steel-bg: #1a1a1a; /* Dark Steel/Grayscale */
     --gold: #D4AF37;
     --tan: #D2B48C;
-    --white: #FFFFFF;
+    --white: #ffffff;
+    --glass: rgba(255, 255, 255, 0.05);
 }
 
+/* Global Centering - PERMANENT */
 body {
     font-family: 'Lato', sans-serif;
-    background: var(--cobalt-gradient);
-    background-attachment: fixed;
+    background-color: var(--steel-bg);
     color: var(--white);
     margin: 0;
     line-height: 1.8;
+    text-align: center; /* Forced Centering */
 }
 
-h1, h2, h3, .nav-logo {
-    font-family: 'Playfair Display', serif;
-    color: var(--gold);
-    text-align: center;
-}
-
-/* --- NAVIGATION --- */
+/* --- STICKY NAVIGATION (LOCKED AT TOP) --- */
 header {
-    padding: 2rem 1rem;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--nav-cobalt);
+    padding: 1.5rem 0;
+    border-bottom: 2px solid var(--gold);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center Nav Items */
+}
+
+.nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 0.5rem;
 }
 
 nav a {
     text-decoration: none;
     color: var(--tan);
-    margin: 0 15px;
+    margin: 0 20px;
     text-transform: uppercase;
     font-size: 0.9rem;
     letter-spacing: 2px;
     transition: 0.3s;
 }
 
-nav a:hover {
-    color: var(--white);
-}
+nav a:hover { color: var(--white); }
 
 /* --- CONTAINERS --- */
 .container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 4rem 1.5rem;
 }
 
-/* --- HOME PAGE HERO (Left Aligned) --- */
-.hero-section {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 4rem;
-    padding: 6rem 2rem;
-}
-
+/* --- HOME PAGE HERO (BIG & CENTERED) --- */
 .hero-image {
-    max-width: 500px;
-    width: 100%;
+    width: 90%;
+    max-width: 1000px;
+    height: auto;
     border: 1px solid var(--gold);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin: 2rem auto;
+    display: block;
 }
 
-.hero-text {
-    text-align: left;
-    max-width: 500px;
-}
-
-.hero-text h1 { text-align: left; }
-
-/* --- COLLECTION GRID --- */
+/* --- COLLECTION GRID (LOCKED ALIGNMENT) --- */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
+    margin-top: 3rem;
 }
 
 .card {
     background: var(--glass);
-    backdrop-filter: blur(5px);
     border: 1px solid rgba(212, 175, 55, 0.2);
     padding: 1.5rem;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     transition: 0.3s;
-    text-decoration: none; /* For the links */
+    text-decoration: none;
     color: inherit;
 }
 
-.card:hover {
-    border-color: var(--gold);
-    transform: translateY(-5px);
-}
+.card:hover { border-color: var(--gold); }
 
 .card img {
     width: 100%;
     height: 250px;
     object-fit: cover;
-    margin-bottom: 1rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 1.5rem;
 }
 
-.card h3 { min-height: 3rem; margin: 0.5rem 0; }
-.card p { color: var(--tan); margin-bottom: 1rem; }
+/* Forces Row Alignment */
+.card h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 1.3rem;
+    min-height: 3.5rem; /* Locks Title Row */
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.card .price {
+    font-size: 1.4rem;
+    color: var(--white);
+    margin: 1rem 0;
+}
 
 /* --- FORMS (INQUIRE PAGE) --- */
 .form-container {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.4);
     padding: 3rem;
-    border-radius: 8px;
     border: 1px solid var(--gold);
     max-width: 600px;
     margin: 0 auto;
@@ -121,58 +131,56 @@ nav a:hover {
     display: flex;
     flex-direction: column;
     margin-bottom: 1.5rem;
-    text-align: center;
 }
 
 .form-row label {
-    color: var(--tan);
+    color: var(--gold);
     margin-bottom: 0.5rem;
     text-transform: uppercase;
     font-size: 0.8rem;
-    letter-spacing: 1px;
 }
 
 .form-row input, .form-row select, .form-row textarea {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(212, 175, 55, 0.5);
-    padding: 12px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--tan);
     color: white;
-    font-size: 1rem;
+    padding: 12px;
     text-align: center;
+}
+
+/* --- ABOUT PAGE TEXT --- */
+.about-header {
+    font-size: 2.5rem;
+    margin-top: 3rem;
+    color: var(--gold);
 }
 
 /* --- FOOTER --- */
 footer {
-    padding: 4rem 1rem;
-    background: rgba(0,0,0,0.4);
+    padding: 5rem 1rem;
+    background: rgba(0,0,0,0.6);
     border-top: 1px solid var(--gold);
-    margin-top: 6rem;
-    text-align: center;
+    margin-top: 5rem;
 }
 
 .footer-brand {
     font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: var(--gold);
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 /* --- BUTTONS --- */
 .btn {
     background: var(--gold);
     color: #000;
-    padding: 12px 24px;
+    padding: 12px 30px;
     text-decoration: none;
-    text-transform: uppercase;
     font-weight: bold;
-    display: inline-block;
+    text-transform: uppercase;
     border: none;
-    cursor: pointer;
 }
 
-/* --- MOBILE --- */
-@media (max-width: 800px) {
-    .hero-section { flex-direction: column; text-align: center; }
-    .hero-text h1 { text-align: center; }
+@media (max-width: 900px) {
     .product-grid { grid-template-columns: 1fr 1fr !important; }
 }
