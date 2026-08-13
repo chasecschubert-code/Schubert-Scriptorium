@@ -1,9 +1,10 @@
-/* --- SCHUBERT SCRIPTORIUM: REFINED LAYOUT --- */
+/* --- SCHUBERT SCRIPTORIUM: ALIGNED & ENLARGED THEME --- */
 
 :root {
     --parchment: #ffffff;
     --ink: #2C2C2C;
     --gold: #A68966;
+    --light-grey: #f9f9f9;
 }
 
 body {
@@ -12,22 +13,23 @@ body {
     color: var(--ink);
     margin: 0;
     line-height: 1.6;
-    text-align: center; /* Centers text globally */
+    text-align: center;
 }
 
 /* --- NAVIGATION --- */
 header {
-    padding: 2rem 1rem;
+    padding: 2.5rem 1rem;
     border-bottom: 1px solid #eee;
 }
 
 .nav-logo {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 1rem;
+    letter-spacing: 3px;
+    display: block;
+    margin: 0 auto 1rem auto;
 }
 
 nav a {
@@ -36,61 +38,99 @@ nav a {
     margin: 0 15px;
     text-transform: uppercase;
     font-size: 0.85rem;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 }
 
 /* --- CONTAINERS --- */
 .container {
-    max-width: 1000px; /* Constrains the width so images don't get huge */
+    max-width: 1250px; /* Widened so desktop images are much larger */
     margin: 0 auto;
     padding: 3rem 1.5rem;
 }
 
 .hero img {
-    max-width: 600px; /* Shrinks the homepage hero image to a manageable size */
+    max-width: 600px;
     width: 100%;
     margin: 2rem auto;
+    display: block;
 }
 
 /* --- COLLECTION GRID --- */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* FORCES 4 COLUMNS ON DESKTOP */
+    grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
     gap: 1.5rem;
-    margin-top: 2rem;
+    margin-top: 3rem;
+    align-items: stretch; /* Stretches cards to equal height */
 }
 
 /* --- PRODUCT CARDS --- */
 .card {
+    background: #fff;
+    padding-bottom: 1rem;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centers the image and text horizontally */
+    align-items: center;
     text-align: center;
 }
 
+/* Larger, perfectly aligned photos */
 .card img {
     width: 100%;
-    height: 200px; /* Keeps images at a professional, uniform size */
+    height: 290px; /* Larger image height */
     object-fit: cover;
     border: 1px solid #f0f0f0;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
 }
 
+/* Equalized Title Height (Handles 1-line and 2-line titles) */
 .card h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    margin: 0.5rem 0;
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem 0;
+    min-height: 3.2rem; /* Reserves space so 1-line and 2-line titles match */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.2;
 }
 
-.card p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
+.card .sub-label {
+    font-size: 1.05rem;
+    font-weight: normal;
+}
+
+/* Equalized Subtitle/Description Height */
+.card .desc {
+    font-size: 0.95rem;
     color: #666;
+    margin: 0 0 0.8rem 0;
+    min-height: 2.2rem; /* Aligns all descriptions */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Aligned Price */
+.card .price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--ink);
+    margin: 0 0 1.2rem 0;
+}
+
+/* Button pinned to the bottom */
+.card .btn {
+    margin-top: auto; /* Automatically pushes all buttons to the exact same baseline */
+    width: 100%;
+    max-width: 150px;
+    box-sizing: border-box;
 }
 
 .bespoke-section {
-    margin-top: 5rem;
-    padding: 3rem;
+    margin-top: 6rem;
+    padding: 4rem 2rem;
     border: 1px solid #eee;
     background: #fafafa;
 }
@@ -98,44 +138,62 @@ nav a {
 /* --- BUTTONS --- */
 .btn {
     display: inline-block;
-    padding: 10px 18px;
+    padding: 12px 20px;
     background: var(--ink);
     color: #fff;
     text-decoration: none;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 1px;
+    transition: 0.3s;
 }
 
-/* --- MOBILE & TABLET RE-FORMATTING --- */
+.btn:hover {
+    background: var(--gold);
+}
 
+/* --- FOOTER --- */
+footer {
+    padding: 4rem 1rem;
+    background: #fdfdfd;
+    border-top: 1px solid #eee;
+    margin-top: 5rem;
+}
+
+/* --- RESPONSIVE DESIGN (TABLET & MOBILE) --- */
 @media (max-width: 1024px) {
     .product-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 per row on tablets */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
     }
 }
 
 @media (max-width: 600px) {
     .product-grid {
-        grid-template-columns: 1fr 1fr !important; /* 2 per row on phones */
-        gap: 10px;
+        grid-template-columns: 1fr 1fr !important; 
+        gap: 12px !important;
     }
-    
+
     .card img {
-        height: 150px; /* Smaller images for the mobile grid */
+        height: 180px !important;
     }
 
     .card h3 {
-        font-size: 0.9rem;
+        font-size: 1rem !important;
+        min-height: 2.8rem;
     }
 
-    .card p {
-        font-size: 0.8rem;
+    .card .desc {
+        font-size: 0.8rem !important;
+        min-height: 2rem;
     }
-}
 
-footer {
-    padding: 3rem;
-    border-top: 1px solid #eee;
-    margin-top: 4rem;
+    .card .price {
+        font-size: 1rem !important;
+    }
+
+    .btn {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+    }
 }
