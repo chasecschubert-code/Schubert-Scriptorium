@@ -2,23 +2,115 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curator's Prism Engraved | Schubert Scriptorium</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Gallery Specific Styles */
+        .main-img-container {
+            width: 100%;
+            margin-bottom: 1rem;
+            border: 1px solid var(--gold);
+            background: rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        #main-photo {
+            width: 100%;
+            display: block;
+            transition: opacity 0.3s ease;
+        }
+        .thumbnail-ribbon {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+        .thumb {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            cursor: pointer;
+            transition: 0.3s;
+            background: rgba(255,255,255,0.05);
+        }
+        .thumb:hover {
+            border-color: var(--gold);
+            transform: scale(1.05);
+        }
+        .active-thumb {
+            border-color: var(--gold);
+            box-shadow: 0 0 10px var(--gold);
+        }
+    </style>
 </head>
 <body>
+
 <header>
     <div class="nav-logo">SCHUBERT SCRIPTORIUM</div>
-    <nav><a href="index.html">Home</a> <a href="collection.html">Collection</a> <a href="about.html">About</a> <a href="contact.html">Inquire</a></nav>
+    <nav>
+        <a href="index.html">Home</a> 
+        <a href="collection.html">Collection</a> 
+        <a href="about.html">About</a> 
+        <a href="contact.html">Inquire</a>
+    </nav>
 </header>
+
 <div class="container" style="max-width: 900px;">
     <h1>Curator's Prism (Engraved)</h1>
-    <img src="p52-prism-eng.png" style="width:100%; border:1px solid var(--gold); margin-bottom:2rem;">
+    
+    <!-- Main Photo Display -->
+    <div class="main-img-container">
+        <img src="prism-eng-1.png" id="main-photo" alt="Curator's Prism Engraved Main View">
+    </div>
+
+    <!-- Thumbnail Ribbon (5 Images) -->
+    <div class="thumbnail-ribbon">
+        <img src="prism-eng-1.png" class="thumb active-thumb" onclick="changePhoto(this)">
+        <img src="prism-eng-2.png" class="thumb" onclick="changePhoto(this)">
+        <img src="prism-eng-3.png" class="thumb" onclick="changePhoto(this)">
+        <img src="prism-eng-4.png" class="thumb" onclick="changePhoto(this)">
+        <img src="prism-eng-5.png" class="thumb" onclick="changePhoto(this)">
+    </div>
+
     <h2 style="color:var(--gold);">$90</h2>
-    <p>The flagship of the Schubert Scriptorium collection. This version features the solid glass Curator’s Prism with high-precision engraving directly on the surface of the acrylic. The text identifies the manuscript details in a clean, modern typeface that seems to float alongside the papyrus itself. It is the ultimate centerpiece for any serious collection of biblical manuscript facsimiles.</p>
-    <p style="color:var(--tan);">Includes custom translation card and microfiber cleaning cloth.</p>
-    <br>
-    <a href="contact.html" class="btn">Inquire to Purchase</a>
+    
+    <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+        <p>The flagship of the Schubert Scriptorium collection. This version features the solid glass Curator’s Prism with high-precision engraving directly on the surface of the acrylic.</p>
+        <p>The text identifies the manuscript details in a clean, modern typeface that seems to float alongside the papyrus itself. It is the ultimate centerpiece for any serious collection of biblical manuscript facsimiles.</p>
+        <p style="color:var(--tan);">Includes custom double-sided translation card and microfiber cleaning cloth.</p>
+        <br>
+        <a href="contact.html" class="btn">Inquire to Purchase</a>
+    </div>
 </div>
-<footer><div class="footer-brand">Schubert Scriptorium</div></footer>
+
+<footer>
+    <div class="footer-brand">Schubert Scriptorium</div>
+    <p>chasecschubert@gmail.com</p>
+</footer>
+
+<!-- Script to Swap Photos -->
+<script>
+    function changePhoto(element) {
+        const mainPhoto = document.getElementById('main-photo');
+        const thumbs = document.querySelectorAll('.thumb');
+        
+        // Remove active styling from all thumbnails
+        thumbs.forEach(t => t.classList.remove('active-thumb'));
+        
+        // Add active styling to clicked thumbnail
+        element.classList.add('active-thumb');
+
+        // Swap the photo with a fade effect
+        mainPhoto.style.opacity = '0'; 
+        setTimeout(() => {
+            mainPhoto.src = element.src;
+            mainPhoto.style.opacity = '1'; 
+        }, 300);
+    }
+</script>
+
 </body>
 </html>
