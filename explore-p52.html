@@ -284,14 +284,38 @@
 
 
         /* =========================================================
-           MANUSCRIPT IMAGE
+           FIX #1:
+           MANUSCRIPT LAYER
+
+           The image AND hotspots live inside this same layer.
+
+           Therefore the layer is zoomed and panned as ONE object.
+           The hotspots remain attached to the manuscript.
            ========================================================= */
 
-        #manuscriptImage {
+        .manuscript-layer {
             position: absolute;
 
             left: 50%;
             top: 50%;
+
+            width: max-content;
+            height: max-content;
+
+            transform-origin: center center;
+
+            will-change: transform;
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================================
+           MANUSCRIPT IMAGE
+           ========================================================= */
+
+        #manuscriptImage {
+            display: block;
 
             width: auto;
             height: auto;
@@ -304,10 +328,6 @@
 
             box-shadow:
                 0 10px 35px rgba(0,0,0,0.65);
-
-            transform-origin: center center;
-
-            will-change: transform;
 
             pointer-events: none;
         }
@@ -323,7 +343,7 @@
             top: 15px;
             left: 15px;
 
-            z-index: 5;
+            z-index: 50;
 
             background:
                 rgba(15,32,39,0.88);
@@ -340,6 +360,8 @@
             letter-spacing: 2px;
 
             text-transform: uppercase;
+
+            pointer-events: none;
         }
 
 
@@ -353,7 +375,7 @@
             right: 15px;
             bottom: 15px;
 
-            z-index: 5;
+            z-index: 100;
 
             background:
                 rgba(15,32,39,0.88);
@@ -366,6 +388,8 @@
             color: var(--tan);
 
             font-size: 0.72rem;
+
+            pointer-events: none;
         }
 
 
@@ -376,7 +400,7 @@
         .hotspot {
             position: absolute;
 
-            z-index: 10;
+            z-index: 20;
 
             width: 36px;
             height: 36px;
@@ -391,9 +415,18 @@
 
             color: var(--gold);
 
+            font-family: 'Lato', sans-serif;
+
             font-weight: 700;
 
             cursor: pointer;
+
+            /*
+            IMPORTANT:
+
+            The hotspot is positioned relative to the manuscript
+            layer, not the viewer stage.
+            */
 
             transform:
                 translate(-50%, -50%);
@@ -401,7 +434,16 @@
             box-shadow:
                 0 0 0 5px rgba(212,175,55,0.12);
 
-            transition: 0.2s;
+            transition:
+                background 0.2s,
+                color 0.2s,
+                transform 0.2s;
+
+            pointer-events: auto;
+
+            padding: 0;
+
+            line-height: 1;
         }
 
         .hotspot:hover,
@@ -421,18 +463,12 @@
         ============================================================
         HOTSPOT POSITIONS
 
-        These are currently placeholders.
+        IMPORTANT:
 
-        Once you see the actual manuscript on the page,
-        change the left/top percentages below to position
-        each marker exactly where you want it.
+        These percentages are now percentages of the actual
+        manuscript image/layer.
 
-        Example:
-
-        #spot1 {
-            left: 43%;
-            top: 38%;
-        }
+        Once you see the image, adjust these if necessary.
         ============================================================
         */
 
@@ -468,13 +504,46 @@
 
 
         /* =========================================================
+           INFORMATION PANEL BACKDROP
+           ========================================================= */
+
+        /*
+        FIX #2:
+
+        This creates a proper overlay layer when an information
+        panel is open.
+
+        It sits over the viewer but underneath the information box.
+        */
+
+        .panel-backdrop {
+            position: absolute;
+
+            inset: 0;
+
+            z-index: 200;
+
+            background:
+                rgba(0,0,0,0.55);
+
+            display: none;
+
+            cursor: pointer;
+        }
+
+        .panel-backdrop.open {
+            display: block;
+        }
+
+
+        /* =========================================================
            INFORMATION PANELS
            ========================================================= */
 
         .info-panel {
             position: absolute;
 
-            z-index: 30;
+            z-index: 300;
 
             left: 50%;
             top: 50%;
@@ -493,7 +562,7 @@
                 translate(-50%, -50%);
 
             background:
-                rgba(15,32,39,0.97);
+                rgba(15,32,39,0.98);
 
             border:
                 1px solid var(--gold);
@@ -506,6 +575,8 @@
             display: none;
 
             text-align: left;
+
+            pointer-events: auto;
         }
 
         .info-panel.open {
@@ -551,25 +622,61 @@
             line-height: 1.6;
         }
 
+
+        /* =========================================================
+           CLOSE BUTTON
+           ========================================================= */
+
         .close-panel {
             position: absolute;
 
-            top: 10px;
-            right: 12px;
+            top: 8px;
+            right: 10px;
 
-            border: none;
+            width: 38px;
+            height: 38px;
 
-            background: transparent;
+            border:
+                1px solid rgba(210,180,140,0.35);
+
+            border-radius: 50%;
+
+            background:
+                rgba(0,0,0,0.25);
 
             color: var(--tan);
 
-            font-size: 1.5rem;
+            font-family: Arial, sans-serif;
+
+            font-size: 1.7rem;
+
+            line-height: 1;
 
             cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            transition:
+                0.2s;
+
+            padding: 0;
+
+            z-index: 10;
         }
 
-        .close-panel:hover {
-            color: var(--white);
+        .close-panel:hover,
+        .close-panel:focus {
+            background: var(--gold);
+
+            border-color: var(--gold);
+
+            color: #000;
+
+            outline: none;
         }
 
 
@@ -774,6 +881,13 @@
                 padding: 1.5rem;
             }
 
+            .close-panel {
+                width: 34px;
+                height: 34px;
+
+                font-size: 1.5rem;
+            }
+
         }
 
     </style>
@@ -801,6 +915,10 @@
 
         <a href="products.html">
             Collection
+        </a>
+
+        <a href="explore-p52.html">
+            Explore P52
         </a>
 
         <a href="about.html">
@@ -905,7 +1023,9 @@
 
 
 
-        <!-- VIEWER -->
+        <!-- =====================================================
+             VIEWER STAGE
+             ===================================================== -->
 
         <div
             class="viewer-stage"
@@ -913,111 +1033,138 @@
         >
 
 
+            <!-- VIEWER LABEL -->
+
             <div class="viewer-label">
                 P52 • RECTO
             </div>
 
 
 
-            <!--
-            IMPORTANT:
+            <!-- =================================================
+                 FIX #1:
 
-            Your image must be located in the same folder
-            as this HTML file.
+                 EVERYTHING THAT BELONGS TO THE MANUSCRIPT
+                 IS INSIDE THIS SINGLE TRANSFORMED LAYER.
+                 ================================================= -->
 
-            Filename:
-
-            High-Res-Recto.png
-            -->
-
-            <img
-                id="manuscriptImage"
-                src="High-Res-Recto.png"
-                alt="High-resolution image of the recto of Papyrus 52"
-                draggable="false"
+            <div
+                class="manuscript-layer"
+                id="manuscriptLayer"
             >
+
+
+                <!-- MANUSCRIPT IMAGE -->
+
+                <img
+                    id="manuscriptImage"
+                    src="High-Res-Recto.png"
+                    alt="High-resolution image of the recto of Papyrus 52"
+                    draggable="false"
+                >
+
+
+
+                <!-- =================================================
+                     HOTSPOT 1
+                     ================================================= -->
+
+                <button
+                    class="hotspot"
+                    id="spot1"
+                    type="button"
+                    aria-label="Explore the Greek text"
+                    data-panel="panel1"
+                >
+                    1
+                </button>
+
+
+
+                <!-- HOTSPOT 2 -->
+
+                <button
+                    class="hotspot"
+                    id="spot2"
+                    type="button"
+                    aria-label="Explore the passage about truth"
+                    data-panel="panel2"
+                >
+                    2
+                </button>
+
+
+
+                <!-- HOTSPOT 3 -->
+
+                <button
+                    class="hotspot"
+                    id="spot3"
+                    type="button"
+                    aria-label="Explore manuscript handwriting"
+                    data-panel="panel3"
+                >
+                    3
+                </button>
+
+
+
+                <!-- HOTSPOT 4 -->
+
+                <button
+                    class="hotspot"
+                    id="spot4"
+                    type="button"
+                    aria-label="Explore the physical papyrus"
+                    data-panel="panel4"
+                >
+                    4
+                </button>
+
+
+
+                <!-- HOTSPOT 5 -->
+
+                <button
+                    class="hotspot"
+                    id="spot5"
+                    type="button"
+                    aria-label="Explore missing portions"
+                    data-panel="panel5"
+                >
+                    5
+                </button>
+
+
+
+                <!-- HOTSPOT 6 -->
+
+                <button
+                    class="hotspot"
+                    id="spot6"
+                    type="button"
+                    aria-label="Explore the historical significance of P52"
+                    data-panel="panel6"
+                >
+                    6
+                </button>
+
+
+            </div>
+            <!-- END MANUSCRIPT LAYER -->
 
 
 
             <!-- =================================================
-                 HOTSPOTS
+                 PANEL BACKDROP
+
+                 Clicking outside the information box closes it.
                  ================================================= -->
 
-            <button
-                class="hotspot"
-                id="spot1"
-                type="button"
-                aria-label="Explore the Greek text"
-                data-panel="panel1"
-            >
-                1
-            </button>
-
-
-            <button
-                class="hotspot"
-                id="spot2"
-                type="button"
-                aria-label="Explore the passage about truth"
-                data-panel="panel2"
-            >
-                2
-            </button>
-
-
-            <button
-                class="hotspot"
-                id="spot3"
-                type="button"
-                aria-label="Explore manuscript handwriting"
-                data-panel="panel3"
-            >
-                3
-            </button>
-
-
-            <button
-                class="hotspot"
-                id="spot4"
-                type="button"
-                aria-label="Explore the physical papyrus"
-                data-panel="panel4"
-            >
-                4
-            </button>
-
-
-            <button
-                class="hotspot"
-                id="spot5"
-                type="button"
-                aria-label="Explore missing portions"
-                data-panel="panel5"
-            >
-                5
-            </button>
-
-
-            <button
-                class="hotspot"
-                id="spot6"
-                type="button"
-                aria-label="Explore the historical significance of P52"
-                data-panel="panel6"
-            >
-                6
-            </button>
-
-
-
-            <!-- ZOOM INDICATOR -->
-
             <div
-                class="zoom-indicator"
-                id="zoomIndicator"
-            >
-                100%
-            </div>
+                class="panel-backdrop"
+                id="panelBackdrop"
+            ></div>
 
 
 
@@ -1030,12 +1177,13 @@
                 id="panel1"
                 role="dialog"
                 aria-modal="true"
+                aria-labelledby="panel1-title"
             >
 
                 <button
                     class="close-panel"
                     type="button"
-                    aria-label="Close"
+                    aria-label="Close information panel"
                 >
                     ×
                 </button>
@@ -1046,7 +1194,7 @@
                 </div>
 
 
-                <h2>
+                <h2 id="panel1-title">
                     The Greek Text
                 </h2>
 
@@ -1090,12 +1238,13 @@
                 id="panel2"
                 role="dialog"
                 aria-modal="true"
+                aria-labelledby="panel2-title"
             >
 
                 <button
                     class="close-panel"
                     type="button"
-                    aria-label="Close"
+                    aria-label="Close information panel"
                 >
                     ×
                 </button>
@@ -1106,7 +1255,7 @@
                 </div>
 
 
-                <h2>
+                <h2 id="panel2-title">
                     “What Is Truth?”
                 </h2>
 
@@ -1156,12 +1305,13 @@
                 id="panel3"
                 role="dialog"
                 aria-modal="true"
+                aria-labelledby="panel3-title"
             >
 
                 <button
                     class="close-panel"
                     type="button"
-                    aria-label="Close"
+                    aria-label="Close information panel"
                 >
                     ×
                 </button>
@@ -1172,7 +1322,7 @@
                 </div>
 
 
-                <h2>
+                <h2 id="panel3-title">
                     Look Closely
                 </h2>
 
@@ -1209,12 +1359,13 @@
                 id="panel4"
                 role="dialog"
                 aria-modal="true"
+                aria-labelledby="panel4-title"
             >
 
                 <button
                     class="close-panel"
                     type="button"
-                    aria-label="Close"
+                    aria-label="Close information panel"
                 >
                     ×
                 </button>
@@ -1225,7 +1376,7 @@
                 </div>
 
 
-                <h2>
+                <h2 id="panel4-title">
                     Made of Papyrus
                 </h2>
 
@@ -1269,12 +1420,13 @@
                 id="panel5"
                 role="dialog"
                 aria-modal="true"
+                aria-labelledby="panel5-title"
             >
 
                 <button
                     class="close-panel"
                     type="button"
-                    aria-label="Close"
+                    aria-label="Close information panel"
                 >
                     ×
                 </button>
@@ -1285,7 +1437,7 @@
                 </div>
 
 
-                <h2>
+                <h2 id="panel5-title">
                     What Is Missing?
                 </h2>
 
@@ -1330,12 +1482,13 @@
                 id="panel6"
                 role="dialog"
                 aria-modal="true"
+                aria-labelledby="panel6-title"
             >
 
                 <button
                     class="close-panel"
                     type="button"
-                    aria-label="Close"
+                    aria-label="Close information panel"
                 >
                     ×
                 </button>
@@ -1346,7 +1499,7 @@
                 </div>
 
 
-                <h2>
+                <h2 id="panel6-title">
                     A Witness to the Truth
                 </h2>
 
@@ -1380,6 +1533,19 @@
                 </p>
 
             </article>
+
+
+            <!-- END INFORMATION PANELS -->
+
+
+            <!-- ZOOM INDICATOR -->
+
+            <div
+                class="zoom-indicator"
+                id="zoomIndicator"
+            >
+                100%
+            </div>
 
 
         </div>
@@ -1531,7 +1697,6 @@
 
 <script>
 
-
     /* =========================================================
        VIEWER VARIABLES
        ========================================================= */
@@ -1542,8 +1707,14 @@
     const image =
         document.getElementById('manuscriptImage');
 
+    const manuscriptLayer =
+        document.getElementById('manuscriptLayer');
+
     const zoomIndicator =
         document.getElementById('zoomIndicator');
+
+    const panelBackdrop =
+        document.getElementById('panelBackdrop');
 
 
     let scale = 1;
@@ -1572,12 +1743,19 @@
 
 
     /* =========================================================
-       UPDATE IMAGE
+       UPDATE MANUSCRIPT LAYER
+
+       IMPORTANT:
+
+       We transform the ENTIRE manuscript layer.
+
+       Because the image and hotspots are inside this layer,
+       they remain perfectly tethered together.
        ========================================================= */
 
     function updateImage() {
 
-        image.style.transform =
+        manuscriptLayer.style.transform =
             `translate(
                 calc(-50% + ${x}px),
                 calc(-50% + ${y}px)
@@ -1615,6 +1793,8 @@
 
     function zoomBy(amount) {
 
+        const oldScale = scale;
+
         scale =
             Math.max(
                 MIN_ZOOM,
@@ -1624,7 +1804,16 @@
                 )
             );
 
-        updateImage();
+        /*
+        Slightly adjust the pan so zooming feels natural
+        around the center of the viewer.
+        */
+
+        if (oldScale !== scale) {
+
+            updateImage();
+
+        }
 
     }
 
@@ -1663,6 +1852,17 @@
         'wheel',
         (event) => {
 
+            /*
+            Do not zoom the viewer while scrolling inside
+            an open information panel.
+            */
+
+            if (
+                event.target.closest('.info-panel')
+            ) {
+                return;
+            }
+
             event.preventDefault();
 
             zoomBy(
@@ -1685,10 +1885,17 @@
         'pointerdown',
         (event) => {
 
+            /*
+            Do not start dragging when clicking:
+
+            • a hotspot
+            • an information panel
+            • the close button
+            */
+
             if (
-                event.target.classList.contains(
-                    'hotspot'
-                )
+                event.target.closest('.hotspot') ||
+                event.target.closest('.info-panel')
             ) {
                 return;
             }
@@ -1745,13 +1952,26 @@
 
 
 
-    function stopDragging() {
+    function stopDragging(event) {
 
         dragging = false;
 
         stage.classList.remove(
             'dragging'
         );
+
+        if (
+            event &&
+            stage.hasPointerCapture(
+                event.pointerId
+            )
+        ) {
+
+            stage.releasePointerCapture(
+                event.pointerId
+            );
+
+        }
 
     }
 
@@ -1779,9 +1999,8 @@
         (event) => {
 
             if (
-                event.target.classList.contains(
-                    'hotspot'
-                )
+                event.target.closest('.hotspot') ||
+                event.target.closest('.info-panel')
             ) {
                 return;
             }
@@ -1810,7 +2029,9 @@
                     if (
                         stage.requestFullscreen
                     ) {
+
                         stage.requestFullscreen();
+
                     }
 
                 } else {
@@ -1818,7 +2039,9 @@
                     if (
                         document.exitFullscreen
                     ) {
+
                         document.exitFullscreen();
+
                     }
 
                 }
@@ -1829,7 +2052,7 @@
 
 
     /* =========================================================
-       HOTSPOTS
+       OPEN INFORMATION PANEL
        ========================================================= */
 
     document
@@ -1841,28 +2064,20 @@
                     'click',
                     (event) => {
 
+                        event.preventDefault();
+
                         event.stopPropagation();
 
 
                         /*
-                        Close every panel first.
+                        Close all panels first.
                         */
 
-                        document
-                            .querySelectorAll(
-                                '.info-panel'
-                            )
-                            .forEach(
-                                panel => {
-                                    panel.classList.remove(
-                                        'open'
-                                    );
-                                }
-                            );
+                        closeAllPanels();
 
 
                         /*
-                        Open selected panel.
+                        Find the requested panel.
                         */
 
                         const panel =
@@ -1877,6 +2092,32 @@
                                 'open'
                             );
 
+                            panelBackdrop.classList.add(
+                                'open'
+                            );
+
+
+                            /*
+                            Put keyboard focus on the
+                            close button.
+                            */
+
+                            const closeButton =
+                                panel.querySelector(
+                                    '.close-panel'
+                                );
+
+                            if (closeButton) {
+
+                                setTimeout(
+                                    () => {
+                                        closeButton.focus();
+                                    },
+                                    50
+                                );
+
+                            }
+
                         }
 
                     }
@@ -1888,7 +2129,34 @@
 
 
     /* =========================================================
-       CLOSE INFORMATION PANELS
+       CLOSE ALL PANELS
+       ========================================================= */
+
+    function closeAllPanels() {
+
+        document
+            .querySelectorAll('.info-panel')
+            .forEach(
+                panel => {
+
+                    panel.classList.remove(
+                        'open'
+                    );
+
+                }
+            );
+
+
+        panelBackdrop.classList.remove(
+            'open'
+        );
+
+    }
+
+
+
+    /* =========================================================
+       CLOSE BUTTONS
        ========================================================= */
 
     document
@@ -1900,21 +2168,36 @@
                     'click',
                     (event) => {
 
+                        event.preventDefault();
+
                         event.stopPropagation();
 
-                        button
-                            .closest(
-                                '.info-panel'
-                            )
-                            .classList.remove(
-                                'open'
-                            );
+                        closeAllPanels();
 
                     }
                 );
 
             }
         );
+
+
+
+    /* =========================================================
+       CLICK BACKDROP TO CLOSE
+       ========================================================= */
+
+    panelBackdrop.addEventListener(
+        'click',
+        (event) => {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            closeAllPanels();
+
+        }
+    );
 
 
 
@@ -1930,19 +2213,7 @@
                 event.key === 'Escape'
             ) {
 
-                document
-                    .querySelectorAll(
-                        '.info-panel'
-                    )
-                    .forEach(
-                        panel => {
-
-                            panel.classList.remove(
-                                'open'
-                            );
-
-                        }
-                    );
+                closeAllPanels();
 
             }
 
@@ -1970,14 +2241,22 @@
        INITIALIZE VIEWER
        ========================================================= */
 
-    image.addEventListener(
-        'load',
-        () => {
+    if (image.complete) {
 
-            resetView();
+        resetView();
 
-        }
-    );
+    } else {
+
+        image.addEventListener(
+            'load',
+            () => {
+
+                resetView();
+
+            }
+        );
+
+    }
 
 
 </script>
