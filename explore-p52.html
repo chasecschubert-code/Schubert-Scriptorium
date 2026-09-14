@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Explore Papyrus 52 up close with the Schubert Scriptorium interactive manuscript viewer.">
+
+    <title>Explore P52 | Schubert Scriptorium</title>
+
+    <!-- SCHUBERT SCRIPTORIUM FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+
+    <style>
+
+        /* =========================================================
+           SCHUBERT SCRIPTORIUM: MUSEUM DISPLAY THEME
+           ========================================================= */
+
+        :root {
+            --nav-cobalt: #0f2027;
+            --steel-bg: #1a1a1a;
+            --gold: #D4AF37;
+            --tan: #D2B48C;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --muted: rgba(255,255,255,0.72);
+        }
+
+
+        /* =========================================================
+           GLOBAL
+           ========================================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--steel-bg);
+            color: var(--white);
+            margin: 0;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+
+        /* =========================================================
+           NAVIGATION
+           ========================================================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background-color: var(--nav-cobalt);
+
+            padding: 1.5rem 0;
+
+            border-bottom: 2px solid var(--gold);
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+
+            font-size: 2.2rem;
+
+            color: var(--gold);
+
+            text-transform: uppercase;
+
+            letter-spacing: 4px;
+
+            margin-bottom: 0.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+
+            color: var(--tan);
+
+            margin: 0 20px;
+
+            text-transform: uppercase;
+
+            font-size: 0.9rem;
+
+            letter-spacing: 2px;
+
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--white);
+        }
+
+
+        /* =========================================================
+           MAIN CONTAINER
+           ========================================================= */
+
+        .container {
+            max-width: 1250px;
+
+            margin: 0 auto;
+
+            padding: 4rem 1.5rem;
+        }
+
+
+        /* =========================================================
+           PAGE INTRO
+           ========================================================= */
+
+        .eyebrow {
+            color: var(--tan);
+
+            text-transform: uppercase;
+
+            letter-spacing: 4px;
+
+            font-size: 0.78rem;
+
+            margin-bottom: 0.5rem;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .page-title {
+            color: var(--gold);
+
+            font-size: clamp(2.4rem, 5vw, 4rem);
+
+            letter-spacing: 2px;
+
+            margin: 0;
+        }
+
+        .subtitle {
+            max-width: 760px;
+
+            margin: 1rem auto 0;
+
+            color: var(--muted);
+
+            font-size: 1.05rem;
+        }
+
+        .instruction {
+            color: var(--tan);
+
+            margin-top: 1.25rem;
+
+            font-size: 0.9rem;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* =========================================================
+           MANUSCRIPT VIEWER
+           ========================================================= */
+
+        .viewer-shell {
+            max-width: 1150px;
+
+            margin: 3rem auto 0;
+
+            background: #111;
+
+            border: 1px solid var(--gold);
+
+            box-shadow:
+                0 15px 45px rgba(0,0,0,0.55);
+        }
+
+
+        /* =========================================================
+           VIEWER TOOLBAR
+           ========================================================= */
+
+        .viewer-toolbar {
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 0.65rem;
+
+            flex-wrap: wrap;
+
+            padding: 1rem;
+
+            background: var(--nav-cobalt);
+
+            border-bottom:
+                1px solid rgba(212,175,55,0.45);
+        }
+
+        .viewer-toolbar button {
+            font-family: 'Lato', sans-serif;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            font-size: 0.72rem;
+
+            font-weight: 700;
+
+            color: var(--tan);
+
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid rgba(210,180,140,0.45);
+
+            padding: 9px 14px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .viewer-toolbar button:hover {
+            color: #000;
+
+            background: var(--gold);
+
+            border-color: var(--gold);
+        }
+
+
+        /* =========================================================
+           VIEWER STAGE
+           ========================================================= */
+
+        .viewer-stage {
+            position: relative;
+
+            height: min(72vh, 760px);
+
+            min-height: 430px;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #2b2b2b 0%,
+                    #151515 58%,
+                    #0d0d0d 100%
+                );
+
+            cursor: grab;
+
+            user-select: none;
+
+            touch-action: none;
+        }
+
+        .viewer-stage.dragging {
+            cursor: grabbing;
+        }
+
+
+        /* =========================================================
+           MANUSCRIPT IMAGE
+           ========================================================= */
+
+        #manuscriptImage {
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            width: auto;
+            height: auto;
+
+            max-width: none;
+            max-height: none;
+
+            border:
+                1px solid rgba(212,175,55,0.55);
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.65);
+
+            transform-origin: center center;
+
+            will-change: transform;
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================================
+           VIEWER LABEL
+           ========================================================= */
+
+        .viewer-label {
+            position: absolute;
+
+            top: 15px;
+            left: 15px;
+
+            z-index: 5;
+
+            background:
+                rgba(15,32,39,0.88);
+
+            border:
+                1px solid rgba(212,175,55,0.7);
+
+            padding: 7px 12px;
+
+            color: var(--gold);
+
+            font-size: 0.72rem;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =========================================================
+           ZOOM INDICATOR
+           ========================================================= */
+
+        .zoom-indicator {
+            position: absolute;
+
+            right: 15px;
+            bottom: 15px;
+
+            z-index: 5;
+
+            background:
+                rgba(15,32,39,0.88);
+
+            border:
+                1px solid rgba(210,180,140,0.45);
+
+            padding: 6px 10px;
+
+            color: var(--tan);
+
+            font-size: 0.72rem;
+        }
+
+
+        /* =========================================================
+           HOTSPOTS
+           ========================================================= */
+
+        .hotspot {
+            position: absolute;
+
+            z-index: 10;
+
+            width: 36px;
+            height: 36px;
+
+            border-radius: 50%;
+
+            border:
+                2px solid var(--gold);
+
+            background:
+                rgba(15,32,39,0.92);
+
+            color: var(--gold);
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transform:
+                translate(-50%, -50%);
+
+            box-shadow:
+                0 0 0 5px rgba(212,175,55,0.12);
+
+            transition: 0.2s;
+        }
+
+        .hotspot:hover,
+        .hotspot:focus {
+            background: var(--gold);
+
+            color: #000;
+
+            transform:
+                translate(-50%, -50%) scale(1.12);
+
+            outline: none;
+        }
+
+
+        /*
+        ============================================================
+        HOTSPOT POSITIONS
+
+        These are currently placeholders.
+
+        Once you see the actual manuscript on the page,
+        change the left/top percentages below to position
+        each marker exactly where you want it.
+
+        Example:
+
+        #spot1 {
+            left: 43%;
+            top: 38%;
+        }
+        ============================================================
+        */
+
+        #spot1 {
+            left: 43%;
+            top: 38%;
+        }
+
+        #spot2 {
+            left: 58%;
+            top: 47%;
+        }
+
+        #spot3 {
+            left: 39%;
+            top: 57%;
+        }
+
+        #spot4 {
+            left: 66%;
+            top: 62%;
+        }
+
+        #spot5 {
+            left: 31%;
+            top: 70%;
+        }
+
+        #spot6 {
+            left: 71%;
+            top: 38%;
+        }
+
+
+        /* =========================================================
+           INFORMATION PANELS
+           ========================================================= */
+
+        .info-panel {
+            position: absolute;
+
+            z-index: 30;
+
+            left: 50%;
+            top: 50%;
+
+            width: min(
+                520px,
+                calc(100% - 30px)
+            );
+
+            max-height:
+                calc(100% - 30px);
+
+            overflow-y: auto;
+
+            transform:
+                translate(-50%, -50%);
+
+            background:
+                rgba(15,32,39,0.97);
+
+            border:
+                1px solid var(--gold);
+
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.7);
+
+            padding: 2rem;
+
+            display: none;
+
+            text-align: left;
+        }
+
+        .info-panel.open {
+            display: block;
+        }
+
+        .panel-number {
+            color: var(--tan);
+
+            font-size: 0.72rem;
+
+            letter-spacing: 3px;
+
+            text-transform: uppercase;
+        }
+
+        .info-panel h2 {
+            color: var(--gold);
+
+            font-size: 1.8rem;
+
+            margin:
+                0.25rem 0 0.8rem;
+        }
+
+        .info-panel p {
+            color:
+                rgba(255,255,255,0.86);
+
+            margin:
+                0 0 1rem;
+        }
+
+        .greek {
+            color: var(--gold);
+
+            font-family:
+                'Times New Roman',
+                serif;
+
+            font-size: 1.35rem;
+
+            line-height: 1.6;
+        }
+
+        .close-panel {
+            position: absolute;
+
+            top: 10px;
+            right: 12px;
+
+            border: none;
+
+            background: transparent;
+
+            color: var(--tan);
+
+            font-size: 1.5rem;
+
+            cursor: pointer;
+        }
+
+        .close-panel:hover {
+            color: var(--white);
+        }
+
+
+        /* =========================================================
+           INFORMATION SECTION
+           ========================================================= */
+
+        .explore-section {
+            max-width: 900px;
+
+            margin:
+                4rem auto 0;
+        }
+
+        .explore-section h2 {
+            color: var(--gold);
+
+            font-size: 2rem;
+        }
+
+        .explore-section p {
+            color: var(--muted);
+        }
+
+
+        /* =========================================================
+           FACT CARDS
+           ========================================================= */
+
+        .fact-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 1.25rem;
+
+            margin-top: 2rem;
+        }
+
+        .fact-card {
+            background:
+                var(--glass);
+
+            border:
+                1px solid rgba(212,175,55,0.2);
+
+            padding: 1.5rem 1rem;
+        }
+
+        .fact-card h3 {
+            color: var(--gold);
+
+            margin:
+                0 0 0.4rem;
+
+            font-size: 1.15rem;
+        }
+
+        .fact-card p {
+            margin: 0;
+
+            font-size: 0.92rem;
+        }
+
+
+        /* =========================================================
+           CALL TO ACTION
+           ========================================================= */
+
+        .cta {
+            margin-top: 4rem;
+
+            padding:
+                2.5rem 1.5rem;
+
+            border:
+                1px solid var(--gold);
+
+            background:
+                rgba(0,0,0,0.35);
+        }
+
+        .cta h2 {
+            color: var(--gold);
+
+            margin-top: 0;
+        }
+
+
+        /* =========================================================
+           BUTTON
+           ========================================================= */
+
+        .btn {
+            display: inline-block;
+
+            background: var(--gold);
+
+            color: #000;
+
+            padding:
+                12px 30px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            border: none;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            background: var(--tan);
+        }
+
+
+        /* =========================================================
+           FOOTER
+           ========================================================= */
+
+        footer {
+            padding: 5rem 1rem;
+
+            background:
+                rgba(0,0,0,0.6);
+
+            border-top:
+                1px solid var(--gold);
+
+            margin-top: 5rem;
+        }
+
+        .footer-brand {
+            font-family:
+                'Playfair Display', serif;
+
+            font-size: 2rem;
+
+            color: var(--gold);
+
+            margin-top: 1.5rem;
+        }
+
+
+        /* =========================================================
+           MOBILE
+           ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .fact-grid {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 1.1rem 0;
+            }
+
+            .nav-logo {
+                font-size: 1.55rem;
+
+                letter-spacing: 2.5px;
+            }
+
+            nav a {
+                margin: 0 7px;
+
+                font-size: 0.68rem;
+
+                letter-spacing: 1px;
+            }
+
+            .container {
+                padding:
+                    2.5rem 1rem;
+            }
+
+            .viewer-stage {
+                height: 62vh;
+
+                min-height: 390px;
+            }
+
+            .fact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-panel {
+                padding: 1.5rem;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =============================================================
+     NAVIGATION
+     ============================================================= -->
+
+<header>
+
+    <div class="nav-logo">
+        Schubert Scriptorium
+    </div>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="products.html">
+            Collection
+        </a>
+
+        <a href="about.html">
+            About
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =============================================================
+     MAIN PAGE
+     ============================================================= -->
+
+<main class="container">
+
+
+    <!-- PAGE INTRO -->
+
+    <div class="eyebrow">
+        Interactive Manuscript Exhibit
+    </div>
+
+
+    <h1 class="page-title">
+        Explore Papyrus 52
+    </h1>
+
+
+    <p class="subtitle">
+
+        Take a closer look at one of the earliest surviving physical
+        witnesses to the text of the Gospel of John.
+
+    </p>
+
+
+    <p class="instruction">
+
+        DRAG TO EXPLORE
+        &nbsp;•&nbsp;
+        SCROLL TO ZOOM
+        &nbsp;•&nbsp;
+        CLICK THE GOLD MARKERS
+
+    </p>
+
+
+
+    <!-- =========================================================
+         VIEWER
+         ========================================================= -->
+
+    <section
+        class="viewer-shell"
+        aria-label="Interactive Papyrus 52 viewer"
+    >
+
+
+        <!-- TOOLBAR -->
+
+        <div class="viewer-toolbar">
+
+            <button
+                type="button"
+                id="zoomOut"
+            >
+                − Zoom Out
+            </button>
+
+
+            <button
+                type="button"
+                id="resetView"
+            >
+                Reset View
+            </button>
+
+
+            <button
+                type="button"
+                id="zoomIn"
+            >
+                + Zoom In
+            </button>
+
+
+            <button
+                type="button"
+                id="fullscreen"
+            >
+                Fullscreen
+            </button>
+
+        </div>
+
+
+
+        <!-- VIEWER -->
+
+        <div
+            class="viewer-stage"
+            id="viewerStage"
+        >
+
+
+            <div class="viewer-label">
+                P52 • RECTO
+            </div>
+
+
+
+            <!--
+            IMPORTANT:
+
+            Your image must be located in the same folder
+            as this HTML file.
+
+            Filename:
+
+            High-Res-Recto.png
+            -->
+
+            <img
+                id="manuscriptImage"
+                src="High-Res-Recto.png"
+                alt="High-resolution image of the recto of Papyrus 52"
+                draggable="false"
+            >
+
+
+
+            <!-- =================================================
+                 HOTSPOTS
+                 ================================================= -->
+
+            <button
+                class="hotspot"
+                id="spot1"
+                type="button"
+                aria-label="Explore the Greek text"
+                data-panel="panel1"
+            >
+                1
+            </button>
+
+
+            <button
+                class="hotspot"
+                id="spot2"
+                type="button"
+                aria-label="Explore the passage about truth"
+                data-panel="panel2"
+            >
+                2
+            </button>
+
+
+            <button
+                class="hotspot"
+                id="spot3"
+                type="button"
+                aria-label="Explore manuscript handwriting"
+                data-panel="panel3"
+            >
+                3
+            </button>
+
+
+            <button
+                class="hotspot"
+                id="spot4"
+                type="button"
+                aria-label="Explore the physical papyrus"
+                data-panel="panel4"
+            >
+                4
+            </button>
+
+
+            <button
+                class="hotspot"
+                id="spot5"
+                type="button"
+                aria-label="Explore missing portions"
+                data-panel="panel5"
+            >
+                5
+            </button>
+
+
+            <button
+                class="hotspot"
+                id="spot6"
+                type="button"
+                aria-label="Explore the historical significance of P52"
+                data-panel="panel6"
+            >
+                6
+            </button>
+
+
+
+            <!-- ZOOM INDICATOR -->
+
+            <div
+                class="zoom-indicator"
+                id="zoomIndicator"
+            >
+                100%
+            </div>
+
+
+
+            <!-- =================================================
+                 INFORMATION PANEL 1
+                 ================================================= -->
+
+            <article
+                class="info-panel"
+                id="panel1"
+                role="dialog"
+                aria-modal="true"
+            >
+
+                <button
+                    class="close-panel"
+                    type="button"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+
+                <div class="panel-number">
+                    01 • THE TEXT
+                </div>
+
+
+                <h2>
+                    The Greek Text
+                </h2>
+
+
+                <p>
+
+                    P52 preserves part of the Greek text of the
+                    Gospel of John. The surviving letters allow
+                    us to see an ancient physical witness to words
+                    that remain familiar to readers of the New
+                    Testament today.
+
+                </p>
+
+
+                <p class="greek">
+
+                    Greek text can be placed here.
+
+                </p>
+
+
+                <p>
+
+                    In a future version, individual Greek words
+                    can be highlighted and connected to their
+                    transliteration and English translation.
+
+                </p>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 INFORMATION PANEL 2
+                 ================================================= -->
+
+            <article
+                class="info-panel"
+                id="panel2"
+                role="dialog"
+                aria-modal="true"
+            >
+
+                <button
+                    class="close-panel"
+                    type="button"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+
+                <div class="panel-number">
+                    02 • JOHN 18
+                </div>
+
+
+                <h2>
+                    “What Is Truth?”
+                </h2>
+
+
+                <p>
+
+                    P52 contains part of the scene in which
+                    Jesus stands before Pontius Pilate.
+
+                    The surviving text includes Jesus' statement
+                    concerning His coming into the world to bear
+                    witness to the truth.
+
+                </p>
+
+
+                <p>
+
+                    This makes P52 particularly meaningful to
+                    Schubert Scriptorium's theme:
+
+                    <strong>
+                        A Witness to the Truth.
+                    </strong>
+
+                </p>
+
+
+                <p>
+
+                    The exact surviving Greek lines and
+                    corresponding English translation can be
+                    added here.
+
+                </p>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 INFORMATION PANEL 3
+                 ================================================= -->
+
+            <article
+                class="info-panel"
+                id="panel3"
+                role="dialog"
+                aria-modal="true"
+            >
+
+                <button
+                    class="close-panel"
+                    type="button"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+
+                <div class="panel-number">
+                    03 • HANDWRITING
+                </div>
+
+
+                <h2>
+                    Look Closely
+                </h2>
+
+
+                <p>
+
+                    Manuscripts are more than containers for words.
+
+                    The handwriting, spacing, abbreviations,
+                    margins, and arrangement of the text provide
+                    evidence about how ancient scribes produced
+                    and used Christian books.
+
+                </p>
+
+
+                <p>
+
+                    Zoom in and examine the individual characters
+                    for yourself.
+
+                </p>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 INFORMATION PANEL 4
+                 ================================================= -->
+
+            <article
+                class="info-panel"
+                id="panel4"
+                role="dialog"
+                aria-modal="true"
+            >
+
+                <button
+                    class="close-panel"
+                    type="button"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+
+                <div class="panel-number">
+                    04 • THE ARTIFACT
+                </div>
+
+
+                <h2>
+                    Made of Papyrus
+                </h2>
+
+
+                <p>
+
+                    P52 is a physical artifact made from papyrus,
+                    an ancient writing material produced from the
+                    papyrus plant.
+
+                </p>
+
+
+                <p>
+
+                    Its fibers, surface, folds, holes, and
+                    surviving edges are all part of the history
+                    of the object itself.
+
+                </p>
+
+
+                <p>
+
+                    High-resolution photography makes details
+                    visible that can disappear in an ordinary
+                    photograph.
+
+                </p>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 INFORMATION PANEL 5
+                 ================================================= -->
+
+            <article
+                class="info-panel"
+                id="panel5"
+                role="dialog"
+                aria-modal="true"
+            >
+
+                <button
+                    class="close-panel"
+                    type="button"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+
+                <div class="panel-number">
+                    05 • FRAGMENT
+                </div>
+
+
+                <h2>
+                    What Is Missing?
+                </h2>
+
+
+                <p>
+
+                    P52 survives only as a fragment.
+
+                    Ancient manuscripts were physical objects
+                    that could be damaged, discarded, reused,
+                    or lost over the centuries.
+
+                </p>
+
+
+                <p>
+
+                    The missing portions are therefore part of
+                    the story of the artifact.
+
+                </p>
+
+
+                <p>
+
+                    Scholars distinguish between what is actually
+                    preserved and what can be reconstructed or
+                    inferred from other evidence.
+
+                </p>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 INFORMATION PANEL 6
+                 ================================================= -->
+
+            <article
+                class="info-panel"
+                id="panel6"
+                role="dialog"
+                aria-modal="true"
+            >
+
+                <button
+                    class="close-panel"
+                    type="button"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+
+                <div class="panel-number">
+                    06 • SIGNIFICANCE
+                </div>
+
+
+                <h2>
+                    A Witness to the Truth
+                </h2>
+
+
+                <p>
+
+                    P52 gives us a tangible connection to the
+                    transmission of the New Testament text.
+
+                </p>
+
+
+                <p>
+
+                    It is a physical manuscript artifact that
+                    allows modern readers to examine an actual
+                    surviving witness rather than simply reading
+                    about one in a textbook.
+
+                </p>
+
+
+                <p>
+
+                    Schubert Scriptorium exists in part to make
+                    that history tangible — to help people see
+                    that the text of Scripture has been transmitted
+                    through real manuscripts, real scribes,
+                    and real communities across generations.
+
+                </p>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         WHY P52 MATTERS
+         ========================================================= -->
+
+    <section class="explore-section">
+
+
+        <h2>
+            Why P52 Matters
+        </h2>
+
+
+        <p>
+
+            Papyrus 52 is small, but its story is enormous.
+
+            It provides a physical window into the early
+            transmission of the Gospel of John and gives
+            visitors an opportunity to examine an ancient
+            New Testament witness with their own eyes.
+
+        </p>
+
+
+
+        <div class="fact-grid">
+
+
+            <div class="fact-card">
+
+                <h3>
+                    John 18
+                </h3>
+
+                <p>
+
+                    The surviving text comes from the Gospel
+                    of John, including the account of Jesus
+                    before Pilate.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="fact-card">
+
+                <h3>
+                    Greek Manuscript
+                </h3>
+
+                <p>
+
+                    The fragment preserves New Testament text
+                    in the original Greek language.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="fact-card">
+
+                <h3>
+                    Physical Witness
+                </h3>
+
+                <p>
+
+                    P52 is an actual surviving manuscript
+                    artifact — not merely a quotation or
+                    modern reproduction.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- CTA -->
+
+        <div class="cta">
+
+            <h2>
+                Want to Hold the Story in Your Hands?
+            </h2>
+
+
+            <p>
+
+                Schubert Scriptorium creates handmade P52
+                facsimiles designed to make this remarkable
+                piece of manuscript history tangible.
+
+            </p>
+
+
+            <a
+                class="btn"
+                href="products.html"
+            >
+                Explore the Collection
+            </a>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =============================================================
+     FOOTER
+     ============================================================= -->
+
+<footer>
+
+    <div class="footer-brand">
+        Schubert Scriptorium
+    </div>
+
+    <p>
+        A Witness to the Truth
+    </p>
+
+</footer>
+
+
+
+<!-- =============================================================
+     JAVASCRIPT
+     ============================================================= -->
+
+<script>
+
+
+    /* =========================================================
+       VIEWER VARIABLES
+       ========================================================= */
+
+    const stage =
+        document.getElementById('viewerStage');
+
+    const image =
+        document.getElementById('manuscriptImage');
+
+    const zoomIndicator =
+        document.getElementById('zoomIndicator');
+
+
+    let scale = 1;
+
+    let x = 0;
+
+    let y = 0;
+
+    let dragging = false;
+
+    let startX = 0;
+
+    let startY = 0;
+
+    let startPanX = 0;
+
+    let startPanY = 0;
+
+
+    const MIN_ZOOM = 0.35;
+
+    const MAX_ZOOM = 5;
+
+    const ZOOM_STEP = 0.2;
+
+
+
+    /* =========================================================
+       UPDATE IMAGE
+       ========================================================= */
+
+    function updateImage() {
+
+        image.style.transform =
+            `translate(
+                calc(-50% + ${x}px),
+                calc(-50% + ${y}px)
+            )
+            scale(${scale})`;
+
+        zoomIndicator.textContent =
+            Math.round(scale * 100) + '%';
+
+    }
+
+
+
+    /* =========================================================
+       RESET
+       ========================================================= */
+
+    function resetView() {
+
+        scale = 1;
+
+        x = 0;
+
+        y = 0;
+
+        updateImage();
+
+    }
+
+
+
+    /* =========================================================
+       ZOOM
+       ========================================================= */
+
+    function zoomBy(amount) {
+
+        scale =
+            Math.max(
+                MIN_ZOOM,
+                Math.min(
+                    MAX_ZOOM,
+                    scale + amount
+                )
+            );
+
+        updateImage();
+
+    }
+
+
+
+    document
+        .getElementById('zoomIn')
+        .addEventListener(
+            'click',
+            () => zoomBy(ZOOM_STEP)
+        );
+
+
+    document
+        .getElementById('zoomOut')
+        .addEventListener(
+            'click',
+            () => zoomBy(-ZOOM_STEP)
+        );
+
+
+    document
+        .getElementById('resetView')
+        .addEventListener(
+            'click',
+            resetView
+        );
+
+
+
+    /* =========================================================
+       MOUSE WHEEL ZOOM
+       ========================================================= */
+
+    stage.addEventListener(
+        'wheel',
+        (event) => {
+
+            event.preventDefault();
+
+            zoomBy(
+                event.deltaY < 0
+                    ? ZOOM_STEP
+                    : -ZOOM_STEP
+            );
+
+        },
+        { passive: false }
+    );
+
+
+
+    /* =========================================================
+       DRAG / PAN
+       ========================================================= */
+
+    stage.addEventListener(
+        'pointerdown',
+        (event) => {
+
+            if (
+                event.target.classList.contains(
+                    'hotspot'
+                )
+            ) {
+                return;
+            }
+
+            dragging = true;
+
+            stage.classList.add(
+                'dragging'
+            );
+
+            startX = event.clientX;
+
+            startY = event.clientY;
+
+            startPanX = x;
+
+            startPanY = y;
+
+            stage.setPointerCapture(
+                event.pointerId
+            );
+
+        }
+    );
+
+
+
+    stage.addEventListener(
+        'pointermove',
+        (event) => {
+
+            if (!dragging) {
+                return;
+            }
+
+            x =
+                startPanX +
+                (
+                    event.clientX -
+                    startX
+                );
+
+            y =
+                startPanY +
+                (
+                    event.clientY -
+                    startY
+                );
+
+            updateImage();
+
+        }
+    );
+
+
+
+    function stopDragging() {
+
+        dragging = false;
+
+        stage.classList.remove(
+            'dragging'
+        );
+
+    }
+
+
+
+    stage.addEventListener(
+        'pointerup',
+        stopDragging
+    );
+
+
+    stage.addEventListener(
+        'pointercancel',
+        stopDragging
+    );
+
+
+
+    /* =========================================================
+       DOUBLE CLICK ZOOM
+       ========================================================= */
+
+    stage.addEventListener(
+        'dblclick',
+        (event) => {
+
+            if (
+                event.target.classList.contains(
+                    'hotspot'
+                )
+            ) {
+                return;
+            }
+
+            zoomBy(
+                ZOOM_STEP * 2
+            );
+
+        }
+    );
+
+
+
+    /* =========================================================
+       FULLSCREEN
+       ========================================================= */
+
+    document
+        .getElementById('fullscreen')
+        .addEventListener(
+            'click',
+            () => {
+
+                if (!document.fullscreenElement) {
+
+                    if (
+                        stage.requestFullscreen
+                    ) {
+                        stage.requestFullscreen();
+                    }
+
+                } else {
+
+                    if (
+                        document.exitFullscreen
+                    ) {
+                        document.exitFullscreen();
+                    }
+
+                }
+
+            }
+        );
+
+
+
+    /* =========================================================
+       HOTSPOTS
+       ========================================================= */
+
+    document
+        .querySelectorAll('.hotspot')
+        .forEach(
+            (hotspot) => {
+
+                hotspot.addEventListener(
+                    'click',
+                    (event) => {
+
+                        event.stopPropagation();
+
+
+                        /*
+                        Close every panel first.
+                        */
+
+                        document
+                            .querySelectorAll(
+                                '.info-panel'
+                            )
+                            .forEach(
+                                panel => {
+                                    panel.classList.remove(
+                                        'open'
+                                    );
+                                }
+                            );
+
+
+                        /*
+                        Open selected panel.
+                        */
+
+                        const panel =
+                            document.getElementById(
+                                hotspot.dataset.panel
+                            );
+
+
+                        if (panel) {
+
+                            panel.classList.add(
+                                'open'
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+
+    /* =========================================================
+       CLOSE INFORMATION PANELS
+       ========================================================= */
+
+    document
+        .querySelectorAll('.close-panel')
+        .forEach(
+            (button) => {
+
+                button.addEventListener(
+                    'click',
+                    (event) => {
+
+                        event.stopPropagation();
+
+                        button
+                            .closest(
+                                '.info-panel'
+                            )
+                            .classList.remove(
+                                'open'
+                            );
+
+                    }
+                );
+
+            }
+        );
+
+
+
+    /* =========================================================
+       ESCAPE CLOSES PANEL
+       ========================================================= */
+
+    document.addEventListener(
+        'keydown',
+        (event) => {
+
+            if (
+                event.key === 'Escape'
+            ) {
+
+                document
+                    .querySelectorAll(
+                        '.info-panel'
+                    )
+                    .forEach(
+                        panel => {
+
+                            panel.classList.remove(
+                                'open'
+                            );
+
+                        }
+                    );
+
+            }
+
+        }
+    );
+
+
+
+    /* =========================================================
+       PREVENT IMAGE DRAGGING
+       ========================================================= */
+
+    image.addEventListener(
+        'dragstart',
+        (event) => {
+
+            event.preventDefault();
+
+        }
+    );
+
+
+
+    /* =========================================================
+       INITIALIZE VIEWER
+       ========================================================= */
+
+    image.addEventListener(
+        'load',
+        () => {
+
+            resetView();
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+</html>
