@@ -1,64 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>The Collection | Schubert Scriptorium</title>
+
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        /* ================================
+           CUSTOM COMMISSIONS PHOTO RIBBON
+           ================================ */
+
+        .commission-section {
+            margin-top: 6rem;
+            padding: 4rem;
+            border: 1px solid var(--gold);
+            background: var(--glass);
+            text-align: center;
+        }
+
+        .commission-section p {
+            color: var(--tan);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .commission-photo-ribbon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem auto 2rem;
+            width: 100%;
+            max-width: 750px;
+        }
+
+        .commission-photo-ribbon img {
+            width: 220px;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+            border: 1px solid var(--gold);
+        }
+
+        .commission-section .btn {
+            display: inline-block;
+        }
+
+        /* Responsive layout for smaller screens */
+        @media (max-width: 800px) {
+            .commission-section {
+                padding: 2rem;
+            }
+
+            .commission-photo-ribbon {
+                flex-wrap: wrap;
+            }
+
+            .commission-photo-ribbon img {
+                width: 200px;
+                height: 135px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .commission-section {
+                padding: 1.5rem;
+            }
+
+            .commission-photo-ribbon {
+                gap: 0.75rem;
+            }
+
+            .commission-photo-ribbon img {
+                width: 100%;
+                max-width: 300px;
+                height: 180px;
+            }
+        }
+    </style>
 </head>
+
+
 <body>
 
+
 <header>
-    <div class="nav-logo">SCHUBERT SCRIPTORIUM</div>
-    <nav><a href="index.html">Home</a> <a href="collection.html">Collection</a> <a href="photos.html">Photos</a> <a href="about.html">About</a> <a href="contact.html">Inquire</a></nav>
+
+    <div class="nav-logo">
+        SCHUBERT SCRIPTORIUM
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="collection.html">Collection</a>
+        <a href="photos.html">Photos</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Inquire</a>
+    </nav>
+
 </header>
 
+
 <div class="container">
+
+
+    <!-- ================================
+         PRODUCT COLLECTION
+         ================================ -->
+
     <div class="product-grid">
+
+
         <!-- 1. Gallery Edition -->
+
         <a href="product-gallery-std.html" class="card">
-            <img src="p52-wood-std.png">
-            <h3>Gallery Edition</h3>
-            <p class="price">$45</p>
-            <div class="btn">View Details</div>
+
+            <img
+                src="p52-wood-std.png"
+                alt="Gallery Edition"
+            >
+
+            <h3>
+                Gallery Edition
+            </h3>
+
+            <p class="price">
+                $45
+            </p>
+
+            <div class="btn">
+                View Details
+            </div>
+
         </a>
+
+
         <!-- 2. Gallery Edition Engraved -->
+
         <a href="product-gallery-eng.html" class="card">
-            <img src="p52-wood-eng.png">
-            <h3>Gallery Edition (Engraved)</h3>
-            <p class="price">$75</p>
-            <div class="btn">View Details</div>
+
+            <img
+                src="p52-wood-eng.png"
+                alt="Gallery Edition Engraved"
+            >
+
+            <h3>
+                Gallery Edition (Engraved)
+            </h3>
+
+            <p class="price">
+                $75
+            </p>
+
+            <div class="btn">
+                View Details
+            </div>
+
         </a>
+
+
         <!-- 3. Curator's Prism -->
+
         <a href="product-curator-std.html" class="card">
-            <img src="p52-prism-std.png">
-            <h3>Curator's Prism</h3>
-            <p class="price">$50</p>
-            <div class="btn">View Details</div>
+
+            <img
+                src="p52-prism-std.png"
+                alt="Curator's Prism"
+            >
+
+            <h3>
+                Curator's Prism
+            </h3>
+
+            <p class="price">
+                $50
+            </p>
+
+            <div class="btn">
+                View Details
+            </div>
+
         </a>
+
+
         <!-- 4. Curator's Prism Engraved -->
+
         <a href="product-curator-eng.html" class="card">
-            <img src="p52-prism-eng.png">
-            <h3>Curator's Prism (Engraved)</h3>
-            <p class="price">$90</p>
-            <div class="btn">View Details</div>
+
+            <img
+                src="p52-prism-eng.png"
+                alt="Curator's Prism Engraved"
+            >
+
+            <h3>
+                Curator's Prism (Engraved)
+            </h3>
+
+            <p class="price">
+                $90
+            </p>
+
+            <div class="btn">
+                View Details
+            </div>
+
         </a>
+
+
     </div>
 
-    <div style="margin-top: 6rem; padding: 4rem; border: 1px solid var(--gold); background: var(--glass);">
-        <h2 style="color:var(--gold);">Custom Commissions</h2>
-        <p style="color:var(--tan); max-width: 600px; margin: 0 auto;">Interested in discussing a custom order of another significant New Testament manuscript? We'd love to hear from you to discover how we can help bring your idea to life!
-            <br>
-            <br>
-        <a href="contact.html" class="btn">Start a Conversation</a>
+
+    <!-- ================================
+         CUSTOM COMMISSIONS
+         ================================ -->
+
+    <div class="commission-section">
+
+        <h2 style="color:var(--gold);">
+            Custom Commissions
+        </h2>
+
+
+        <p>
+            Interested in discussing a custom order of another significant Biblical manuscript?
+            We'd love to hear from you to discover how we can help bring your idea to life!
+        </p>
+
+
+        <!-- CUSTOM COMMISSION PHOTO RIBBON -->
+
+        <div class="commission-photo-ribbon">
+
+            <img
+                src="COMMISSION-1.png"
+                alt="Custom Commission Example 1"
+            >
+
+            <img
+                src="COMMISSION-2.png"
+                alt="Custom Commission Example 2"
+            >
+
+            <img
+                src="COMMISSION-3.png"
+                alt="Custom Commission Example 3"
+            >
+
+            <img
+                src="COMMISSION-3.png"
+                alt="Custom Commission Example 3"
+            >
+
+            <img
+                src="COMMISSION-4.png"
+                alt="Custom Commission Example 3"
+            >
+
+            <img
+                src="COMMISSION-5.png"
+                alt="Custom Commission Example 3"
+            >
+
+            <img
+                src="COMMISSION-6.png"
+                alt="Custom Commission Example 3"
+            >
+            
+        </div>
+
+
+        <!-- CONTACT BUTTON -->
+
+        <a href="contact.html" class="btn">
+            Start a Conversation
+        </a>
+
+
     </div>
+
+
 </div>
 
+
 <footer>
-    <div class="footer-brand">Schubert Scriptorium</div>
-    <p>orders@schubertscriptorium.com</p>
+
+    <div class="footer-brand">
+        Schubert Scriptorium
+    </div>
+
+    <p>
+        orders@schubertscriptorium.com
+    </p>
+
 </footer>
+
 
 </body>
 </html>
