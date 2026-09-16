@@ -402,26 +402,30 @@
 
             z-index: 20;
 
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
 
             border-radius: 50%;
 
             border:
-                3px solid var(--gold);
+                4px solid var(--gold);
 
             background:
-                rgba(15,32,39,0.97);
+                #6E1F2A;
 
-            color: var(--gold);
+            color: #ffffff;
 
             font-family: 'Lato', sans-serif;
+
+            font-size: 1.35rem;
 
             font-weight: 700;
 
             cursor: pointer;
 
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+            box-shadow:
+                0 0 0 5px rgba(212,175,55,0.12),
+                0 0 14px rgba(212,175,55,0.85);
 
             /*
             IMPORTANT:
@@ -440,6 +444,7 @@
                 background 0.2s,
                 color 0.2s,
                 transform 0.2s;
+                box-shadow 0.2s;
 
             pointer-events: auto;
 
@@ -457,6 +462,10 @@
             transform:
                 translate(-50%, -50%) scale(1.12);
 
+             box-shadow:
+                0 0 0 6px rgba(212,175,55,0.18),
+                0 0 20px rgba(212,175,55,1);
+            
             outline: none;
         }
 
