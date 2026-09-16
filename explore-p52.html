@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
 
     <meta name="description" content="Explore Papyrus 52 up close with the Schubert Scriptorium interactive manuscript viewer.">
 
@@ -1803,7 +1803,7 @@
             scale(${scale})`;
 
         zoomIndicator.textContent =
-            Math.round(scale * 100) + '%';
+            Math.round(scale * 50) + '%';
 
     }
 
@@ -1815,7 +1815,7 @@
 
     function resetView() {
 
-        scale = 1;
+        scale = 0.5;
 
         x = 0;
 
