@@ -276,6 +276,9 @@
             user-select: none;
 
             touch-action: none;
+
+            perspective: 1400px;
+            perspective-origin: center center;
         }
 
         .viewer-stage.dragging {
@@ -305,6 +308,66 @@
             transform-origin: center center;
 
             will-change: transform;
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================================
+           RECTO / VERSO 3D FLIP
+           ========================================================= */
+
+        .manuscript-flip {
+            position: relative;
+
+            width: max-content;
+            height: max-content;
+
+            transform-style: preserve-3d;
+
+            transition:
+                transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+            will-change: transform;
+        }
+
+        .manuscript-flip.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .manuscript-face {
+            position: relative;
+
+            width: max-content;
+            height: max-content;
+
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .manuscript-face.back {
+            position: absolute;
+
+            left: 0;
+            top: 0;
+
+            transform: rotateY(180deg);
+        }
+
+        .manuscript-face img {
+            display: block;
+
+            width: auto;
+            height: auto;
+
+            max-width: none;
+            max-height: none;
+
+            border:
+                1px solid rgba(212,175,55,0.55);
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.65);
 
             pointer-events: none;
         }
@@ -521,7 +584,37 @@
           #spotC {
             left: 93%;
             top: 36%;
-        }   
+        }
+
+
+        /* =========================================================
+           VERSO HOTSPOT POSITIONS
+
+           These are intentionally easy-to-edit placeholders.
+           Change these percentages after the final verso image
+           is added to the repository.
+           ========================================================= */
+
+        #versoSpot1 {
+            left: 25%;
+            top: 30%;
+        }
+
+        #versoSpot2 {
+            left: 25%;
+            top: 45%;
+        }
+
+        #versoSpot3 {
+            left: 25%;
+            top: 60%;
+        }
+
+        #versoSpot4 {
+            left: 25%;
+            top: 75%;
+        }
+
 
         /* =========================================================
            INFORMATION PANEL BACKDROP
@@ -1043,6 +1136,22 @@
                 Fullscreen
             </button>
 
+            <button
+                type="button"
+                id="rectoButton"
+                aria-pressed="true"
+            >
+                Recto
+            </button>
+
+            <button
+                type="button"
+                id="versoButton"
+                aria-pressed="false"
+            >
+                Verso
+            </button>
+
         </div>
 
 
@@ -1059,7 +1168,10 @@
 
             <!-- VIEWER LABEL -->
 
-            <div class="viewer-label">
+            <div
+                class="viewer-label"
+                id="viewerLabel"
+            >
                 P52 • RECTO
             </div>
 
@@ -1077,21 +1189,34 @@
                 id="manuscriptLayer"
             >
 
-
-                <!-- MANUSCRIPT IMAGE -->
-
-                <img
-                    id="manuscriptImage"
-                    src="High-Res-Recto.png"
-                    alt="High-resolution image of the recto of Papyrus 52"
-                    draggable="false"
+                <div
+                    class="manuscript-flip"
+                    id="manuscriptFlip"
                 >
 
+                    <!-- =================================================
+                         RECTO / FRONT FACE
+                         ================================================= -->
+
+                    <div
+                        class="manuscript-face front"
+                        id="rectoFace"
+                    >
+
+                        <!-- MANUSCRIPT IMAGE -->
+
+                        <img
+                            id="manuscriptImage"
+                            src="High-Res-Recto.png"
+                            alt="High-resolution image of the recto of Papyrus 52"
+                            draggable="false"
+                        >
 
 
-                <!-- =================================================
-                     HOTSPOT 1
-                     ================================================= -->
+
+                        <!-- =================================================
+                             HOTSPOT 1
+                             ================================================= -->
 
                 <button
                     class="hotspot"
@@ -1198,6 +1323,82 @@
                 >
                     C
                 </button>
+
+                    </div>
+                    <!-- END RECTO FACE -->
+
+
+                    <!-- =================================================
+                         VERSO / BACK FACE
+
+                         Replace High-Res-Verso.png with your final
+                         high-resolution verso image when ready.
+
+                         The sample hotspot positions below are ONLY
+                         structural placeholders. Adjust them to the
+                         actual verso manuscript.
+                         ================================================= -->
+
+                    <div
+                        class="manuscript-face back"
+                        id="versoFace"
+                    >
+
+                        <img
+                            id="versoImage"
+                            src="High-Res-Verso.png"
+                            alt="High-resolution image of the verso of Papyrus 52"
+                            draggable="false"
+                        >
+
+
+                        <!-- VERSO HOTSPOTS -->
+
+                        <button
+                            class="hotspot"
+                            id="versoSpot1"
+                            type="button"
+                            aria-label="Verso - Detail 1"
+                            data-panel="versoPanel1"
+                        >
+                            1
+                        </button>
+
+                        <button
+                            class="hotspot"
+                            id="versoSpot2"
+                            type="button"
+                            aria-label="Verso - Detail 2"
+                            data-panel="versoPanel2"
+                        >
+                            2
+                        </button>
+
+                        <button
+                            class="hotspot"
+                            id="versoSpot3"
+                            type="button"
+                            aria-label="Verso - Detail 3"
+                            data-panel="versoPanel3"
+                        >
+                            3
+                        </button>
+
+                        <button
+                            class="hotspot"
+                            id="versoSpot4"
+                            type="button"
+                            aria-label="Verso - Detail 4"
+                            data-panel="versoPanel4"
+                        >
+                            4
+                        </button>
+
+                    </div>
+                    <!-- END VERSO FACE -->
+
+                </div>
+                <!-- END MANUSCRIPT FLIP -->
 
             </div>
             <!-- END MANUSCRIPT LAYER -->
@@ -1571,6 +1772,138 @@
 
             </article>
 
+            <!-- =================================================
+                 VERSO INFORMATION PANELS
+
+                 These are structural placeholders. Replace the
+                 headings/text with the actual verso details after
+                 the final verso image and hotspot locations are set.
+                 ================================================= -->
+
+            <article
+                class="info-panel"
+                id="versoPanel1"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="versoPanel1-title"
+            >
+
+                <button
+                    class="close-panel"
+                    type="button"
+                    aria-label="Close information panel"
+                >
+                    ×
+                </button>
+
+                <div class="panel-number">
+                    VERSO • Detail 01
+                </div>
+
+                <h2 id="versoPanel1-title">
+                    Verso Detail 01
+                </h2>
+
+                <p>
+                    Verso information will appear here.
+                </p>
+
+            </article>
+
+
+            <article
+                class="info-panel"
+                id="versoPanel2"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="versoPanel2-title"
+            >
+
+                <button
+                    class="close-panel"
+                    type="button"
+                    aria-label="Close information panel"
+                >
+                    ×
+                </button>
+
+                <div class="panel-number">
+                    VERSO • Detail 02
+                </div>
+
+                <h2 id="versoPanel2-title">
+                    Verso Detail 02
+                </h2>
+
+                <p>
+                    Verso information will appear here.
+                </p>
+
+            </article>
+
+
+            <article
+                class="info-panel"
+                id="versoPanel3"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="versoPanel3-title"
+            >
+
+                <button
+                    class="close-panel"
+                    type="button"
+                    aria-label="Close information panel"
+                >
+                    ×
+                </button>
+
+                <div class="panel-number">
+                    VERSO • Detail 03
+                </div>
+
+                <h2 id="versoPanel3-title">
+                    Verso Detail 03
+                </h2>
+
+                <p>
+                    Verso information will appear here.
+                </p>
+
+            </article>
+
+
+            <article
+                class="info-panel"
+                id="versoPanel4"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="versoPanel4-title"
+            >
+
+                <button
+                    class="close-panel"
+                    type="button"
+                    aria-label="Close information panel"
+                >
+                    ×
+                </button>
+
+                <div class="panel-number">
+                    VERSO • Detail 04
+                </div>
+
+                <h2 id="versoPanel4-title">
+                    Verso Detail 04
+                </h2>
+
+                <p>
+                    Verso information will appear here.
+                </p>
+
+            </article>
+
+
             <!-- END INFORMATION PANELS -->
 
 
@@ -1754,11 +2087,26 @@
     const manuscriptLayer =
         document.getElementById('manuscriptLayer');
 
+    const manuscriptFlip =
+        document.getElementById('manuscriptFlip');
+
+    const versoImage =
+        document.getElementById('versoImage');
+
     const zoomIndicator =
         document.getElementById('zoomIndicator');
 
     const panelBackdrop =
         document.getElementById('panelBackdrop');
+
+    const viewerLabel =
+        document.getElementById('viewerLabel');
+
+    const rectoButton =
+        document.getElementById('rectoButton');
+
+    const versoButton =
+        document.getElementById('versoButton');
 
 
     let scale = 1;
@@ -1783,6 +2131,75 @@
     const MAX_ZOOM = 5;
 
     const ZOOM_STEP = 0.2;
+
+    let currentSide = 'recto';
+
+
+    /* =========================================================
+       RECTO / VERSO 3D SIDE SWITCHING
+       ========================================================= */
+
+    function setManuscriptSide(side) {
+
+        if (
+            side === currentSide
+        ) {
+            return;
+        }
+
+        closeAllPanels();
+
+        currentSide = side;
+
+        if (side === 'verso') {
+
+            manuscriptFlip.classList.add('flipped');
+
+            viewerLabel.textContent =
+                'P52 • VERSO';
+
+            rectoButton.setAttribute(
+                'aria-pressed',
+                'false'
+            );
+
+            versoButton.setAttribute(
+                'aria-pressed',
+                'true'
+            );
+
+        } else {
+
+            manuscriptFlip.classList.remove('flipped');
+
+            viewerLabel.textContent =
+                'P52 • RECTO';
+
+            rectoButton.setAttribute(
+                'aria-pressed',
+                'true'
+            );
+
+            versoButton.setAttribute(
+                'aria-pressed',
+                'false'
+            );
+
+        }
+
+    }
+
+
+    rectoButton.addEventListener(
+        'click',
+        () => setManuscriptSide('recto')
+    );
+
+
+    versoButton.addEventListener(
+        'click',
+        () => setManuscriptSide('verso')
+    );
 
 
 
@@ -2280,6 +2697,16 @@
     );
 
 
+    versoImage.addEventListener(
+        'dragstart',
+        (event) => {
+
+            event.preventDefault();
+
+        }
+    );
+
+
 
     /* =========================================================
        INITIALIZE VIEWER
@@ -2297,7 +2724,8 @@
 
                 resetView();
 
-            }
+            },
+            { once: true }
         );
 
     }
