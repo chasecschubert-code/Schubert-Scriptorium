@@ -1,7 +1,8 @@
 /* --- SCHUBERT SCRIPTORIUM: MUSEUM DISPLAY THEME --- */
 
 :root {
-    --nav-cobalt: #0f2027;
+    --nav-snow: #EFF4FF;
+    --cobalt: #0f2027
     --steel-bg: #1a1a1a; 
     --gold: #D4AF37;
     --tan: #D2B48C;
@@ -24,7 +25,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background-color: var(--nav-cobalt);
+    background-color: var(--nav-snow);
     padding: 1.5rem 0;
     border-bottom: 2px solid var(--gold);
     display: flex;
@@ -35,7 +36,7 @@ header {
 .nav-logo {
     font-family: 'Playfair Display', serif;
     font-size: 2.2rem;
-    color: var(--gold);
+    color: var(--cobalt);
     text-transform: uppercase;
     letter-spacing: 4px;
     margin-bottom: 0.5rem;
