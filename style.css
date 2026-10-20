@@ -3,11 +3,11 @@
 
 :root {
     --nav-cobalt: #F7F3EA;
-    --steel-bg: #F7F3EA; 
+    --steel-bg: #E6D8BD;
     --gold: #B58A35;
     --tan: #E6D8BD;
     --white: #34312B;
-    --glass: rgba(230, 216, 189, 0.25);
+    --glass: rgba(247, 243, 234, 0.45);
 }
 
 /* Global Centering */
@@ -25,7 +25,8 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background-color: var(--nav-cobalt);
+    background-color: #F7F3EA;
+    opacity: 1;
     padding: 1.5rem 0;
     border-bottom: 2px solid var(--gold);
     display: flex;
@@ -52,7 +53,9 @@ nav a {
     transition: 0.3s;
 }
 
-nav a:hover { color: var(--gold); }
+nav a:hover {
+    color: var(--gold);
+}
 
 /* --- CONTAINERS --- */
 .container {
@@ -67,7 +70,7 @@ nav a:hover { color: var(--gold); }
     max-width: 1000px;
     height: auto;
     border: 1px solid var(--gold);
-    box-shadow: 0 10px 30px rgba(52,49,43,0.15);
+    box-shadow: 0 10px 30px rgba(52, 49, 43, 0.15);
     margin: 2rem auto;
     display: block;
 }
@@ -92,16 +95,16 @@ nav a:hover { color: var(--gold); }
     color: inherit;
 }
 
-.card:hover { 
-    border-color: var(--gold); 
-    background: rgba(230, 216, 189, 0.45); /* Subtle pop on hover */
+.card:hover {
+    border-color: var(--gold);
+    background: rgba(230, 216, 189, 0.45);
 }
 
 .card img {
     width: 100%;
     height: 250px;
     object-fit: cover;
-    border: 1px solid rgba(52,49,43,0.1);
+    border: 1px solid rgba(52, 49, 43, 0.1);
     margin-bottom: 1.5rem;
 }
 
@@ -126,7 +129,7 @@ nav a:hover { color: var(--gold); }
 
 /* FIXED ALIGNMENT: Pushes Button to the exact same baseline */
 .card .btn {
-    margin-top: auto; 
+    margin-top: auto;
     width: 100%;
     max-width: 180px;
 }
@@ -153,8 +156,10 @@ nav a:hover { color: var(--gold); }
     font-size: 0.8rem;
 }
 
-.form-row input, .form-row select, .form-row textarea {
-    background: rgba(255,255,255,0.7);
+.form-row input,
+.form-row select,
+.form-row textarea {
+    background: rgba(255, 255, 255, 0.7);
     border: 1px solid var(--tan);
     color: #34312B;
     padding: 12px;
@@ -164,7 +169,7 @@ nav a:hover { color: var(--gold); }
 
 /* Fix for Dropdown visibility in all browsers */
 select option {
-    background-color: var(--steel-bg); /* Match site background */
+    background-color: var(--steel-bg);
     color: var(--white);
     padding: 10px;
 }
@@ -179,7 +184,7 @@ select option {
 /* --- FOOTER --- */
 footer {
     padding: 5rem 1rem;
-    background: #E6D8BD;
+    background: #F7F3EA;
     border-top: 1px solid var(--gold);
     margin-top: 5rem;
 }
@@ -209,6 +214,8 @@ footer {
 }
 
 @media (max-width: 900px) {
-    .product-grid { grid-template-columns: 1fr 1fr !important; }
+    .product-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
 }
 ```
