@@ -1,126 +1,303 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Photos | Schubert Scriptorium</title>
+
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
     <style>
-        /* --- GALLERY PAGE SPECIFIC STYLES --- */
+        /* =========================================
+           SCHUBERT SCRIPTORIUM PHOTO GALLERY
+           ========================================= */
+
         .gallery-container {
-            max-width: 1000px;
+            width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 3rem 1.5rem;
+            padding: 3rem 1.5rem 4rem;
+            box-sizing: border-box;
         }
 
         .gallery-title {
             font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
             color: var(--gold);
-            margin-bottom: 3rem;
+            margin: 0 0 1rem;
             text-transform: uppercase;
             letter-spacing: 3px;
+            text-align: center;
         }
 
-        /* Main image viewer */
-        .main-image-viewer {
+        .gallery-description {
+            max-width: 650px;
+            margin: 0 auto 3rem;
+            color: var(--tan);
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        /* Responsive photo grid */
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+            align-items: stretch;
+        }
+
+        /* Individual photo cards */
+
+        .photo-card {
             position: relative;
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto 2rem;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid var(--gold);
-            overflow: hidden;
-        }
-
-        .main-image {
-            width: 100%;
-            height: auto;
             display: block;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        /* Thumbnail ribbon container */
-        .thumbnail-ribbon-container {
-            max-width: 400px;
-            margin: 0 auto;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--tan);
-            padding: 1rem;
-            border-radius: 4px;
-            overflow-x: auto;
-            overflow-y: hidden;
-        }
-
-        .thumbnail-ribbon {
-            display: flex;
-            gap: 1rem;
-            justify-content: flex-start;
-        }
-
-        .thumbnail {
-            flex-shrink: 0;
-            width: 90px;
-            height: 90px;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.05);
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            min-width: 0;
+            padding: 0;
             overflow: hidden;
+            border: 2px solid rgba(210, 180, 140, 0.25);
+            border-radius: 3px;
+            background: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            box-sizing: border-box;
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .thumbnail img {
+        .photo-card img {
+            display: block;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.6;
-            transition: opacity 0.3s ease;
+            object-position: center;
+            transition: transform 0.35s ease;
         }
 
-        .thumbnail:hover img {
-            opacity: 0.85;
-        }
+        /* Gold outline and enlargement on hover */
 
-        .thumbnail.active {
+        .photo-card:hover,
+        .photo-card:focus-visible {
+            z-index: 2;
+            transform: scale(1.035);
             border-color: var(--gold);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 14px rgba(212, 175, 55, 0.3);
+            outline: none;
         }
 
-        .thumbnail.active img {
+        .photo-card:hover img,
+        .photo-card:focus-visible img {
+            transform: scale(1.035);
+        }
+
+        .photo-card:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .photo-card,
+            .photo-card img {
+                transition: none;
+            }
+        }
+
+        /* =========================================
+           LARGE IMAGE VIEWER / LIGHTBOX
+           ========================================= */
+
+        .photo-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4.5rem 1.5rem 2rem;
+            box-sizing: border-box;
+            background: rgba(8, 10, 11, 0.96);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition:
+                opacity 0.2s ease,
+                visibility 0.2s ease;
+        }
+
+        .photo-lightbox.is-open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .lightbox-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            max-width: 1400px;
+            min-height: 0;
+            margin: 0 auto;
+        }
+
+        .lightbox-image {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border: 1px solid rgba(212, 175, 55, 0.7);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .lightbox-image.is-loaded {
             opacity: 1;
         }
 
-        /* Image counter */
-        .image-counter {
-            text-align: center;
-            color: var(--tan);
-            margin-top: 2rem;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
+        /* Close button */
+
+        .lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            background: rgba(15, 32, 39, 0.95);
+            color: var(--gold);
+            font-family: 'Lato', sans-serif;
+            font-size: 28px;
+            font-weight: 400;
+            line-height: 1;
+            cursor: pointer;
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
         }
 
-        /* Responsive design */
+        .lightbox-close:hover,
+        .lightbox-close:focus-visible {
+            background: var(--gold);
+            color: #0f2027;
+            transform: scale(1.06);
+            outline: none;
+        }
+
+        .lightbox-close:focus-visible {
+            outline: 2px solid var(--tan);
+            outline-offset: 3px;
+        }
+
+        /* Image caption */
+
+        .lightbox-caption {
+            flex-shrink: 0;
+            margin-top: 0.85rem;
+            color: var(--tan);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        /* =========================================
+           TABLET AND MOBILE RESPONSIVENESS
+           ========================================= */
+
         @media (max-width: 768px) {
+            .gallery-container {
+                padding: 2.5rem 1rem 3rem;
+            }
+
             .gallery-title {
                 font-size: 2rem;
+                letter-spacing: 2px;
             }
 
-            .thumbnail {
-                width: 80px;
-                height: 80px;
+            .gallery-description {
+                margin-bottom: 2rem;
+                font-size: 0.95rem;
             }
 
-            .thumbnail-ribbon-container {
-                padding: 0.75rem;
+            .photo-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 1rem;
             }
 
-            .thumbnail-ribbon {
-                gap: 0.75rem;
+            .photo-card {
+                aspect-ratio: 1 / 1;
             }
+
+            /* Prevent sticky hover effects on touchscreens */
+
+            .photo-card:hover {
+                transform: none;
+                box-shadow: none;
+                border-color: rgba(210, 180, 140, 0.25);
+            }
+
+            .photo-card:hover img {
+                transform: none;
+            }
+
+            .photo-lightbox {
+                padding: 4.5rem 0.75rem 1.25rem;
+            }
+
+            .lightbox-close {
+                top: 0.75rem;
+                right: 0.75rem;
+                width: 40px;
+                height: 40px;
+            }
+
+            .lightbox-caption {
+                margin-top: 0.65rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .photo-grid {
+                gap: 0.65rem;
+            }
+
+            .gallery-container {
+                padding-right: 0.75rem;
+                padding-left: 0.75rem;
+            }
+        }
+
+        /* Prevent background scrolling while viewer is open */
+
+        body.lightbox-open {
+            overflow: hidden;
         }
     </style>
 </head>
+
 <body>
 
 <header>
@@ -135,96 +312,235 @@
     </nav>
 </header>
 
-<div class="gallery-container">
+<main class="gallery-container">
+
     <h1 class="gallery-title">Photos</h1>
 
-    <!-- Main Image Viewer -->
-    <div class="main-image-viewer">
-        <img id="mainImage" src="Real-1.png" alt="Gallery Image" class="main-image">
+    <p class="gallery-description">
+        Explore the craftsmanship, details, and character of the
+        Schubert Scriptorium collection. Select any photograph to
+        examine it more closely.
+    </p>
+
+    <!-- Responsive photo grid -->
+
+    <div
+        class="photo-grid"
+        id="photoGrid"
+        aria-label="Schubert Scriptorium photo gallery"
+    >
+        <!-- Photos are generated automatically -->
     </div>
 
-    <!-- Thumbnail Ribbon -->
-    <div class="thumbnail-ribbon-container">
-        <div class="thumbnail-ribbon" id="thumbnailRibbon">
-            <!-- Thumbnails will be generated by JavaScript -->
-        </div>
-    </div>
+</main>
 
-    <!-- Image Counter -->
-    <div class="image-counter">
-        <span id="currentImage">1</span> / <span id="totalImages">12</span>
+<!-- Enlarged image viewer -->
+
+<div
+    class="photo-lightbox"
+    id="photoLightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Enlarged photograph"
+    aria-hidden="true"
+    tabindex="-1"
+>
+    <button
+        type="button"
+        class="lightbox-close"
+        id="lightboxClose"
+        aria-label="Close enlarged photograph"
+        title="Close"
+    >&times;</button>
+
+    <div class="lightbox-content">
+        <img
+            class="lightbox-image"
+            id="lightboxImage"
+            src=""
+            alt=""
+        >
+
+        <div
+            class="lightbox-caption"
+            id="lightboxCaption"
+            aria-live="polite"
+        ></div>
     </div>
 </div>
 
 <footer>
     <div class="footer-brand">Schubert Scriptorium</div>
-    <p>Hand-Crafted & Hand-Delivered in DFW</p>
+    <p>Hand-Crafted &amp; Hand-Delivered in DFW</p>
     <p>orders@schubertscriptorium.com</p>
 </footer>
 
 <script>
-    // Gallery configuration
-    const totalImages = 12;
-    const imageBaseName = 'Real-';
-    const imageExtension = '.png';
-    let currentIndex = 0;
+    /* =========================================
+       GALLERY CONFIGURATION
+       All gallery images use the .png extension
+       ========================================= */
 
-    // Initialize gallery
+    const MAX_IMAGES = 16;
+    const IMAGE_BASE_NAME = 'Real-';
+    const IMAGE_EXTENSION = '.png';
+
+    const photoGrid = document.getElementById('photoGrid');
+    const lightbox = document.getElementById('photoLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    let lastFocusedElement = null;
+    let imageLoadToken = 0;
+
+    /* =========================================
+       BUILD THE PHOTO GRID
+       ========================================= */
+
     function initializeGallery() {
-        const ribbon = document.getElementById('thumbnailRibbon');
-        
-        // Create thumbnail elements
-        for (let i = 1; i <= totalImages; i++) {
-            const thumbnail = document.createElement('div');
-            thumbnail.className = 'thumbnail' + (i === 1 ? ' active' : '');
-            thumbnail.onclick = () => selectImage(i - 1);
-            
-            const img = document.createElement('img');
-            img.src = imageBaseName + i + imageExtension;
-            img.alt = 'Thumbnail ' + i;
-            
-            thumbnail.appendChild(img);
-            ribbon.appendChild(thumbnail);
+        for (let i = 1; i <= MAX_IMAGES; i++) {
+            const imagePath = IMAGE_BASE_NAME + i + IMAGE_EXTENSION;
+
+            const card = document.createElement('button');
+            card.type = 'button';
+            card.className = 'photo-card';
+            card.setAttribute('aria-label', 'View photograph ' + i);
+
+            const image = document.createElement('img');
+            image.src = imagePath;
+            image.alt = 'Schubert Scriptorium photograph ' + i;
+            image.loading = 'lazy';
+            image.decoding = 'async';
+
+            // Hide files that do not exist in the repository.
+
+            image.addEventListener('error', function () {
+                card.remove();
+            }, { once: true });
+
+            card.addEventListener('click', function () {
+                openLightbox(imagePath, i, card);
+            });
+
+            card.appendChild(image);
+            photoGrid.appendChild(card);
         }
     }
 
-    // Select an image
-    function selectImage(index) {
-        currentIndex = index;
-        updateGallery();
+    /* =========================================
+       OPEN THE LARGE IMAGE VIEWER
+       ========================================= */
+
+    function openLightbox(imagePath, imageNumber, triggerElement) {
+        lastFocusedElement = triggerElement;
+
+        lightboxImage.classList.remove('is-loaded');
+        lightboxImage.alt =
+            'Enlarged Schubert Scriptorium photograph ' + imageNumber;
+
+        lightboxCaption.textContent = 'Photograph ' + imageNumber;
+
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('lightbox-open');
+
+        // Move keyboard focus into the viewer.
+
+        lightboxClose.focus();
+
+        // Ignore late load events from previously selected images.
+
+        const loadToken = ++imageLoadToken;
+
+        lightboxImage.onload = function () {
+            if (loadToken === imageLoadToken) {
+                lightboxImage.classList.add('is-loaded');
+            }
+        };
+
+        lightboxImage.onerror = function () {
+            if (loadToken === imageLoadToken) {
+                lightboxCaption.textContent =
+                    'Unable to load photograph ' + imageNumber + '.';
+            }
+        };
+
+        lightboxImage.src = imagePath;
+
+        // Handle cached images that load immediately.
+
+        if (lightboxImage.complete && lightboxImage.naturalWidth > 0) {
+            lightboxImage.classList.add('is-loaded');
+        }
     }
 
-    // Update gallery display
-    function updateGallery() {
-        // Update main image
-        const mainImage = document.getElementById('mainImage');
-        mainImage.src = imageBaseName + (currentIndex + 1) + imageExtension;
-        mainImage.alt = 'Gallery Image ' + (currentIndex + 1);
+    /* =========================================
+       CLOSE THE VIEWER
+       ========================================= */
 
-        // Update counter
-        document.getElementById('currentImage').textContent = currentIndex + 1;
+    function closeLightbox() {
+        if (!lightbox.classList.contains('is-open')) {
+            return;
+        }
 
-        // Update active thumbnail
-        const thumbnails = document.querySelectorAll('.thumbnail');
-        thumbnails.forEach((thumb, index) => {
-            thumb.classList.toggle('active', index === currentIndex);
-        });
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
 
-        // Scroll thumbnail into view
-        const activeThumbnail = thumbnails[currentIndex];
-        activeThumbnail.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        imageLoadToken++;
+
+        lightboxImage.onload = null;
+        lightboxImage.onerror = null;
+        lightboxImage.classList.remove('is-loaded');
+        lightboxImage.removeAttribute('src');
+
+        // Return focus to the original photo.
+
+        if (lastFocusedElement && lastFocusedElement.isConnected) {
+            lastFocusedElement.focus();
+        }
     }
 
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') {
-            selectImage((currentIndex - 1 + totalImages) % totalImages);
-        } else if (e.key === 'ArrowRight') {
-            selectImage((currentIndex + 1) % totalImages);
+    /* =========================================
+       VIEWER INTERACTIONS
+       ========================================= */
+
+    // Close with the X button.
+
+    lightboxClose.addEventListener('click', closeLightbox);
+
+    // Close by clicking the dark background.
+
+    lightbox.addEventListener('click', function (event) {
+        if (event.target === lightbox) {
+            closeLightbox();
         }
     });
 
-    // Initialize on page load
+    // Escape closes the viewer.
+    // Tab stays focused on the close button.
+
+    document.addEventListener('keydown', function (event) {
+        if (!lightbox.classList.contains('is-open')) {
+            return;
+        }
+
+        if (event.key === 'Escape') {
+            event.preventDefault();
+            closeLightbox();
+        }
+
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            lightboxClose.focus();
+        }
+    });
+
+    /* =========================================
+       INITIALIZE THE GALLERY
+       ========================================= */
+
     initializeGallery();
 </script>
 
