@@ -88,6 +88,9 @@
  .product-detail-content .product-price-disclaimer { margin-bottom:1rem; }
  .product-detail-content .btn { display:inline-block; }
 }
+ .translation-card-section .translation-card-image-container { width:100%; max-width:380px; margin:1.5rem auto 0; border:1px solid var(--gold); overflow:visible; background:transparent; }
+ .translation-card-section .translation-card-image { display:block; width:100%; height:auto; max-width:100%; object-fit:contain; }
+ @media(max-width:720px) { .translation-card-section .translation-card-image-container { max-width:min(330px, 100%); } }
 </style>
 </head>
 <body>
@@ -111,13 +114,14 @@
         <img src="prism-eng-1.png" id="main-photo" alt="Curator's Prism Engraved Main View">
     </div>
 
-    <!-- Thumbnail Ribbon (5 Images) -->
+    <!-- Thumbnail Ribbon (6 Images) -->
     <div class="thumbnail-ribbon">
         <img src="prism-eng-1.png" class="thumb active-thumb" onclick="changePhoto(this)">
         <img src="prism-eng-2.png" class="thumb" onclick="changePhoto(this)">
         <img src="prism-eng-3.png" class="thumb" onclick="changePhoto(this)">
         <img src="prism-eng-4.png" class="thumb" onclick="changePhoto(this)">
         <img src="prism-eng-5.png" class="thumb" onclick="changePhoto(this)">
+        <img src="prism-eng-6.png" class="thumb" onclick="changePhoto(this)">
     </div>
 
 
@@ -137,12 +141,12 @@
   </div>
 </div>
 
-<div class="container" style="max-width: 500px;">
+<div class="container translation-card-section" style="max-width: 500px; text-align: center;">
     <h1>Translation Card</h1>
     <p>Custom double-sided translation card included with every order.</p>
-    <!-- Main Photo Display -->
-    <div class="main-img-container">
-        <img src="Translation Card Recto MockUp.png" alt="Translation Card Main View">
+    <!-- Translation Card Photo -->
+    <div class="translation-card-image-container">
+        <img src="Translation Card Recto MockUp.png" alt="Translation Card Main View" class="translation-card-image">
     </div>
   </div>  
 <footer>
