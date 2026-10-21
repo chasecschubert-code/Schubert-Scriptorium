@@ -1120,6 +1120,23 @@
         .info-panel .greek-key .greek-restored { color: #77736B; }
         .info-panel .greek-key { color: #625E56; font-size: 0.72rem; line-height: 1.5; margin: 0 0 0.9rem; }
         .greek-surviving-key { color: #8D6828; }
+
+        /* Explicitly hide inactive hotspots: mobile WebKit may paint positioned
+           descendants through a rotated face despite the parent's backface rule. */
+        .manuscript-face .hotspot {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .manuscript-flip:not(.flipped) #versoFace .hotspot,
+        .manuscript-flip.flipped #rectoFace .hotspot {
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .manuscript-flip:not(.flipped) #rectoFace .hotspot,
+        .manuscript-flip.flipped #versoFace .hotspot {
+            visibility: visible;
+            pointer-events: auto;
+        }
     </style>
 </head>
 
