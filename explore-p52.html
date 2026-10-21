@@ -1137,6 +1137,29 @@
             visibility: visible;
             pointer-events: auto;
         }
+
+        /* Keep the toolbar and exit control available in native and mobile fullscreen. */
+        .viewer-shell.exhibit-expanded,
+        .viewer-shell:fullscreen {
+            width: 100%; max-width: none; height: 100vh; height: 100dvh;
+            margin: 0; border: 0; display: flex; flex-direction: column;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right)
+                     env(safe-area-inset-bottom) env(safe-area-inset-left);
+            background: #F7F3EA;
+        }
+        .viewer-shell.exhibit-expanded { position: fixed; inset: 0; z-index: 10000; }
+        .viewer-shell:-webkit-full-screen {
+            width: 100%; max-width: none; height: 100vh; margin: 0;
+            border: 0; display: flex; flex-direction: column; background: #F7F3EA;
+        }
+        .viewer-shell.exhibit-expanded .viewer-stage,
+        .viewer-shell:fullscreen .viewer-stage {
+            flex: 1; height: auto; min-height: 0; width: 100%;
+        }
+        .viewer-shell:-webkit-full-screen .viewer-stage { flex: 1; height: auto; min-height: 0; width: 100%; }
+        .viewer-shell.exhibit-expanded .viewer-toolbar,
+        .viewer-shell:fullscreen .viewer-toolbar { flex-shrink: 0; }
+        .info-panel h2.manuscript-transcription .greek-restored { color: #99958D; }
     </style>
 </head>
 
@@ -2777,38 +2800,68 @@
        FULLSCREEN
        ========================================================= */
 
-    document
-        .getElementById('fullscreen')
-        .addEventListener(
-            'click',
-            () => {
+    const exhibit = stage.closest('.viewer-shell');
+    const fullscreenButton = document.getElementById('fullscreen');
+    let savedBodyOverflow = '';
+    let savedRootOverflow = '';
 
-                if (!document.fullscreenElement) {
+    function nativeFullscreenElement() {
+        return document.fullscreenElement || document.webkitFullscreenElement;
+    }
 
-                    if (
-                        stage.requestFullscreen
-                    ) {
+    function updateFullscreenButton() {
+        const expanded = !!nativeFullscreenElement() || exhibit.classList.contains('exhibit-expanded');
+        fullscreenButton.textContent = expanded ? 'Exit Fullscreen' : 'Fullscreen';
+        fullscreenButton.setAttribute('aria-pressed', String(expanded));
+        requestAnimationFrame(() => { resetView(); positionActivePanel(); });
+    }
 
-                        stage.requestFullscreen();
+    function setExpandedExhibit(expanded) {
+        if (expanded) {
+            savedBodyOverflow = document.body.style.overflow;
+            savedRootOverflow = document.documentElement.style.overflow;
+            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = savedBodyOverflow;
+            document.documentElement.style.overflow = savedRootOverflow;
+        }
+        exhibit.classList.toggle('exhibit-expanded', expanded);
+        updateFullscreenButton();
+    }
 
-                    }
-
-                } else {
-
-                    if (
-                        document.exitFullscreen
-                    ) {
-
-                        document.exitFullscreen();
-
-                    }
-
-                }
-
+    async function toggleExhibitFullscreen() {
+        if (exhibit.classList.contains('exhibit-expanded')) {
+            setExpandedExhibit(false);
+            return;
+        }
+        if (nativeFullscreenElement()) {
+            const exit = document.exitFullscreen || document.webkitExitFullscreen;
+            if (exit) await exit.call(document);
+            return;
+        }
+        const request = exhibit.requestFullscreen || exhibit.webkitRequestFullscreen;
+        if (request) {
+            try {
+                await request.call(exhibit);
+                updateFullscreenButton();
+                return;
+            } catch (error) {
+                // iPhone and restricted browsers can reject element fullscreen.
             }
-        );
+        }
+        setExpandedExhibit(true);
+    }
 
-
+    fullscreenButton.setAttribute('aria-pressed', 'false');
+    fullscreenButton.addEventListener('click', toggleExhibitFullscreen);
+    document.addEventListener('fullscreenchange', updateFullscreenButton);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenButton);
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && exhibit.classList.contains('exhibit-expanded')) {
+            setExpandedExhibit(false);
+        }
+    });
 
     /* =========================================================
        OPEN INFORMATION PANEL
