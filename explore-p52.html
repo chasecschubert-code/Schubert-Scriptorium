@@ -1017,6 +1017,80 @@
 
         }
 
+        /* Match the shared site navigation without changing the manuscript viewer. */
+        header {
+            background-color: #F7F3EA;
+            opacity: 1;
+            padding: 1.5rem 0;
+        }
+        .nav-logo { margin-bottom: 0.35rem; }
+        .nav-tagline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto 1rem;
+            color: #263C38;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .nav-tagline::before,
+        .nav-tagline::after {
+            content: "";
+            height: 1px;
+            background-color: #263C38;
+            flex: 1;
+            max-width: 180px;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        nav a {
+            color: #263C38;
+            transition: color 0.25s ease, border-bottom-color 0.25s ease;
+            border-bottom: 3px solid transparent;
+            padding-bottom: 4px;
+        }
+        nav a:hover,
+        nav a:focus-visible,
+        nav a:active,
+        nav a[aria-current="page"] {
+            color: #B58A35;
+            border-bottom-color: #B58A35;
+        }
+        @media (max-width: 600px) {
+            header { padding: 1.5rem 0; }
+            .nav-logo { font-size: 1.5rem; letter-spacing: 2px; }
+            .nav-tagline {
+                font-size: 0.65rem;
+                letter-spacing: 2px;
+                gap: 8px;
+                padding: 0 1rem;
+                box-sizing: border-box;
+            }
+            .nav-tagline::before,
+            .nav-tagline::after { max-width: 80px; }
+            nav { gap: 0.25rem; }
+            nav a { margin: 0 8px; font-size: 0.75rem; letter-spacing: 1px; }
+        }
+        /* Verso only: proportionally smaller markers; recto remains unchanged. */
+        #versoFace .hotspot {
+            width: 38px;
+            height: 38px;
+            border-width: 3px;
+            font-size: 0.9rem;
+        }
+
     </style>
 </head>
 
@@ -1044,7 +1118,7 @@
             Collection
         </a>
 
-        <a href="explore-p52.html">
+        <a href="explore-p52.html" aria-current="page">
             Explore P52
         </a>
 
