@@ -428,3 +428,63 @@ footer {
         background: linear-gradient(to bottom, var(--hero-beige) 0%, rgba(237, 227, 208, 0) 28%);
     }
 }
+
+/* --- HOMEPAGE BRAND HIGHLIGHTS --- */
+.home-highlights {
+    background: #F7F3EA;
+    padding: 2rem 1.5rem;
+}
+.home-highlights-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.home-highlight {
+    min-width: 0;
+    padding: 0.3rem 1.25rem;
+    text-align: center;
+}
+.home-highlight + .home-highlight {
+    border-left: 1px solid rgba(181, 138, 53, 0.25);
+}
+.home-highlight-icon {
+    color: var(--gold);
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 0.55rem;
+}
+.home-highlight-icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.home-highlight h2 {
+    font-family: 'Lato', sans-serif;
+    color: #7B714F;
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    margin: 0 0 0.3rem;
+}
+.home-highlight p {
+    color: #66716F;
+    font-size: 0.86rem;
+    line-height: 1.5;
+    margin: 0;
+}
+.home-highlights + footer { margin-top: 0; }
+body:has(.home-highlights) footer { margin-top: 0; }
+@media (max-width: 850px) {
+    .home-highlights-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.5rem; }
+    .home-highlight:nth-child(3) { border-left: 0; }
+}
+@media (max-width: 480px) {
+    .home-highlights { padding: 1.7rem 1rem; }
+    .home-highlight { padding: 0.4rem 0.55rem; }
+    .home-highlight-icon { width: 38px; height: 38px; }
+    .home-highlight h2 { font-size: 0.7rem; letter-spacing: 0.07em; }
+    .home-highlight p { font-size: 0.78rem; }
+}
