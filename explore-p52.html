@@ -1091,6 +1091,47 @@
             font-size: 0.9rem;
         }
 
+
+        /* Light branded exhibit and readable information panels. */
+        body { background-color: #E6D8BD; color: #34312B; }
+        .eyebrow, .instruction, .panel-number { color: #6D603E; }
+        .page-title, .explore-section h2, .fact-card h3 { color: #8D6828; }
+        .subtitle, .explore-section p, .fact-card p { color: #34312B; }
+        .viewer-shell { background: #F7F3EA; border-color: #B58A35; box-shadow: 0 12px 35px rgba(52,49,43,.16); }
+        .viewer-stage { height: min(58vh, 550px); min-height: 360px; background: radial-gradient(circle, #F7F3EA 0%, #EDE3D0 70%, #E6D8BD 100%); }
+        .viewer-toolbar { background: #263C38; border-bottom-color: #B58A35; }
+        .viewer-toolbar button { color: #F7F3EA; border-color: #B58A35; }
+        .viewer-label, .zoom-indicator { background: #263C38; color: #F7F3EA; }
+        .info-panel { background: #F7F3EA; border-color: #B58A35; box-shadow: 0 12px 30px rgba(52,49,43,.2); }
+        .info-panel h2, .greek { color: #8D6828; }
+        .info-panel p { color: #34312B; }
+        .close-panel { color: #263C38; background: #EDE3D0; border-color: #B58A35; }
+        .panel-backdrop { background: transparent; }
+        .fact-card { background: #F7F3EA; color: #34312B; }
+        footer { background: #F7F3EA; }
+        /* Keep the selected manuscript area clear by placing panels outside the stage. */
+        .viewer-stage:has(.info-panel.open) { overflow: visible; }
+        .info-panel.open {
+            position: absolute;
+            left: calc(100% + 12px);
+            top: 0;
+            transform: none;
+            width: min(340px, 35vw);
+            max-height: 100%;
+        }
+        @media (max-width: 1100px) {
+            .viewer-stage:has(.info-panel.open) { margin-bottom: 300px; }
+            .info-panel.open {
+                left: 0;
+                top: calc(100% + 12px);
+                width: 100%;
+                max-height: 285px;
+            }
+        }
+        @media (max-width: 600px) {
+            .viewer-stage { height: 52vh; min-height: 320px; }
+        }
+
     </style>
 </head>
 
@@ -2458,7 +2499,7 @@
             scale(${scale})`;
 
         zoomIndicator.textContent =
-            Math.round(scale * 50) + '%';
+            Math.round(scale * 100) + '%';
 
     }
 
@@ -2470,7 +2511,9 @@
 
     function resetView() {
 
-        scale = 0.5;
+        const naturalWidth = image.naturalWidth || image.width || 1;
+        const naturalHeight = image.naturalHeight || image.height || 1;
+        scale = Math.min((stage.clientWidth - 60) / naturalWidth, (stage.clientHeight - 70) / naturalHeight, 1);
 
         x = 0;
 
