@@ -1,4 +1,3 @@
-```css
 /* --- SCHUBERT SCRIPTORIUM: MUSEUM DISPLAY THEME --- */
 
 :root {
@@ -89,13 +88,15 @@ nav a {
     text-transform: uppercase;
     font-size: 0.9rem;
     letter-spacing: 2px;
-    transition: color 0.3s ease;
-    border-bottom: 1px solid transparent;
+    transition: color 0.25s ease, border-bottom-color 0.25s ease;
+    border-bottom: 3px solid transparent;
     padding-bottom: 4px;
 }
 
 nav a:hover,
-nav a:focus-visible {
+nav a:focus-visible,
+nav a:active,
+nav a[aria-current="page"] {
     color: var(--gold);
     border-bottom-color: var(--gold);
 }
@@ -292,4 +293,138 @@ footer {
         letter-spacing: 1px;
     }
 }
-```
+
+/* --- HOMEPAGE: EDITORIAL SPLIT HERO --- */
+/* Scoped to the homepage, so collection and other pages stay unchanged. */
+.home-hero {
+    --hero-beige: #EDE3D0;
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 47%) minmax(0, 53%);
+    align-items: stretch;
+    min-height: 470px;
+    overflow: hidden;
+    text-align: left;
+    background: var(--hero-beige);
+}
+
+.home-hero-content {
+    position: relative;
+    z-index: 2;
+    align-self: center;
+    padding: 3.75rem max(2rem, calc((100vw - 1220px) / 2)) 3.75rem max(2rem, calc((100vw - 1220px) / 2));
+    padding-right: 1rem;
+    max-width: 600px;
+}
+
+.home-hero-eyebrow {
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin: 0 0 0.85rem;
+}
+
+.home-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4.1vw, 4.25rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--forest-green);
+    margin: 0 0 1.25rem;
+}
+
+.home-hero-description {
+    max-width: 470px;
+    margin: 0 0 1.7rem;
+    font-size: clamp(1rem, 1.3vw, 1.2rem);
+    line-height: 1.65;
+    color: #4A5752;
+}
+
+.home-hero-button {
+    display: inline-flex;
+    gap: 0.9rem;
+    align-items: center;
+    justify-content: center;
+    background: var(--gold);
+    color: #fff;
+    font-size: 0.85rem;
+    letter-spacing: 0.09em;
+    padding: 0.9rem 1.65rem;
+}
+
+.home-hero-button:hover,
+.home-hero-button:focus-visible {
+    background: var(--forest-green);
+    color: #fff;
+}
+
+.home-hero-visual {
+    position: relative;
+    min-width: 0;
+    min-height: 470px;
+    overflow: hidden;
+}
+
+.home-hero-photo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 470px;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Crossfade the image softly into the beige text panel. */
+.home-hero-visual::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(to right, var(--hero-beige) 0%, rgba(237, 227, 208, 0.76) 9%, rgba(237, 227, 208, 0.2) 23%, rgba(237, 227, 208, 0) 42%);
+}
+
+@media (max-width: 900px) {
+    .home-hero {
+        grid-template-columns: minmax(0, 50%) minmax(0, 50%);
+    }
+    .home-hero-content {
+        padding: 3rem 1rem 3rem 2rem;
+    }
+    .home-hero h1 {
+        font-size: clamp(2rem, 4.2vw, 3.2rem);
+    }
+}
+
+@media (max-width: 680px) {
+    .home-hero {
+        display: flex;
+        flex-direction: column;
+        min-height: auto;
+    }
+    .home-hero-content {
+        align-self: stretch;
+        max-width: none;
+        padding: 3rem 1.5rem 2.25rem;
+    }
+    .home-hero h1 {
+        font-size: clamp(2.3rem, 9vw, 3.2rem);
+    }
+    .home-hero-visual,
+    .home-hero-photo {
+        min-height: 0;
+        height: auto;
+    }
+    .home-hero-photo {
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+    }
+    .home-hero-visual::before {
+        background: linear-gradient(to bottom, var(--hero-beige) 0%, rgba(237, 227, 208, 0) 28%);
+    }
+}
