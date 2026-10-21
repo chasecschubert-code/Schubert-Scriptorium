@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Schubert Scriptorium</title>
-        <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header>
     <div class="nav-logo">SCHUBERT SCRIPTORIUM</div>
     <div class="nav-tagline">A Witness to the Truth</div>
-    <nav>
-        <a href="index.html">Home</a>
+    <nav aria-label="Main navigation">
+        <a href="index.html" aria-current="page">Home</a>
         <a href="collection.html">Collection</a>
         <a href="explore-p52.html">Explore P52</a>
         <a href="photos.html">Photos</a>
@@ -22,12 +22,19 @@
     </nav>
 </header>
 
-<div class="container">
-    <h1>Handcrafted Biblical Manuscript Facsimiles</h1>
-    <p style="max-width:700px; margin: 2rem auto; color:var(--tan);">Discover the Earliest Witness to the Gospel.</p>
-    <img src="p52-hero.png" class="hero-image" alt="P52 Facsimile">
-    <a href="collection.html" class="btn">Explore the Collection</a>
-</div>
+<main>
+    <section class="home-hero" aria-labelledby="home-hero-title">
+        <div class="home-hero-content">
+            <p class="home-hero-eyebrow">Ancient Texts. Eternal Truth.</p>
+            <h1 id="home-hero-title">Biblical Manuscript Facsimiles</h1>
+            <p class="home-hero-description">Handcrafted replicas of early New Testament manuscripts, created to bring you closer to the original words of Scripture.</p>
+            <a href="collection.html" class="btn home-hero-button">Explore the Collection <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        <div class="home-hero-visual">
+            <img src="p52-hero.png" alt="Handcrafted Papyrus 52 biblical manuscript facsimile" class="home-hero-photo">
+        </div>
+    </section>
+</main>
 
 <footer>
     <div class="footer-brand">Schubert Scriptorium</div>
