@@ -1109,29 +1109,11 @@
         .panel-backdrop { background: transparent; }
         .fact-card { background: #F7F3EA; color: #34312B; }
         footer { background: #F7F3EA; }
-        /* Keep the selected manuscript area clear by placing panels outside the stage. */
-        .viewer-stage:has(.info-panel.open) { overflow: visible; }
-        .info-panel.open {
-            position: absolute;
-            left: calc(100% + 12px);
-            top: 0;
-            transform: none;
-            width: min(340px, 35vw);
-            max-height: 100%;
-        }
-        @media (max-width: 1100px) {
-            .viewer-stage:has(.info-panel.open) { margin-bottom: 300px; }
-            .info-panel.open {
-                left: 0;
-                top: calc(100% + 12px);
-                width: 100%;
-                max-height: 285px;
-            }
-        }
-        @media (max-width: 600px) {
-            .viewer-stage { height: 52vh; min-height: 320px; }
-        }
-
+        /* Floating information panels stay inside the exhibit, including fullscreen. */
+        .viewer-stage:has(.info-panel.open) { overflow: hidden; margin-bottom: 0; }
+        .info-panel.open { position: absolute; left: 12px; top: 12px; transform: none; width: min(420px, calc(100% - 24px)); max-height: calc(100% - 24px); overflow-y: auto; }
+        .panel-backdrop.open { background: transparent; }
+        @media (max-width: 600px) { .info-panel.open { padding: 1.25rem; } }
     </style>
 </head>
 
@@ -2498,6 +2480,8 @@
             )
             scale(${scale})`;
 
+        positionActivePanel();
+
         zoomIndicator.textContent =
             Math.round(scale * 100) + '%';
 
@@ -2793,6 +2777,33 @@
        OPEN INFORMATION PANEL
        ========================================================= */
 
+    let activeHotspot = null;
+    let activePanel = null;
+    function positionActivePanel() {
+        if (!activeHotspot || !activePanel || !activePanel.classList.contains('open')) return;
+        const stageRect = stage.getBoundingClientRect();
+        const spotRect = activeHotspot.getBoundingClientRect();
+        const margin = 12;
+        const lineY = (spotRect.top + spotRect.bottom) / 2 - stageRect.top;
+        const protectedTop = Math.max(0, lineY - spotRect.height / 2 - 30);
+        const protectedBottom = Math.min(stageRect.height, lineY + spotRect.height / 2 + 30);
+        const above = Math.max(0, protectedTop - margin);
+        const below = Math.max(0, stageRect.height - protectedBottom - margin);
+        const useAbove = above >= below;
+        const available = useAbove ? above : below;
+        activePanel.style.left = margin + 'px';
+        activePanel.style.width = Math.max(0, Math.min(420, stageRect.width - 2 * margin)) + 'px';
+        activePanel.style.maxHeight = Math.max(0, available) + 'px';
+        activePanel.style.top = (useAbove ? margin : protectedBottom) + 'px';
+        if (available < 85) {
+            const fallbackHeight = Math.max(60, Math.min(160, stageRect.height * .3));
+            activePanel.style.maxHeight = fallbackHeight + 'px';
+            activePanel.style.top = (useAbove ? margin : Math.max(margin, stageRect.height - margin - fallbackHeight)) + 'px';
+        }
+    }
+    window.addEventListener('resize', positionActivePanel);
+    document.addEventListener('fullscreenchange', () => requestAnimationFrame(positionActivePanel));
+
     document
         .querySelectorAll('.hotspot')
         .forEach(
@@ -2829,6 +2840,9 @@
                             panel.classList.add(
                                 'open'
                             );
+                            activeHotspot = hotspot;
+                            activePanel = panel;
+                            positionActivePanel();
 
                             panelBackdrop.classList.add(
                                 'open'
@@ -2888,6 +2902,8 @@
         panelBackdrop.classList.remove(
             'open'
         );
+        activeHotspot = null;
+        activePanel = null;
 
     }
 
