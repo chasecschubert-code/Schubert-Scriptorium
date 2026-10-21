@@ -1114,6 +1114,12 @@
         .info-panel.open { position: absolute; left: 12px; top: 12px; transform: none; width: min(420px, calc(100% - 24px)); max-height: calc(100% - 24px); overflow-y: auto; }
         .panel-backdrop.open { background: transparent; }
         @media (max-width: 600px) { .info-panel.open { padding: 1.25rem; } }
+        /* Reconstructed letters stay readable while surviving ink retains the exhibit gold. */
+        .info-panel h2 .greek-restored,
+        .info-panel h2.greek-context,
+        .info-panel .greek-key .greek-restored { color: #77736B; }
+        .info-panel .greek-key { color: #625E56; font-size: 0.72rem; line-height: 1.5; margin: 0 0 0.9rem; }
+        .greek-surviving-key { color: #8D6828; }
     </style>
 </head>
 
@@ -1585,9 +1591,10 @@
                 </div>
 
 
-                  <h2 id="panel1-title">
-                    “… ΟΙ ΙΟΥΔΑΙΟI ΗΜEIN …”
+                  <h2 id="panel1-title" lang="grc" class="manuscript-transcription">
+                    “… ΟΙ ΙΟΥΔΑΙ<span class="greek-restored">Ο</span>I ΗΜE<span class="greek-restored">IN</span> …”
                 </h2>
+                <p class="greek-key"><span class="greek-surviving-key">Gold</span> = surviving letters · <span class="greek-restored">Gray</span> = reconstructed letters</p>
 
                 <p>
                     “… οἱ Ἰουδαῖοι ἡμῖν …”
@@ -1628,9 +1635,10 @@
                     Line 02 • JOHN 18:31-32 Transition
                 </div>
 
-                <h2 id="panel2-title">
-                    “… ΟΥΔΕΝΑ ΙΝΑ Ο ΛΟΓΟΣ …”
+                <h2 id="panel2-title" lang="grc" class="manuscript-transcription">
+                    “… ΟΥΔΕΝΑ ΙΝΑ Ο Λ<span class="greek-restored">ΟΓΟΣ</span> …”
                 </h2>
+                <p class="greek-key"><span class="greek-surviving-key">Gold</span> = surviving letters · <span class="greek-restored">Gray</span> = reconstructed letters</p>
                 
       
                 <p>
@@ -1672,9 +1680,10 @@
                 </div>
 
 
-                <h2 id="panel3-title">
-                    “… ΕΙΠΕΝ ΣΗΜΑΙΝΩΝ …” 
+                <h2 id="panel3-title" lang="grc" class="manuscript-transcription">
+                    “… <span class="greek-restored">ΕΙ</span>ΠΕΝ ΣΗΜΑΙΝΩ<span class="greek-restored">Ν</span> …”
                 </h2>
+                <p class="greek-key"><span class="greek-surviving-key">Gold</span> = surviving letters · <span class="greek-restored">Gray</span> = reconstructed letters</p>
 
 
                 <p>
@@ -1716,9 +1725,10 @@
                 </div>
 
 
-                <h2 id="panel4-title">
-                    “… ΑΠΟΘΝΗΣΚΕΙΝ ΙΣΗΛΘΕΝ …”
+                <h2 id="panel4-title" lang="grc" class="manuscript-transcription">
+                    “… <span class="greek-restored">ΑΠΟ</span>ΘΝΗΣΚΕΙΝ ΙΣ<span class="greek-restored">ΗΛΘΕΝ</span> …”
                 </h2>
+                <p class="greek-key"><span class="greek-surviving-key">Gold</span> = surviving letters · <span class="greek-restored">Gray</span> = reconstructed letters</p>
 
 
                 <p>
@@ -1760,9 +1770,10 @@
                 </div>
 
 
-                <h2 id="panel5-title">
-                    “… ΠΡΑΙΤΩΡΙΟΝ Ο ΠΙΛΑΤΟΣ …”
+                <h2 id="panel5-title" lang="grc" class="manuscript-transcription">
+                    “… <span class="greek-restored">ΠΡΑΙΤΩ</span>ΡΙΟΝ Ο Π<span class="greek-restored">ΙΛΑΤΟΣ</span> …”
                 </h2>
+                <p class="greek-key"><span class="greek-surviving-key">Gold</span> = surviving letters · <span class="greek-restored">Gray</span> = reconstructed letters</p>
 
 
                 <p>
@@ -1804,9 +1815,10 @@
                 </div>
 
 
-                <h2 id="panel6-title">
-                    “… ΚΑΙ ΕΙΠΕΝ …”
+                <h2 id="panel6-title" lang="grc" class="manuscript-transcription">
+                    “… ΚΑΙ ΕΙΠ<span class="greek-restored">ΕΝ</span> …”
                 </h2>
+                <p class="greek-key"><span class="greek-surviving-key">Gold</span> = surviving letters · <span class="greek-restored">Gray</span> = reconstructed letters</p>
 
 
                 <p>
@@ -1847,9 +1859,10 @@
                 </div>
 
 
-                <h2 id="panel7-title">
-                    “… ΙΟΥΔΑΙΩΝ ”
+                <h2 id="panel7-title" lang="grc" class="manuscript-transcription">
+                    “… <span class="greek-restored">ΙΟΥΔ</span>ΑΙΩ<span class="greek-restored">Ν</span> ”
                 </h2>
+                <p class="greek-key"><span class="greek-surviving-key">Gold</span> = surviving letters · <span class="greek-restored">Gray</span> = reconstructed letters</p>
 
 
                 <p>
@@ -1890,7 +1903,7 @@
 
 
                 <h2 id="panelC-title">
-                    Lambda (Λ/λ)
+                    <span class="greek-restored">Lambda (</span>Λ<span class="greek-restored">/λ)</span>
                 </h2>
 
 
@@ -1898,7 +1911,7 @@
                   Look closely at the Λ (lambda) here, beginning the word λόγος (logos). In the context of this passage, λόγος refers to the words Jesus previously spoke (Matthew 20:18-19) prophesying of His future death.
                 <p>
                   But, here, we are also invited to recall the first time John wrote λόγος , at the beginning of his εὐαγγέλιον (gospel) in John 1:1 –
-                <h2 id="panel7-title">
+                <h2 id="logos-quotation" lang="grc" class="greek-context">
                   “Ἐν ἀρχῇ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν πρὸς τὸν θεόν, καὶ θεὸς ἦν ὁ λόγος.”
                 </h2>
                 <div class="eyebrow">  
@@ -1941,9 +1954,10 @@
                     LINE 01 • JOHN 18:37
                 </div>
 
-                <h2 id="versoPanel1-title">
-                    "...ΤΟΥΤΟ ΓΕΓΕΝΝΗΜΑΙ..."
+                <h2 id="versoPanel1-title" lang="grc" class="manuscript-transcription">
+                    "...<span class="greek-restored">ΤΟ</span>ΥΤΟ Γ<span class="greek-restored">Ε</span>ΓΕΝΝΗΜΑΙ..."
                 </h2>
+                <p class="greek-key"><span class="greek-surviving-key">Gold</span> = surviving letters · <span class="greek-restored">Gray</span> = reconstructed letters</p>
            
                 <p>
                     “...τοῦτο γεγέννημαι...”
@@ -1977,9 +1991,10 @@
                     LINE 02 • JOHN 18:37
                 </div>
 
-                <h2 id="versoPanel2-title">
-                    "...ΚΟΣΜΟΝ ΙΝΑ ΜΑΡΤΥΡΗΣΩ..."
+                <h2 id="versoPanel2-title" lang="grc" class="manuscript-transcription">
+                    "...<span class="greek-restored">ΚΟ</span>ΣΜΟΝ ΙΝΑ ΜΑΡΤΥ<span class="greek-restored">ΡΗΣΩ</span>..."
                 </h2>
+                <p class="greek-key"><span class="greek-surviving-key">Gold</span> = surviving letters · <span class="greek-restored">Gray</span> = reconstructed letters</p>
            
                 <p>
                     “...Κόσμον ἵνα μαρτυρήσω...”
@@ -2013,9 +2028,10 @@
                     LINE 03 • JOHN 18:37
                 </div>
 
-                <h2 id="versoPanel3-title">
-                    "...ΕΚ ΤΗΣ ΑΛΗΘΕΙΑΣ..."
+                <h2 id="versoPanel3-title" lang="grc" class="manuscript-transcription">
+                    "...ΕΚ ΤΗΣ ΑΛΗΘΕ<span class="greek-restored">ΙΑΣ</span>..."
                 </h2>
+                <p class="greek-key"><span class="greek-surviving-key">Gold</span> = surviving letters · <span class="greek-restored">Gray</span> = reconstructed letters</p>
            
                 <p>
                     “...ἐκ τῆς ἀληθείας...”
@@ -2049,9 +2065,10 @@
                     LINE 04 • JOHN 18:38
                 </div>
 
-                <h2 id="versoPanel4-title">
+                <h2 id="versoPanel4-title" lang="grc" class="manuscript-transcription">
                     "ΛΕΓΕΙ ΑΥΤΩ..."
                 </h2>
+                <p class="greek-key"><span class="greek-surviving-key">Gold</span> = surviving letters · <span class="greek-restored">Gray</span> = reconstructed letters</p>
            
                 <p>
                     “Λέγει αὐτῷ...”
@@ -2084,9 +2101,10 @@
                     LINE 05 • JOHN 18:38
                 </div>
 
-                <h2 id="versoPanel5-title">
+                <h2 id="versoPanel5-title" lang="grc" class="manuscript-transcription">
                     "...ΚΑΙ ΤΟΥΤΟ..."
                 </h2>
+                <p class="greek-key"><span class="greek-surviving-key">Gold</span> = surviving letters · <span class="greek-restored">Gray</span> = reconstructed letters</p>
            
                 <p>
                     “...kαὶ τοῦτο...”
@@ -2120,9 +2138,10 @@
                     LINE 06 • JOHN 18:38
                 </div>
 
-                <h2 id="versoPanel6-title">
-                    "...ΤΟΥΣ ΙΟΥΔΑΙΟΥΣ..."
+                <h2 id="versoPanel6-title" lang="grc" class="manuscript-transcription">
+                    "...ΤΟΥΣ ΙΟ<span class="greek-restored">ΥΔΑΙΟΥΣ</span>..."
                 </h2>
+                <p class="greek-key"><span class="greek-surviving-key">Gold</span> = surviving letters · <span class="greek-restored">Gray</span> = reconstructed letters</p>
            
                 <p>
                     “...τοὺς Ἰουδαίους...”
@@ -2155,9 +2174,10 @@
                     LINE 07 • JOHN 18:38
                 </div>
 
-                <h2 id="versoPanel7-title">
-                    "...ΟΥΔΕΜΙΑΝ..."
+                <h2 id="versoPanel7-title" lang="grc" class="manuscript-transcription">
+                    "...<span class="greek-restored">ΟΥΔ</span>ΕΜΙ<span class="greek-restored">ΑΝ</span>..."
                 </h2>
+                <p class="greek-key"><span class="greek-surviving-key">Gold</span> = surviving letters · <span class="greek-restored">Gray</span> = reconstructed letters</p>
            
                 <p>
                     “...οὐδεμίαν...”
