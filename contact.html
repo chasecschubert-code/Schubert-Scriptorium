@@ -6,34 +6,22 @@
     <title>Inquire | Schubert Scriptorium</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Background image for Inquire page */
-        body {
-            background-image: url('p52-hero.png');
-            background-size: 120%;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            position: relative;
-        }
-
-        /* Overlay to reduce image opacity without affecting text */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(26, 26, 26, 0.85);
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        /* Ensure form container stays prominent */
-        .form-container {
-            position: relative;
-            z-index: 1;
-        }
+        /* Inquire page: branded, high-contrast presentation only. */
+        body { background: linear-gradient(180deg,#F7F3EA 0%,#EDE3D0 100%); color:#34312B; }
+        body::before { content:none; }
+        .container { max-width: 900px; padding: 3rem 1.25rem 1rem; }
+        .container h1 { font-family:'Playfair Display',serif; color:#8D6828; font-size:clamp(2rem,4vw,2.8rem); line-height:1.25; margin:0 0 1.8rem; }
+        .form-container { position:relative; z-index:1; max-width:650px; background:#FDFBF6; border:1px solid #B58A35; border-radius:6px; box-shadow:0 14px 35px rgba(38,60,56,.12); padding:clamp(1.25rem,4vw,2.75rem); }
+        .form-row { text-align:left; margin-bottom:1.4rem; }
+        .form-row label { display:block; color:#263C38; font-weight:700; letter-spacing:.08em; font-size:.83rem; margin-bottom:.45rem; }
+        .form-row input,.form-row select,.form-row textarea { display:block; box-sizing:border-box; width:100%; background:#FFFFFF; color:#263C38; border:1px solid #AFA48F; border-radius:4px; text-align:left; padding:.85rem 1rem; font-size:1rem; line-height:1.45; }
+        .form-row select option { background:#FFFFFF; color:#263C38; }
+        .form-row input:focus-visible,.form-row select:focus-visible,.form-row textarea:focus-visible { outline:2px solid #B58A35; outline-offset:2px; border-color:#8D6828; }
+        .form-container .btn { background:#263C38; color:#F7F3EA; border:1px solid #263C38; border-radius:4px; padding:.95rem 1rem; font-size:.9rem; letter-spacing:.08em; }
+        .form-container .btn:hover,.form-container .btn:focus-visible { background:#34564F; color:#FFFFFF; }
+        footer { margin-top:3rem; }
+        footer p { color:#34312B; }
+        @media(max-width:600px) { .container { padding:2rem 1rem 0; } .form-container { padding:1.4rem 1rem; } }
     </style>
 </head>
 <body>
