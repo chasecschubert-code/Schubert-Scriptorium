@@ -1167,6 +1167,13 @@
             object-fit: contain;
             object-position: center;
         }
+
+        /* Center the line panels; size long Greek headings to one complete line. */
+        .info-panel { text-align: center; }
+        .info-panel h2.manuscript-transcription {
+            white-space: nowrap;
+            max-width: 100%;
+        }
     </style>
 </head>
 
@@ -2876,6 +2883,19 @@
 
     let activeHotspot = null;
     let activePanel = null;
+    function fitTranscriptionTitle(panel) {
+        const title = panel.querySelector('h2.manuscript-transcription');
+        if (!title) return;
+        // Re-measure from the normal size so resizing can also grow the title back.
+        title.style.removeProperty('font-size');
+        const available = title.clientWidth;
+        if (!available) return;
+        const preferred = parseFloat(getComputedStyle(title).fontSize);
+        if (title.scrollWidth > available) {
+            title.style.fontSize = (preferred * available / title.scrollWidth * 0.98) + 'px';
+        }
+    }
+
     function positionActivePanel() {
         if (!activeHotspot || !activePanel || !activePanel.classList.contains('open')) return;
         const stageRect = stage.getBoundingClientRect();
@@ -2897,6 +2917,7 @@
             activePanel.style.maxHeight = fallbackHeight + 'px';
             activePanel.style.top = (useAbove ? margin : Math.max(margin, stageRect.height - margin - fallbackHeight)) + 'px';
         }
+        fitTranscriptionTitle(activePanel);
     }
     window.addEventListener('resize', positionActivePanel);
     document.addEventListener('fullscreenchange', () => requestAnimationFrame(positionActivePanel));
