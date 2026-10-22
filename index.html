@@ -59,7 +59,95 @@
             </div>
         </div>
     </section>
+    <section class="home-timeline" aria-labelledby="home-timeline-title">
+        <div class="home-timeline-inner">
+            <p class="home-timeline-eyebrow">From John's hand to yours</p>
+            <h2 id="home-timeline-title">A small fragment. An extraordinary journey.</h2>
+            <p class="home-timeline-hint" id="home-timeline-hint">Swipe to follow the story &rarr;</p>
+            <div class="home-timeline-scroll" tabindex="0" role="region" aria-label="Papyrus 52 timeline, scroll horizontally" aria-describedby="home-timeline-hint">
+                <ol class="home-timeline-track">
+                    <li class="home-timeline-stop">
+                        <p class="home-timeline-date">c. 90 AD</p>
+                        <span class="home-timeline-point" aria-hidden="true"></span>
+                        <h3>The Gospel is written</h3>
+                        <p class="home-timeline-description">John writes his record of the life of Jesus—the last of the four Gospels.</p>
+                    </li>
+                    <li class="home-timeline-stop">
+                        <p class="home-timeline-date">c. 125 AD</p>
+                        <span class="home-timeline-point" aria-hidden="true"></span>
+                        <h3>A witness in ink</h3>
+                        <p class="home-timeline-description">John's Gospel is copied and spreads rapidly, reaching Egypt within just a few decades. P52 preserves a fragment of that story.</p>
+                    </li>
+                    <li class="home-timeline-stop">
+                        <p class="home-timeline-date">1920</p>
+                        <span class="home-timeline-point" aria-hidden="true"></span>
+                        <h3>From Egypt to Manchester</h3>
+                        <p class="home-timeline-description">Purchased in Egypt for the John Rylands Library, the fragment awaits recognition of its significance.</p>
+                    </li>
+                    <li class="home-timeline-stop">
+                        <p class="home-timeline-date">Today</p>
+                        <span class="home-timeline-point" aria-hidden="true"></span>
+                        <h3>The story within reach</h3>
+                        <p class="home-timeline-description">A handcrafted facsimile brings this ancient witness into your home.</p>
+                    </li>
+                </ol>
+            </div>
+            <div class="home-timeline-controls" hidden>
+                <button type="button" class="home-timeline-prev" aria-label="Previous timeline milestone" disabled>&larr;</button>
+                <span class="home-timeline-position" aria-live="polite" aria-atomic="true">1 of 4</span>
+                <button type="button" class="home-timeline-next" aria-label="Next timeline milestone">&rarr;</button>
+            </div>
+        </div>
+    </section>
 </main>
+
+<script>
+(() => {
+    const timeline = document.querySelector('.home-timeline');
+    const scroller = timeline.querySelector('.home-timeline-scroll');
+    const stops = [...timeline.querySelectorAll('.home-timeline-stop')];
+    const controls = timeline.querySelector('.home-timeline-controls');
+    const previous = timeline.querySelector('.home-timeline-prev');
+    const next = timeline.querySelector('.home-timeline-next');
+    const position = timeline.querySelector('.home-timeline-position');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let current = 0;
+    let pending = false;
+
+    const offset = stop => stop.offsetLeft - stops[0].offsetLeft;
+    function update() {
+        pending = false;
+        const canScroll = scroller.scrollWidth > scroller.clientWidth + 1;
+        controls.hidden = !canScroll;
+        timeline.classList.toggle('is-scrollable', canScroll);
+        scroller.tabIndex = canScroll ? 0 : -1;
+        current = stops.reduce((closest, stop, index) =>
+            Math.abs(offset(stop) - scroller.scrollLeft) < Math.abs(offset(stops[closest]) - scroller.scrollLeft) ? index : closest, 0);
+        previous.disabled = current === 0;
+        next.disabled = current === stops.length - 1;
+        const label = `${current + 1} of ${stops.length}`;
+        if (position.textContent !== label) position.textContent = label;
+    }
+    function move(index) {
+        const target = Math.max(0, Math.min(stops.length - 1, index));
+        scroller.scrollTo({ left: offset(stops[target]), behavior: reducedMotion.matches ? 'auto' : 'smooth' });
+    }
+    previous.addEventListener('click', () => move(current - 1));
+    next.addEventListener('click', () => move(current + 1));
+    scroller.addEventListener('keydown', event => {
+        if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+            event.preventDefault();
+            move(current + (event.key === 'ArrowRight' ? 1 : -1));
+        }
+    });
+    scroller.addEventListener('scroll', () => {
+        if (!pending) { pending = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    if ('ResizeObserver' in window) new ResizeObserver(update).observe(scroller);
+    update();
+})();
+</script>
 
 <footer>
     <div class="footer-brand">Schubert Scriptorium</div>
@@ -69,3 +157,4 @@
 
 </body>
 </html>
+
