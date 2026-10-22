@@ -1186,6 +1186,31 @@
             white-space: nowrap;
             max-width: 100%;
         }
+
+        /* Compact introductory section and responsive flip cards. */
+        main.container { padding-top: 1.25rem; }
+        main.container > .explore-section:first-child { max-width: 1180px; margin: 0 auto 3.5rem; }
+        main.container > .explore-section:first-child h2 { margin: 0 0 0.5rem; }
+        main.container > .explore-section:first-child > p { max-width: 840px; margin: 0 auto 1.35rem; }
+        .flip-grid { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+        .flip-card { position: relative; height: 205px; padding: 0; perspective: 1100px; cursor: pointer; background: transparent; border: 0; outline-offset: 4px; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .65s ease; }
+        .flip-card:hover .flip-card-inner, .flip-card:focus-visible .flip-card-inner, .flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-face { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; padding: 1.1rem; border: 1px solid rgba(181,138,53,.45); background: #F7F3EA; backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow-y: auto; }
+        .flip-front h3 { margin: 0; font-size: 1.35rem; }
+        .flip-back { transform: rotateY(180deg); background: #EDE3D0; }
+        .flip-back p { font-size: .83rem; line-height: 1.45; color: #34312B; margin: 0; }
+        main.container > .explore-section:first-child + .eyebrow { margin-top: 0; }
+        .cta p, .explore-section .cta p { color: #EDE3D0; }
+        @media (max-width: 700px) {
+            main.container { padding-top: 1rem; }
+            main.container > .explore-section:first-child { margin-bottom: 3rem; }
+            .flip-grid { grid-template-columns: 1fr; gap: .9rem; }
+            .flip-card { height: 175px; }
+            .flip-back p { font-size: .84rem; }
+        }
+        @media (prefers-reduced-motion: reduce) { .flip-card-inner { transition: none; } }
+
     </style>
 </head>
 
@@ -1267,70 +1292,37 @@
 
 
 
-        <div class="fact-grid">
-
-
-            <div class="fact-card">
-
-                <h3>
-                    "What is Truth?"
-                </h3>
-
-                <p>
-
-                    The surviving text on the fragment comes from John 18, verses 31-33 and 37-38,
+        <div class="fact-grid flip-grid">
+            <div class="fact-card flip-card" tabindex="0" role="button" aria-label="What is Truth?: flip to read details" aria-pressed="false">
+                <div class="flip-card-inner">
+                    <div class="flip-face flip-front"><h3>"What is Truth?"</h3></div>
+                    <div class="flip-face flip-back"><p>The surviving text on the fragment comes from John 18, verses 31-33 and 37-38,
                     detailing the account of Jesus on trial
                     before Pilate, hours before His crucifixion. The folio (page) that P52 was originally part of would have included
-                    Pilate's timeless question "What is truth?" to the One who is the Way, the life, and the Truth (John 14:6).
-
-                </p>
-
+                    Pilate's timeless question "What is truth?" to the One who is the Way, the life, and the Truth (John 14:6).</p></div>
+                </div>
             </div>
-
-
-
-            <div class="fact-card">
-
-                <h3>
-                    Ancient Greek
-                </h3>
-
-                <p>
-
-                    The fragment preserves New Testament text
+            <div class="fact-card flip-card" tabindex="0" role="button" aria-label="Ancient Greek: flip to read details" aria-pressed="false">
+                <div class="flip-card-inner">
+                    <div class="flip-face flip-front"><h3>Ancient Greek</h3></div>
+                    <div class="flip-face flip-back"><p>The fragment preserves New Testament text
                     in 1st Century Koine Greek as part of the
                     Alexandrian-text type, or transmission family, of manuscripts.
                     It is also written in uncial, or upper-case, Greek, which 
                     was a feature of the earliest Christian scribes, before
-                    they moved to minuscule script (similar to lower case and cursive) centuries later.
-
-                </p>
-
+                    they moved to minuscule script (similar to lower case and cursive) centuries later.</p></div>
+                </div>
             </div>
-
-
-
-            <div class="fact-card">
-
-                <h3>
-                    Codex Evidence
-                </h3>
-
-                <p>
-
-                    Papyrus 52 (P52) attests to the early Christian affinity for the codex (book), 
+            <div class="fact-card flip-card" tabindex="0" role="button" aria-label="Codex Evidence: flip to read details" aria-pressed="false">
+                <div class="flip-card-inner">
+                    <div class="flip-face flip-front"><h3>Codex Evidence</h3></div>
+                    <div class="flip-face flip-back"><p>Papyrus 52 (P52) attests to the early Christian affinity for the codex (book), 
                     as writing on both sides indicates it came from a codex rather than a scroll. 
                     This compact format was especially suited to Christians carrying, copying, 
-                    and sharing the Scriptures as they fullfilled the Great Commission (Matthew 28:19-20).
-
-                </p>
-
+                    and sharing the Scriptures as they fullfilled the Great Commission (Matthew 28:19-20).</p></div>
+                </div>
             </div>
-
-
         </div>
-
-
 
     </section>
 
@@ -3086,5 +3078,46 @@
 </script>
 
 
+
+<script>
+/* Desktop hover is CSS-driven; mobile cards flip as they pass through the viewport. */
+(() => {
+    const cards = [...document.querySelectorAll('.flip-card')];
+    const mobile = window.matchMedia('(max-width: 700px) and (hover: none)');
+    let observer;
+    function setup() {
+        if (observer) observer.disconnect();
+        cards.forEach(card => { card.classList.remove('is-flipped'); card.setAttribute('aria-pressed', 'false'); });
+        if (!mobile.matches || !('IntersectionObserver' in window)) return;
+        observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                const card = entry.target;
+                const rect = entry.boundingClientRect;
+                const active = entry.isIntersecting && rect.top > window.innerHeight * .12 && rect.top < window.innerHeight * .72;
+                card.classList.toggle('is-flipped', active);
+                card.setAttribute('aria-pressed', String(active));
+            });
+        }, { threshold: [0, .1, .5, 1], rootMargin: '-12% 0px -28% 0px' });
+        cards.forEach(card => observer.observe(card));
+    }
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            if (!mobile.matches) return;
+            const value = !card.classList.contains('is-flipped');
+            card.classList.toggle('is-flipped', value);
+            card.setAttribute('aria-pressed', String(value));
+        });
+        card.addEventListener('keydown', e => {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            e.preventDefault();
+            const value = !card.classList.contains('is-flipped');
+            card.classList.toggle('is-flipped', value);
+            card.setAttribute('aria-pressed', String(value));
+        });
+    });
+    mobile.addEventListener('change', setup);
+    setup();
+})();
+</script>
 </body>
 </html>
