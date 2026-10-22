@@ -630,3 +630,9 @@ body:has(.home-highlights) footer { margin-top: 0; }
 @media (prefers-reduced-motion: reduce) {
     .home-timeline-scroll { scroll-behavior: auto; }
 }
+
+/* Compact footer across all pages: preserve existing text and branding. */
+footer { padding: 1.5rem 1rem 1.65rem; margin-top: 2rem; }
+footer .footer-brand { margin-top: 0; margin-bottom: .25rem; line-height: 1.35; }
+footer p { margin: .3rem 0; line-height: 1.45; }
+body:has(.home-highlights) footer { margin-top: 0; }
