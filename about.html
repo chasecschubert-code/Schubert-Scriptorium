@@ -5,6 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | Schubert Scriptorium</title>
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* About-page story text only; navigation, headings and footer retain their colors. */
+        .about-content p {
+            color: var(--forest-green, #263C38);
+            line-height: 1.7;
+            margin: 0 0 1rem;
+        }
+        .about-content .about-header:not(:first-child) {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        .about-content .about-scripture-quote {
+            font-style: italic;
+            font-size: clamp(1.25rem, 3vw, 1.65rem);
+            line-height: 1.45;
+            margin: 1.25rem 0;
+        }
+        .about-content .about-truth-question {
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.2rem);
+            line-height: 1.3;
+            margin: 0.5rem 0 1.25rem;
+        }
+        @media (max-width: 600px) {
+            .about-content .about-header:not(:first-child) {
+                margin-top: 1.75rem;
+                margin-bottom: 0.85rem;
+            }
+            .about-content p { margin-bottom: 0.85rem; }
+        }
+    </style>
 </head>
 <body>
 
@@ -14,34 +48,32 @@
     <nav><a href="index.html">Home</a> <a href="collection.html">Collection</a><a href="explore-p52.html">Explore P52</a> <a href="photos.html">Photos</a> <a href="about.html">About</a> <a href="contact.html">Inquire</a></nav>
 </header>
 
-<div class="container" style="max-width: 850px;">
+<div class="container about-content" style="max-width: 850px;">
     <h2 class="about-header">A Witness to the Truth</h2>
     <p>My fascination with biblical manuscripts isn't simply about history—it's about the faithfulness of God.</p>
-    <p>I started this personal project to help bridge the gap between seeing a photograph of a manuscript in a book and experiencing the physical reality of history. A manuscript is more than ink on an old piece of material. It is a tangible connection to the people, places, and faith that carried the words of Scripture across the centuries. 
-    <p>My hope with each facsimile I make is that it would allow people to hold a small, powerful echo of the past—and to remember the countless faithful believers who carefully handwrote and handed-down God's Word to us, one generation at a time. We can see that God's Word remains reliable and trustworthy, matching what our Bibles still say today.
-
-        <h2 class="about-header">Why P52 Matters</h2>
-    <p>Dated to the early 2nd century (125AD-150AD) and written in ancient uncial (upper-case) Greek, Papyrus 52 (P52) is the oldest-known surviving manuscript containing any portion of the New Testament. Though only a few inches in size, this tiny fragment gives us a remarkable glimpse into the early transmission of John's Gospel, written only a few decades before P52 was copied.
-    <p>And beyond being the earliest extant copy of the New Testament, what P52 preserves and says is equally extraordinary: portions of John 18—the account of Jesus' trial before Pontius Pilate, just hours before His crucifixion.
-    
+    <p>I started this personal project to help bridge the gap between seeing a photograph of a manuscript in a book and experiencing the physical reality of history. A manuscript is more than ink on an old piece of material. It is a tangible connection to the people, places, and faith that carried the words of Scripture across the centuries.</p>
+    <p>My hope with each facsimile I make is that it would allow people to hold a small, powerful echo of the past—and to remember the countless faithful believers who carefully handwrote and handed-down God's Word to us, one generation at a time. We can see that God's Word remains reliable and trustworthy, matching what our Bibles still say today.</p>
+    <h2 class="about-header">Why P52 Matters</h2>
+    <p>Dated to the early 2nd century (125AD-150AD) and written in ancient uncial (upper-case) Greek, Papyrus 52 (P52) is the oldest-known surviving manuscript containing any portion of the New Testament. Though only a few inches in size, this tiny fragment gives us a remarkable glimpse into the early transmission of John's Gospel, written only a few decades before P52 was copied.</p>
+    <p>And beyond being the earliest extant copy of the New Testament, what P52 preserves and says is equally extraordinary: portions of John 18—the account of Jesus' trial before Pontius Pilate, just hours before His crucifixion.</p>
     <!-- Jesus' Quote: Enlarged and Styled -->
-    <p style="color:var(--tan); font-style:italic; font-size: 1.8rem; line-height: 1.4; margin: 2rem 0;">
+    <p class="about-scripture-quote">
         "For this I was born and for this I have come into the world—to bear witness to the truth."
     </p>
     
     <p>Immediately afterward comes Pilate's timeless question:</p>
     
     <!-- Pilate's Question: Enlarged, Gold, and on its Own Line -->
-    <p style="color:var(--gold); font-size: 2.2rem; font-family: 'Playfair Display', serif; margin-top: 1rem;">
+    <p class="about-truth-question">
         "What is truth?"
     </p>
 
-    <p style="margin-top: 2rem;">There is something profoundly fitting about this particular passage surviving on the earliest fragment of the New Testament. Jesus speaks of bearing witness to the truth, and two thousand years later, this tiny piece of papyrus continues to bear witness to Him as the Way, the Life, and the Truth.
+    <p>There is something profoundly fitting about this particular passage surviving on the earliest fragment of the New Testament. Jesus speaks of bearing witness to the truth, and two thousand years later, this tiny piece of papyrus continues to bear witness to Him as the Way, the Life, and the Truth.</p>
     <h2 class="about-header">About Me</h2>
     <p>Hey there! Thanks for visiting my odd and unique site.</p>
-    <p>My name is Chase Schubert, and I'm a lifelong learner and student of Scripture, history, antique maps, manuscripts, and the stories that connect us to the past. With a degree in History Education from Abilene Christian University and a former U.S. history teacher, I've always loved making history tangible, memorable, and meaningful.
-    <p>I'd love to connect with you soon!
-</div>
+    <p>My name is Chase Schubert, and I'm a lifelong learner and student of Scripture, history, antique maps, manuscripts, and the stories that connect us to the past. With a degree in History Education from Abilene Christian University and a former U.S. history teacher, I've always loved making history tangible, memorable, and meaningful.</p>
+    <p>I'd love to connect with you soon!</p>
+    </div>
 
 <footer>
     <div class="footer-brand">Schubert Scriptorium</div>
