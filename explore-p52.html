@@ -1160,6 +1160,20 @@
         .viewer-shell.exhibit-expanded .viewer-toolbar,
         .viewer-shell:fullscreen .viewer-toolbar { flex-shrink: 0; }
         .info-panel h2.manuscript-transcription .greek-restored { color: #99958D; }
+
+        /* Both sides share the recto's layout frame and flip around its center.
+           Contain preserves the verso scan's proportions at any source resolution. */
+        #versoFace {
+            width: 100%;
+            height: 100%;
+        }
+
+        #versoImage {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
     </style>
 </head>
 
