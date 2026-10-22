@@ -23,21 +23,16 @@
         footer p { color:#34312B; }
         @media(max-width:600px) { .container { padding:2rem 1rem 0; } .form-container { padding:1.4rem 1rem; } }
 
-        /* Product photography flanking the order form on wide screens only. */
+        /* Desktop-only editorial product photography: no cards or frames. */
         .order-showcase { display: none; }
         @media (min-width: 1100px) {
             .container.order-layout { max-width: 1500px; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,650px) minmax(0,1fr); gap: clamp(1rem,2.4vw,2.5rem); align-items: center; }
             .order-layout > h1 { grid-column: 1 / -1; }
             .order-layout > .form-container { grid-column: 2; grid-row: 2; width: 100%; }
-            .order-showcase { display: flex; flex-direction: column; gap: 1.4rem; grid-row: 2; align-self: stretch; justify-content: center; }
+            .order-showcase { display: flex; grid-row: 2; align-self: stretch; align-items: center; justify-content: center; min-width: 0; pointer-events: none; }
             .order-showcase--left { grid-column: 1; }
             .order-showcase--right { grid-column: 3; }
-            .order-showcase figure { margin: 0; padding: .5rem; background: #FDFBF6; border: 1px solid #B58A35; box-shadow: 0 12px 28px rgba(38,60,56,.14); }
-            .order-showcase img { width: 100%; height: clamp(185px,19vw,275px); display: block; object-fit: contain; background: #F7F3EA; }
-            .order-showcase figure:first-child { transform: rotate(-2deg); }
-            .order-showcase figure:last-child { transform: rotate(2deg); }
-            .order-showcase--right figure:first-child { transform: rotate(2deg); }
-            .order-showcase--right figure:last-child { transform: rotate(-2deg); }
+            .order-showcase img { display: block; width: 100%; max-height: 650px; object-fit: contain; opacity: .84; -webkit-mask-image: radial-gradient(ellipse 75% 75% at center, #000 50%, transparent 100%); mask-image: radial-gradient(ellipse 75% 75% at center, #000 50%, transparent 100%); }
         }
     </style>
 </head>
@@ -51,9 +46,8 @@
 
 <div class="container order-layout">
     <h1>Inquire to Purchase</h1>
-    <aside class="order-showcase order-showcase--left" aria-label="Gallery Edition product photographs">
-        <figure><img src="p52-wood-eng.png" alt="Engraved Gallery Edition Papyrus 52 facsimile" loading="lazy"></figure>
-        <figure><img src="p52-wood-std.png" alt="Gallery Edition Papyrus 52 facsimile" loading="lazy"></figure>
+    <aside class="order-showcase order-showcase--left" aria-label="Gallery Edition product photograph">
+        <img src="p52-wood-eng.png" alt="Engraved Gallery Edition Papyrus 52 facsimile" loading="lazy">
     </aside>
     <div class="form-container">
         <form action="https://formspree.io/f/xrpzkqrw" method="POST">
@@ -82,9 +76,8 @@
             <button type="submit" class="btn" style="width:100%;">Send Inquiry</button>
         </form>
     </div>
-    <aside class="order-showcase order-showcase--right" aria-label="Curator's Prism product photographs">
-        <figure><img src="prism-eng-1.png" alt="Engraved Curator's Prism Papyrus 52 display" loading="lazy"></figure>
-        <figure><img src="p52-prism-std.png" alt="Curator's Prism Papyrus 52 display" loading="lazy"></figure>
+    <aside class="order-showcase order-showcase--right" aria-label="Curator's Prism product photograph">
+        <img src="prism-eng-1.png" alt="Engraved Curator's Prism Papyrus 52 display" loading="lazy">
     </aside>
 </div>
 
