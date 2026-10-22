@@ -23,6 +23,15 @@
         footer p { color:#34312B; }
         @media(max-width:600px) { .container { padding:2rem 1rem 0; } .form-container { padding:1.4rem 1rem; } }
 
+        /* Desktop-only Scripture quotation; typography echoes the manuscript exhibit. */
+        .order-scripture { display: none; }
+        @media (min-width: 1100px) {
+            .order-scripture { display: flex; flex-direction: column; justify-content: center; align-items: center; grid-column: 3; grid-row: 2; min-width: 0; padding: 1rem clamp(.2rem,1.1vw,1.25rem); text-align: center; }
+            .order-scripture blockquote { margin: 0; font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-weight: 400; font-size: clamp(.9rem,1.15vw,1.17rem); line-height: 1.85; color: #394F49; }
+            .order-scripture strong { color: #876222; font-size: 1.09em; font-weight: 700; }
+            .order-scripture cite { display: block; margin-top: 1.25rem; font-family: 'Playfair Display', Georgia, serif; font-size: clamp(.85rem,1vw,1.05rem); font-style: normal; color: #263C38; font-weight: 700; }
+        }
+
         /* Desktop-only editorial product photography: no cards or frames. */
         .order-showcase { display: none; }
         @media (min-width: 1100px) {
@@ -76,8 +85,9 @@
             <button type="submit" class="btn" style="width:100%;">Send Inquiry</button>
         </form>
     </div>
-    <aside class="order-showcase order-showcase--right" aria-label="Curator's Prism product photograph">
-        <img src="prism-eng-1.png" alt="Engraved Curator's Prism Papyrus 52 display" loading="lazy">
+    <aside class="order-scripture" aria-label="John 20 verses 29 through 31">
+        <blockquote>“Jesus said to him, “Have you believed because you have seen me? Blessed are those who have not seen and yet have believed.” Now Jesus did many other signs in the presence of the disciples, which are not written in this book; <strong>but these are written so that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name.</strong>”</blockquote>
+        <cite>-John 20:29-31</cite>
     </aside>
 </div>
 
