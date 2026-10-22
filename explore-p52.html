@@ -1206,8 +1206,10 @@
             main.container { padding-top: 1rem; }
             main.container > .explore-section:first-child { margin-bottom: 3rem; }
             .flip-grid { grid-template-columns: 1fr; gap: .9rem; }
-            .flip-card { height: 175px; }
-            .flip-back p { font-size: .84rem; }
+            .flip-card { height: clamp(300px, 53svh, 440px); width: 100%; }
+            .flip-face { padding: 1.5rem; }
+            .flip-back p { font-size: clamp(.93rem, 3.7vw, 1.05rem); line-height: 1.55; }
+            .flip-card:hover:not(.is-flipped) .flip-card-inner { transform: none; }
         }
         @media (prefers-reduced-motion: reduce) { .flip-card-inner { transition: none; } }
 
@@ -3084,22 +3086,31 @@
 (() => {
     const cards = [...document.querySelectorAll('.flip-card')];
     const mobile = window.matchMedia('(max-width: 700px) and (hover: none)');
-    let observer;
-    function setup() {
-        if (observer) observer.disconnect();
-        cards.forEach(card => { card.classList.remove('is-flipped'); card.setAttribute('aria-pressed', 'false'); });
-        if (!mobile.matches || !('IntersectionObserver' in window)) return;
-        observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                const card = entry.target;
-                const rect = entry.boundingClientRect;
-                const active = entry.isIntersecting && rect.top > window.innerHeight * .12 && rect.top < window.innerHeight * .72;
-                card.classList.toggle('is-flipped', active);
-                card.setAttribute('aria-pressed', String(active));
-            });
-        }, { threshold: [0, .1, .5, 1], rootMargin: '-12% 0px -28% 0px' });
-        cards.forEach(card => observer.observe(card));
+    let scrollFrame = 0;
+    function updateMobileCards() {
+        scrollFrame = 0;
+        if (!mobile.matches) return;
+        const screenMid = window.innerHeight * .5;
+        cards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const center = rect.top + rect.height / 2;
+            // Flip near the middle; return to front once nearly past the viewport.
+            const active = center <= screenMid + window.innerHeight * .12 &&
+                rect.bottom > window.innerHeight * .17 &&
+                rect.top < window.innerHeight * .82;
+            card.classList.toggle('is-flipped', active);
+            card.setAttribute('aria-pressed', String(active));
+        });
     }
+    function scheduleUpdate() {
+        if (!scrollFrame) scrollFrame = requestAnimationFrame(updateMobileCards);
+    }
+    function setup() {
+        cards.forEach(card => { card.classList.remove('is-flipped'); card.setAttribute('aria-pressed', 'false'); });
+        scheduleUpdate();
+    }
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate, { passive: true });
     cards.forEach(card => {
         card.addEventListener('click', () => {
             if (!mobile.matches) return;
