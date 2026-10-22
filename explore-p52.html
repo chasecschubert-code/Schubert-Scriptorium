@@ -1223,6 +1223,11 @@
             .flip-back { background: linear-gradient(150deg,#F7F3EA 0%,#E8DCC5 100%); }
             .flip-card.is-flipped { filter: drop-shadow(0 12px 16px rgba(38,60,56,.18)); }
         }
+
+        /* Mobile-only: keep the interactive exhibit heading on one line. */
+        @media (max-width: 700px) {
+            .page-title { white-space: nowrap; font-size: clamp(1.5rem, 6.5vw, 2.6rem); letter-spacing: -.015em; }
+        }
     </style>
 </head>
 
@@ -1263,7 +1268,7 @@
         </a>
 
         <a href="contact.html">
-            Inquire
+            Order
         </a>
 
     </nav>
