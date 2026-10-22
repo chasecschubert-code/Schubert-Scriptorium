@@ -4,8 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Schubert Scriptorium</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=p52-timeline-2">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+<style>
+/* Critical timeline styling travels with the page, including on cached mobile visits. */
+.home-timeline { background: #263C38; color: #F7F3EA; padding: 56px 24px; text-align:center; }
+.home-timeline-inner { max-width:1280px; margin:auto; }
+.home-timeline-eyebrow { color:#DEC58E; text-transform:uppercase; letter-spacing:.17em; font:700 13px/1.6 'Lato',sans-serif; margin:0 0 14px; }
+.home-timeline h2 { color:#F7F3EA; font:700 clamp(24px,3vw,36px)/1.3 'Playfair Display',Georgia,serif; margin:0 0 40px; }
+.home-timeline-track { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); list-style:none; margin:0; padding:0; }
+.home-timeline-stop { position:relative; min-width:0; padding:0 20px; box-sizing:border-box; }
+.home-timeline-stop::before { content:''; position:absolute; left:0; right:0; top:66px; height:1px; background:#BFA365; }
+.home-timeline-date { color:#DEC58E; font:700 32px/44px 'Playfair Display',Georgia,serif; height:44px; margin:0 0 16px; white-space:nowrap; }
+.home-timeline-point { display:block; position:relative; width:13px; height:13px; box-sizing:border-box; border:2px solid #DEC58E; border-radius:50%; background:#263C38; margin:0 auto 24px; }
+.home-timeline-stop h3 { color:#F7F3EA; font:700 19px/1.4 'Playfair Display',Georgia,serif; min-height:2.8em; margin:0 0 10px; }
+.home-timeline-description { color:#E0E4DA; font:400 15px/1.8 'Lato',sans-serif; margin:auto; max-width:250px; }
+.home-timeline-hint,.home-timeline-controls,.home-timeline-rail { display:none; }
+.home-timeline-scroll { overflow:visible; }
+.home-timeline-track::after { display:none; }
+@media(max-width:850px) {
+ .home-timeline { padding:38px 20px 32px; }
+ .home-timeline h2 { font-size:26px; max-width:340px; margin:0 auto 28px; }
+ .home-timeline-eyebrow { font-size:11px; letter-spacing:.14em; }
+ .home-timeline.enhanced .home-timeline-rail { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); position:relative; margin:0 0 28px; }
+ .home-timeline-rail::before { content:''; position:absolute; height:1px; background:#8E805C; left:12.5%; right:12.5%; bottom:12px; }
+ .home-timeline-rail button { position:relative; appearance:none; border:0; background:transparent; color:#E0E4DA; padding:12px 0 0; font:400 12px/1.4 'Lato',sans-serif; cursor:pointer; min-height:58px; }
+ .home-timeline-rail button::after { content:''; display:block; width:10px; height:10px; border:1px solid #DEC58E; box-sizing:border-box; border-radius:50%; background:#263C38; margin:15px auto 8px; transition:background .25s,box-shadow .25s; }
+ .home-timeline-rail button[aria-pressed="true"] { color:#DEC58E; }
+ .home-timeline-rail button[aria-pressed="true"]::after { background:#DEC58E; box-shadow:0 0 0 5px rgba(222,197,142,.14); }
+ .home-timeline-rail button:focus-visible { outline:2px solid #DEC58E; outline-offset:2px; }
+ .home-timeline-track { display:block; }
+ .home-timeline-stop { padding:0 8px 28px; }
+ .home-timeline-stop::before,.home-timeline-point { display:none; }
+ .home-timeline.enhanced .home-timeline-stop:not(.is-active) { display:none; }
+ .home-timeline.enhanced .home-timeline-scroll { min-height:320px; touch-action:pan-y; }
+ .home-timeline-date { font-size:42px; height:auto; line-height:1.25; margin:0 0 14px; }
+ .home-timeline-stop h3 { display:block; min-height:0; font-size:23px; margin:0 0 14px; }
+ .home-timeline-description { font-size:16px; line-height:1.8; max-width:350px; }
+ .home-timeline.enhanced .home-timeline-hint { display:block; color:#D1C4A1; font:400 11px/1.6 'Lato',sans-serif; letter-spacing:.06em; margin:0 0 18px; }
+ .home-timeline.enhanced .home-timeline-controls:not([hidden]) { display:flex; justify-content:space-between; align-items:center; border-top:1px solid #65705B; padding-top:12px; margin:0; }
+ .home-timeline-controls button { background:transparent; color:#DEC58E; border:0; border-radius:0; width:auto; height:44px; min-width:80px; font:400 12px/1.5 'Lato',sans-serif; letter-spacing:.05em; padding:0; cursor:pointer; }
+ .home-timeline-controls button:disabled { opacity:.3; }
+ .home-timeline-position { color:#D1C4A1; font:400 11px/1.5 'Lato',sans-serif; letter-spacing:.1em; }
+}
+</style>
+
 </head>
 <body>
 
@@ -103,49 +147,78 @@
 
 <script>
 (() => {
-    const timeline = document.querySelector('.home-timeline');
-    const scroller = timeline.querySelector('.home-timeline-scroll');
-    const stops = [...timeline.querySelectorAll('.home-timeline-stop')];
-    const controls = timeline.querySelector('.home-timeline-controls');
-    const previous = timeline.querySelector('.home-timeline-prev');
-    const next = timeline.querySelector('.home-timeline-next');
-    const position = timeline.querySelector('.home-timeline-position');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let current = 0;
-    let pending = false;
-
-    const offset = stop => stop.offsetLeft - stops[0].offsetLeft;
-    function update() {
-        pending = false;
-        const canScroll = scroller.scrollWidth > scroller.clientWidth + 1;
-        controls.hidden = !canScroll;
-        timeline.classList.toggle('is-scrollable', canScroll);
-        scroller.tabIndex = canScroll ? 0 : -1;
-        current = stops.reduce((closest, stop, index) =>
-            Math.abs(offset(stop) - scroller.scrollLeft) < Math.abs(offset(stops[closest]) - scroller.scrollLeft) ? index : closest, 0);
-        previous.disabled = current === 0;
-        next.disabled = current === stops.length - 1;
-        const label = `${current + 1} of ${stops.length}`;
-        if (position.textContent !== label) position.textContent = label;
-    }
-    function move(index) {
-        const target = Math.max(0, Math.min(stops.length - 1, index));
-        scroller.scrollTo({ left: offset(stops[target]), behavior: reducedMotion.matches ? 'auto' : 'smooth' });
-    }
-    previous.addEventListener('click', () => move(current - 1));
-    next.addEventListener('click', () => move(current + 1));
-    scroller.addEventListener('keydown', event => {
-        if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
-            event.preventDefault();
-            move(current + (event.key === 'ArrowRight' ? 1 : -1));
-        }
-    });
-    scroller.addEventListener('scroll', () => {
-        if (!pending) { pending = true; requestAnimationFrame(update); }
-    }, { passive: true });
-    window.addEventListener('resize', update);
-    if ('ResizeObserver' in window) new ResizeObserver(update).observe(scroller);
-    update();
+ const root = document.querySelector('.home-timeline');
+ const viewport = root.querySelector('.home-timeline-scroll');
+ const stops = [...root.querySelectorAll('.home-timeline-stop')];
+ const controls = root.querySelector('.home-timeline-controls');
+ const prev = root.querySelector('.home-timeline-prev');
+ const next = root.querySelector('.home-timeline-next');
+ const counter = root.querySelector('.home-timeline-position');
+ const mobile = matchMedia('(max-width:850px)');
+ const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+ const rail = document.createElement('div');
+ rail.className = 'home-timeline-rail';
+ rail.setAttribute('role','group');
+ rail.setAttribute('aria-label','Choose a milestone');
+ let current = 0;
+ const buttons = stops.map((stop,i) => {
+   stop.id = 'p52-milestone-' + i;
+   const button = document.createElement('button');
+   button.type = 'button';
+   button.textContent = stop.querySelector('.home-timeline-date').textContent;
+   button.setAttribute('aria-controls',stop.id);
+   button.setAttribute('aria-label',button.textContent + ': ' + stop.querySelector('h3').textContent);
+   button.addEventListener('click',() => select(i));
+   rail.append(button);
+   return button;
+ });
+ viewport.before(rail);
+ root.classList.add('enhanced');
+ prev.innerHTML = '&larr; Previous';
+ next.innerHTML = 'Next &rarr;';
+ root.querySelector('.home-timeline-hint').textContent = 'TAP A DATE OR SWIPE TO EXPLORE';
+ viewport.removeAttribute('aria-describedby');
+ viewport.removeAttribute('tabindex');
+ viewport.setAttribute('aria-label','Papyrus 52 milestone');
+ viewport.setAttribute('aria-live','polite');
+ viewport.setAttribute('aria-atomic','true');
+ function select(index,animate=true) {
+   const old=current;
+   current=Math.max(0,Math.min(3,index));
+   stops.forEach((stop,i) => {
+     stop.classList.toggle('is-active',i===current);
+     if(mobile.matches && i!==current) stop.setAttribute('aria-hidden','true');
+     else stop.removeAttribute('aria-hidden');
+     buttons[i].setAttribute('aria-pressed',String(i===current));
+   });
+   controls.hidden=!mobile.matches;
+   prev.disabled=current===0;
+   next.disabled=current===3;
+   counter.textContent=String(current+1).padStart(2,'0')+' / 04';
+   if(animate && mobile.matches && !reduced.matches && old!==current && stops[current].animate) {
+     stops[current].animate([{opacity:0,transform:'translateX('+ (current>old?18:-18) +'px)'},{opacity:1,transform:'translateX(0)'}],{duration:280,easing:'ease-out'});
+   }
+ }
+ prev.addEventListener('click',()=>select(current-1));
+ next.addEventListener('click',()=>select(current+1));
+ let start=null;
+ viewport.addEventListener('touchstart',e=> {if(e.touches.length===1) start={x:e.touches[0].clientX,y:e.touches[0].clientY};}, {passive:true});
+ viewport.addEventListener('touchend',e=> {
+   if(!start || !mobile.matches) return;
+   const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;
+   if(Math.abs(dx)>45 && Math.abs(dx)>Math.abs(dy)*1.5) select(current+(dx<0?1:-1));
+   start=null;
+ },{passive:true});
+ viewport.addEventListener('touchcancel',()=>start=null,{passive:true});
+ rail.addEventListener('keydown',e=> {
+   if(['ArrowRight','ArrowLeft','Home','End'].includes(e.key)) {
+     e.preventDefault();
+     select(e.key==='Home'?0:e.key==='End'?3:current+(e.key==='ArrowRight'?1:-1));
+     buttons[current].focus();
+   }
+ });
+ mobile.addEventListener('change',()=>select(current,false));
+ select(0,false);
 })();
 </script>
 
