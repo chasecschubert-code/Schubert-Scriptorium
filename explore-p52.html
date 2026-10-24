@@ -1232,7 +1232,21 @@
         footer { padding: 1.5rem 1rem 1.65rem; margin-top: 2rem; }
         footer .footer-brand { margin-top: 0; margin-bottom: .25rem; line-height: 1.35; }
         footer p { margin: .3rem 0; line-height: 1.45; }
-    </style>
+    
+/* Optional reconstructed folio: all assets share the existing 3D faces. */
+.folio-toggle { display:flex; align-items:center; gap:.5rem; color:#F7F3EA; font-size:.75rem; padding:9px; cursor:pointer; }
+.folio-toggle input { accent-color:#B58A35; width:17px; height:17px; }
+.reconstructed-folio { display:none !important; position:absolute; left:-13.55%; top:0; width:336.6% !important; height:auto !important; max-width:none; border:0 !important; box-shadow:none !important; pointer-events:none; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+.folio-visible .reconstructed-folio { display:block !important; }
+.folio-visible #manuscriptImage, .folio-visible #versoImage { position:relative; z-index:1; border-color:transparent; box-shadow:none; filter:drop-shadow(3px 0 #B58A35) drop-shadow(-3px 0 #B58A35) drop-shadow(0 3px #B58A35) drop-shadow(0 -3px #B58A35); }
+#versoFace .reconstructed-folio { left:auto; right:-13.55%; }
+.folio-placeholder { position:absolute; inset:0; width:336.6%; height:236.66%; left:auto; right:-13.55%; background:#E6D8BD; border:4px dashed #B58A35 !important; opacity:.65; }
+.folio-status { color:#F7F3EA; background:#263C38; padding:.35rem .8rem; font-size:.75rem; margin:0; }
+.folio-status[hidden] { display:none; }
+.manuscript-flip.flipped #rectoFace .reconstructed-folio,
+.manuscript-flip:not(.flipped) #versoFace .reconstructed-folio { visibility:hidden; }
+
+</style>
 </head>
 
 
@@ -1390,9 +1404,11 @@
     >
 
 
+<p id="folioStatus" class="folio-status" role="status" hidden>Illustrative reconstruction · Original fragment outlined in gold · Verso reconstruction forthcoming</p>
         <!-- TOOLBAR -->
 
         <div class="viewer-toolbar">
+<label class="folio-toggle"><input id="showReconstructedFolio" type="checkbox" aria-describedby="folioStatus">See Reconstructed Folio</label>
 
             <button
                 type="button"
@@ -1491,6 +1507,7 @@
                         class="manuscript-face front"
                         id="rectoFace"
                     >
+<img class="reconstructed-folio" src="reconstructed-folio-recto.png" alt="Illustrative reconstruction of the recto folio; surviving fragment outlined in gold" draggable="false">
 
                         <!-- MANUSCRIPT IMAGE -->
 
@@ -1632,6 +1649,7 @@
                         class="manuscript-face back"
                         id="versoFace"
                     >
+<div class="reconstructed-folio folio-placeholder" aria-hidden="true"></div>
 
                         <img
                             id="versoImage"
@@ -2418,6 +2436,13 @@
     const ZOOM_STEP = 0.2;
 
     let currentSide = 'recto';
+    const folioToggle = document.getElementById('showReconstructedFolio');
+    folioToggle.addEventListener('change', () => {
+        manuscriptFlip.classList.toggle('folio-visible', folioToggle.checked);
+        document.getElementById('folioStatus').hidden = !folioToggle.checked;
+        closeAllPanels();
+        resetView();
+    });
 
 
     /* =========================================================
@@ -2477,13 +2502,13 @@
 
     rectoButton.addEventListener(
         'click',
-        () => setManuscriptSide('recto')
+        () => { setManuscriptSide('recto'); if (folioToggle.checked) resetView(); }
     );
 
 
     versoButton.addEventListener(
         'click',
-        () => setManuscriptSide('verso')
+        () => { setManuscriptSide('verso'); if (folioToggle.checked) resetView(); }
     );
 
 
@@ -2528,8 +2553,16 @@
         scale = Math.min((stage.clientWidth - 60) / naturalWidth, (stage.clientHeight - 70) / naturalHeight, 1);
 
         x = 0;
-
         y = 0;
+        if (folioToggle.checked) {
+            const folioWidth = naturalWidth * 3.366;
+            const folioHeight = folioWidth * 1285 / 1224;
+            scale = Math.min((stage.clientWidth - 60) / folioWidth, (stage.clientHeight - 70) / folioHeight, 1);
+            // Center the whole folio without changing fragment or hotspot coordinates.
+            const offset = (folioWidth / 2 - naturalWidth * .1355 - naturalWidth / 2) * scale;
+            x = currentSide === 'verso' ? offset : -offset;
+            y = -(folioHeight / 2 - naturalHeight / 2) * scale;
+        }
 
         updateImage();
 
