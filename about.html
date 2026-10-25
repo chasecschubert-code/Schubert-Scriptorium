@@ -147,6 +147,27 @@
  .about-me-layout .about-family-photo { justify-self:center; }
 }
 </style>
+
+<style>
+/* Desktop only: widen and justify the two introductory P52 paragraphs. */
+@media (min-width:901px) {
+ .about-content > .about-header:first-child,
+ .about-content > .about-header:first-child + p,
+ .about-content > .about-header:first-child + p + p {
+   position:relative;
+   width:min(1120px,calc(100vw - 4rem));
+   max-width:none;
+   left:50%;
+   transform:translateX(-50%);
+ }
+ .about-content > .about-header:first-child + p,
+ .about-content > .about-header:first-child + p + p {
+   text-align:justify !important;
+   text-align-last:left;
+   text-justify:inter-word;
+ }
+}
+</style>
 </head>
 <body>
 
