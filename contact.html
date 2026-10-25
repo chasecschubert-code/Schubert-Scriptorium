@@ -44,6 +44,21 @@
             .order-showcase img { display: block; width: 100%; max-height: 650px; object-fit: contain; opacity: .84; -webkit-mask-image: radial-gradient(ellipse 75% 75% at center, #000 50%, transparent 100%); mask-image: radial-gradient(ellipse 75% 75% at center, #000 50%, transparent 100%); }
         }
     </style>
+
+<style>
+@media(min-width:1100px){
+ .order-scripture blockquote{line-height:2.05;}
+ .order-scripture .scripture-line{display:block;margin-bottom:.55rem;}
+ .order-scripture.scripture-animate .scripture-line,.order-scripture.scripture-animate cite{opacity:0;transform:translateY(12px);transition:opacity .8s ease,transform .8s ease;}
+ .order-scripture.scripture-animate.scripture-visible .scripture-line,.order-scripture.scripture-animate.scripture-visible cite{opacity:1;transform:none;}
+ .order-scripture.scripture-visible .scripture-line:nth-child(1){transition-delay:.2s;}
+ .order-scripture.scripture-visible .scripture-line:nth-child(2){transition-delay:.7s;}
+ .order-scripture.scripture-visible .scripture-line:nth-child(3){transition-delay:1.2s;}
+ .order-scripture.scripture-visible .scripture-line:nth-child(4){transition-delay:1.7s;}
+ .order-scripture.scripture-visible cite{transition-delay:2.2s;}
+}
+@media(prefers-reduced-motion:reduce){.order-scripture.scripture-animate .scripture-line,.order-scripture.scripture-animate cite{opacity:1!important;transform:none!important;transition:none!important;}}
+</style>
 </head>
 <body>
 
@@ -93,7 +108,7 @@
         </form>
     </div>
     <aside class="order-scripture" aria-label="John 20 verses 29 through 31">
-        <blockquote>“Jesus said to him, “Have you believed because you have seen me? Blessed are those who have not seen and yet have believed.” Now Jesus did many other signs in the presence of the disciples, which are not written in this book; <strong>but these are written so that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name.</strong>”</blockquote>
+        <blockquote><span class="scripture-line">“Jesus said to him, “Have you believed because you have seen me?</span> <span class="scripture-line">Blessed are those who have not seen and yet have believed.”</span> <span class="scripture-line">Now Jesus did many other signs in the presence of the disciples, which are not written in this book;</span> <span class="scripture-line"><strong>but these are written so that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name.</strong>”</span></blockquote>
         <cite>-John 20:29-31</cite>
     </aside>
 </div>
@@ -120,6 +135,30 @@
  function updatePhoto(){const selected=products[selector.value];if(!selected)return;photo.src=selected[0];photo.alt=selected[1];}
  selector.addEventListener('change',updatePhoto);
  updatePhoto();
+})();
+</script>
+
+<script>
+(function(){
+ const scripture=document.querySelector('.order-scripture');
+ const form=document.querySelector('.form-container');
+ const desktop=window.matchMedia('(min-width:1100px)');
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+ if(!scripture||!form||!desktop.matches||reduced.matches)return;
+ scripture.classList.add('scripture-animate');
+ let revealed=false;
+ function check(){
+  if(revealed)return;
+  const rect=form.getBoundingClientRect();
+  // Begin when the visitor has scrolled to the middle of the contact form.
+  if(rect.top+rect.height*.5<=window.innerHeight*.7 && rect.bottom>0){
+   revealed=true;scripture.classList.add('scripture-visible');
+   window.removeEventListener('scroll',check);
+  }
+ }
+ window.addEventListener('scroll',check,{passive:true});
+ window.addEventListener('resize',check,{passive:true});
+ requestAnimationFrame(check);
 })();
 </script>
 </body>
