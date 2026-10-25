@@ -114,6 +114,19 @@
 }
 @media (min-width: 901px) and (max-width: 1200px) { .about-content .john-journey { margin-left:calc((850px - 92vw)/2); margin-right:calc((850px - 92vw)/2); } }
 </style>
+<style>
+/* Desktop-only correction: place photo independently in right column, at 75% size. */
+@media (min-width:901px) {
+ .about-me-layout { grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:center; }
+ .about-me-copy { display:contents; }
+ .about-me-copy > h2, .about-me-copy > p { grid-column:1; }
+ .about-me-copy > h2 { grid-row:1; align-self:end; margin-bottom:0 !important; }
+ .about-me-copy > p:nth-of-type(1) { grid-row:2; }
+ .about-me-copy > p:nth-of-type(2) { grid-row:3; }
+ .about-me-copy > p:nth-of-type(3) { grid-row:4; }
+ .about-me-layout .about-family-photo { grid-column:2; grid-row:1 / 5; justify-self:center; align-self:center; width:75%; max-width:340px; height:auto; max-height:355px; object-fit:contain; margin:0; }
+}
+</style>
 </head>
 <body>
 
