@@ -56,7 +56,7 @@
 <div class="container order-layout">
     <h1>Inquire to Purchase</h1>
     <aside class="order-showcase order-showcase--left" aria-label="Gallery Edition product photograph">
-        <img src="p52-wood-eng.png" alt="Engraved Gallery Edition Papyrus 52 facsimile" loading="lazy">
+        <img id="selected-product-photo" src="p52-wood-std.png" alt="Gallery Edition Papyrus 52 facsimile" loading="lazy">
     </aside>
     <div class="form-container">
         <form action="https://formspree.io/f/xrpzkqrw" method="POST">
@@ -96,5 +96,24 @@
     <p>orders@schubertscriptorium.com</p>
 </footer>
 
+
+<script>
+(function(){
+ const selector=document.querySelector('select[name="product"]');
+ const photo=document.getElementById('selected-product-photo');
+ if(!selector||!photo)return;
+ // These are the exact primary image files used by the Collection product links.
+ const products={
+  'Gallery Standard':['p52-wood-std.png','Gallery Edition Papyrus 52 facsimile'],
+  'Gallery Engraved':['p52-wood-eng.png','Gallery Edition Engraved Papyrus 52 facsimile'],
+  'Curator Standard':['p52-prism-std.png',"Curator's Prism Papyrus 52 facsimile"],
+  'Curator Engraved':['p52-prism-eng.png',"Curator's Prism Engraved Papyrus 52 facsimile"],
+  'Custom':['COMMISSION-4.png','Custom commissioned biblical manuscript facsimile']
+ };
+ function updatePhoto(){const selected=products[selector.value];if(!selected)return;photo.src=selected[0];photo.alt=selected[1];}
+ selector.addEventListener('change',updatePhoto);
+ updatePhoto();
+})();
+</script>
 </body>
 </html>
