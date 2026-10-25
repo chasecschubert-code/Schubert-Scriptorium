@@ -213,6 +213,22 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
 <style>
 @media(max-width:900px){.about-content{padding-top:.6rem!important;}.about-content>.about-header:first-child{margin-top:0!important;}}
 </style>
+
+<style>
+/* Consistent, single-line About section headings on phones. */
+@media(max-width:600px){
+ .about-content h2.about-header,
+ .about-content h2.about-header.mobile-single-line{
+  font-size:clamp(1.12rem,4.55vw,1.45rem)!important;
+  line-height:1.25!important;
+  letter-spacing:0!important;
+  white-space:nowrap!important;
+  text-wrap:nowrap!important;
+  overflow-wrap:normal!important;
+  text-align:center;
+ }
+}
+</style>
 </head>
 <body>
 
