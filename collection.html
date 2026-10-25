@@ -137,6 +137,17 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
  body > header .header-brand-mark {display:none !important;}
 }
 </style>
+<style>
+.commission-photo-trigger{padding:0;border:0;background:transparent;cursor:zoom-in;display:block;max-width:100%;}
+.commission-photo-trigger img{max-width:100%;}
+.commission-photo-trigger:focus-visible{outline:3px solid #B58A35;outline-offset:4px;}
+.commission-lightbox{border:1px solid #B58A35;background:#F7F3EA;color:#263C38;padding:2rem 1.25rem 1.1rem;max-width:min(94vw,1050px);max-height:92vh;box-shadow:0 16px 60px #0006;text-align:center;}
+.commission-lightbox::backdrop{background:rgba(14,29,26,.84);}
+.commission-lightbox img{display:block;max-width:100%;max-height:72vh;width:auto;height:auto;object-fit:contain;margin:auto;}
+.commission-lightbox-caption{margin:.8rem auto 0!important;max-width:85ch!important;color:#263C38!important;line-height:1.5;}
+.commission-lightbox-close{position:absolute;right:.3rem;top:.15rem;border:0;background:#263C38;color:#fff;border-radius:50%;font-size:1.6rem;width:2.1rem;height:2.1rem;cursor:pointer;}
+@media(max-width:500px){.commission-lightbox{padding:2.6rem .6rem .8rem;}.commission-photo-trigger{width:100%;}.commission-photo-trigger img{margin:auto;}}
+</style>
 </head>
 
 
@@ -291,35 +302,16 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
 
         <!-- CUSTOM COMMISSION PHOTO RIBBON -->
 
-        <div class="commission-photo-ribbon">
+<div class="commission-photo-ribbon">
+<button type="button" class="commission-photo-trigger" data-caption="Caption coming soon." aria-label="Enlarge custom commission photo 1: P46 Folio 065A 2 Corinthians 4 Angle"><img src="COMMISSION-4.png" alt="P46 Folio 065A 2 Corinthians 4 Angle" loading="lazy"></button>
+<button type="button" class="commission-photo-trigger" data-caption="Caption coming soon." aria-label="Enlarge custom commission photo 2: DSS Column Isaiah 53"><img src="COMMISSION-7.png" alt="DSS Column Isaiah 53" loading="lazy"></button>
+<button type="button" class="commission-photo-trigger" data-caption="Caption coming soon." aria-label="Enlarge custom commission photo 3: 1611 KJV Psalm 63"><img src="COMMISSION-1.png" alt="1611 KJV Psalm 63" loading="lazy"></button>
+<button type="button" class="commission-photo-trigger" data-caption="Caption coming soon." aria-label="Enlarge custom commission photo 4: P46 Folio 065A 2 Corinthians 4 Straight"><img src="COMMISSION-2.png" alt="P46 Folio 065A 2 Corinthians 4 Straight" loading="lazy"></button>
+<button type="button" class="commission-photo-trigger" data-caption="Caption coming soon." aria-label="Enlarge custom commission photo 5: P46 Folio 008A Ephesians 5 to 6"><img src="COMMISSION-3.png" alt="P46 Folio 008A Ephesians 5 to 6" loading="lazy"></button>
+</div>
 
-            <img
-                src="COMMISSION-4.png"
-                alt="P46 Folio 065A 2 Corinthians 4 Angle"
-            >
 
-            <img
-                src="COMMISSION-7.png"
-                alt="DSS Column Isaiah 53"
-            >
-
-           <img
-                src="COMMISSION-1.png"
-                alt="1611 KJV Psalm 63"
-            >
-
-            <img
-                src="COMMISSION-2.png"
-                alt="P46 Folio 065A 2 Corinthians 4 Straight"
-            >
-
-               <img
-                src="COMMISSION-3.png"
-                alt="P46 Folio 008A Ephesians 5 to 6"
-            >
-            
-        </div>
-
+        <dialog id="commission-lightbox" class="commission-lightbox" aria-label="Custom commission photo viewer"><button type="button" class="commission-lightbox-close" aria-label="Close enlarged photo">&times;</button><img alt=""><p class="commission-lightbox-caption"></p></dialog>
 
         <!-- CONTACT BUTTON -->
 
@@ -336,10 +328,13 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
 
 <footer>
     <div class="footer-brand"><img class="footer-logo" src="Schubert_Scriptorium_Instagram_Profile_2400.png" alt="Schubert Scriptorium — A Witness to the Truth"></div>
-    <p>orders@schubertscriptorium.com</p>
+    <p><a href="mailto:orders@schubertscriptorium.com" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">orders@schubertscriptorium.com</a></p>
     <a class="footer-instagram" href="https://www.instagram.com/schubertscriptorium/" target="_blank" rel="noopener noreferrer" aria-label="Schubert Scriptorium on Instagram" style="display:inline-flex;align-items:center;justify-content:center;margin-top:.3rem;color:#263C38;text-decoration:none;" ><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
 </footer>
 
 
+<script>
+(()=>{const dialog=document.getElementById('commission-lightbox');const image=dialog.querySelector('img');const caption=dialog.querySelector('.commission-lightbox-caption');const close=dialog.querySelector('.commission-lightbox-close');let opener=null;document.querySelectorAll('.commission-photo-trigger').forEach(button=>button.addEventListener('click',()=>{opener=button;const thumb=button.querySelector('img');image.src=thumb.currentSrc||thumb.src;image.alt=thumb.alt;caption.textContent=button.dataset.caption||'Caption coming soon.';dialog.showModal();close.focus();}));close.addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});dialog.addEventListener('close',()=>{image.removeAttribute('src');if(opener)opener.focus();});})();
+</script>
 </body>
 </html>
