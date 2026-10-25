@@ -36,7 +36,8 @@
         .order-showcase { display: none; }
         @media (min-width: 1100px) {
             .container.order-layout { max-width: 1500px; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,540px) minmax(0,1fr); gap: clamp(1.25rem,2vw,2rem); align-items: center; }
-            .order-layout > h1 { grid-column: 1 / -1; }
+            .order-layout > h1 { grid-column: 1 / -1; margin-bottom: .25rem; }
+             .container.order-layout { row-gap: .65rem; }
             .order-layout > .form-container { grid-column: 2; grid-row: 2; width: 100%; min-width: 0; box-sizing: border-box; }
             .order-showcase { display: flex; grid-row: 2; align-self: stretch; align-items: center; justify-content: center; min-width: 0; pointer-events: none; }
             .order-showcase--left { grid-column: 1; }
