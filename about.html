@@ -127,6 +127,19 @@
  .about-me-layout .about-family-photo { grid-column:2; grid-row:1 / 5; justify-self:center; align-self:center; width:75%; max-width:340px; height:auto; max-height:355px; object-fit:contain; margin:0; }
 }
 </style>
+<style>
+@media (min-width:901px) {
+ .about-me-layout { width:min(1020px,88vw); gap:1.1rem; }
+ .about-me-layout .about-family-photo { justify-self:start; width:75%; }
+ .john-journey .jm-map-wrap { align-self:start; }
+ .john-journey .jm-interface { grid-row:2; }
+ .john-journey .jm-map { height:clamp(300px,43vh,390px); }
+ .john-journey .jm-interface { padding:.65rem 1.1rem .55rem; }
+ .john-journey .jm-story { padding:.5rem .25rem .3rem; }
+ .john-journey .jm-navigation button { min-height:36px; }
+ .john-journey .jm-stops button { min-height:34px; }
+}
+</style>
 </head>
 <body>
 
