@@ -636,3 +636,8 @@ footer { padding: 1.5rem 1rem 1.65rem; margin-top: 2rem; }
 footer .footer-brand { margin-top: 0; margin-bottom: .25rem; line-height: 1.35; }
 footer p { margin: .3rem 0; line-height: 1.45; }
 body:has(.home-highlights) footer { margin-top: 0; }
+
+/* Official footer logo */
+footer .footer-brand { margin: 0 auto .3rem; line-height: 0; }
+footer .footer-logo { display: block; width: min(240px, 65vw); height: auto; margin: 0 auto; }
+footer p { margin: .3rem 0 0; }
