@@ -99,6 +99,21 @@
         .card .price-disclaimer { margin: 0.2rem 0 0.8rem; }
         .product-price-disclaimer { margin: -0.5rem 0 1.25rem; }
     </style>
+
+<style>
+/* Collection-specific responsive spacing; other pages are unaffected. */
+@media (min-width:901px) {
+ body > .container { padding-top:1.15rem; }
+ .product-grid { margin-top:0; align-items:stretch; }
+ .product-grid .card { height:100%; box-sizing:border-box; }
+ .product-grid .card img { height:250px; flex-shrink:0; }
+}
+@media (max-width:900px) {
+ .product-grid { grid-template-columns:minmax(0,1fr) !important; max-width:540px; margin:0 auto; gap:1.5rem; }
+ .product-grid .card { width:100%; box-sizing:border-box; }
+ .product-grid .card img { width:100%; height:250px; object-fit:cover; }
+}
+</style>
 </head>
 
 
