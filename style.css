@@ -641,3 +641,9 @@ body:has(.home-highlights) footer { margin-top: 0; }
 footer .footer-brand { margin: 0 auto .3rem; line-height: 0; }
 footer .footer-logo { display: block; width: min(240px, 65vw); height: auto; margin: 0 auto; }
 footer p { margin: .3rem 0 0; }
+
+/* Slim footer: crop transparent margins within the original logo without altering the PNG. */
+footer { padding: .55rem 1rem .65rem; }
+footer .footer-brand { width: 190px; max-width: 75vw; height: 91px; overflow: hidden; margin: 0 auto; line-height: 0; }
+footer .footer-logo { display: block; width: 190px; max-width: 100%; height: auto; transform: translateY(-45px); margin: 0 auto; }
+footer p { margin: .15rem 0 0; line-height: 1.2; }
