@@ -158,20 +158,14 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
     <div class="product-description">
         <p>The flagship of the P52 collection. This version of the Curator's Prism features high-precision laser engraving directly on the surfaces of the acrylic.</p>
         <p>The Recto (front) frame clearly identifies the manuscript details in a clean, modern typeface that seems to float above the papyrus itself. The specific scripture references are engraved on both respective sides, so any viewer can clearly discover the significance of P52.</p>
-        <p style="color:var(--tan);">Includes custom double-sided translation card and microfiber cleaning cloth.</p>
+        <p style="color:var(--tan);">Includes microfiber cleaning cloth.</p>
+    <p class="product-translation-included">Custom double-sided translation card included with every order.</p>
+
         <div class="product-purchase"><a href="contact.html" class="btn">Order Now</a></div>
     </div>
   </div>
 </div>
 
-<div class="container translation-card-section" style="max-width: 500px; text-align: center;">
-    <h1>Translation Card</h1>
-    <p>Custom double-sided translation card included with every order.</p>
-    <!-- Translation Card Photo -->
-    <div class="translation-card-image-container">
-        <img src="Translation Card Recto MockUp.png" alt="Translation Card Main View" class="translation-card-image">
-    </div>
-  </div>  
 <footer>
     <div class="footer-brand"><img class="footer-logo" src="Schubert_Scriptorium_Instagram_Profile_2400.png" alt="Schubert Scriptorium — A Witness to the Truth"></div>
     <p><a href="mailto:orders@schubertscriptorium.com" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">orders@schubertscriptorium.com</a></p>
@@ -181,20 +175,7 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
 <!-- Script to Swap Photos -->
 
 
-<script>
-(()=>{
- const detail=document.querySelector('.product-detail-content');
- const card=document.querySelector('.translation-card-section');
- if(!detail||!card)return;
- const anchor=document.createComment('Original translation card position');
- card.parentNode.insertBefore(anchor,card);
- const update=()=>{
-  if(window.matchMedia('(min-width:901px)').matches){detail.appendChild(card);card.classList.add('translation-card-inline');}
-  else{anchor.parentNode.insertBefore(card,anchor.nextSibling);card.classList.remove('translation-card-inline');}
- };
- update();window.addEventListener('resize',update);
-})();
-</script>
+
 <script>
 /* Thumbnail switching with fade and keyboard support. */
 (function(){
