@@ -104,6 +104,15 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
  body > header .header-brand-mark {display:none !important;}
 }
 </style>
+<style>
+@media(min-width:901px){
+ .product-detail-content>.translation-card-inline{width:100%!important;max-width:100%!important;box-sizing:border-box;margin:1.1rem 0 0!important;padding:0!important;text-align:left!important;}
+ .product-detail-content>.translation-card-inline h1{font-size:clamp(1.25rem,1.65vw,1.65rem);margin:.3rem 0 .35rem;text-align:left!important;}
+ .product-detail-content>.translation-card-inline p{font-size:.92rem;line-height:1.4;margin:.25rem 0 .65rem;text-align:left!important;}
+ .product-detail-content>.translation-card-inline div{text-align:left!important;}
+ .product-detail-content>.translation-card-inline img{width:auto!important;max-width:min(100%,290px)!important;max-height:205px!important;height:auto!important;object-fit:contain;margin:.5rem 0!important;}
+}
+</style>
 </head>
 <body>
 
@@ -180,5 +189,19 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
     }
 </script>
 
+<script>
+(()=>{
+ const detail=document.querySelector('.product-detail-content');
+ const card=document.querySelector('.translation-card-section');
+ if(!detail||!card)return;
+ const anchor=document.createComment('Original translation card position');
+ card.parentNode.insertBefore(anchor,card);
+ const update=()=>{
+  if(window.matchMedia('(min-width:901px)').matches){detail.appendChild(card);card.classList.add('translation-card-inline');}
+  else{anchor.parentNode.insertBefore(card,anchor.nextSibling);card.classList.remove('translation-card-inline');}
+ };
+ update();window.addEventListener('resize',update);
+})();
+</script>
 </body>
 </html>
