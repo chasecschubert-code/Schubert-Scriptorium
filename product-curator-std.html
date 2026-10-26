@@ -146,6 +146,8 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
         secured with small magnets in each corner. The manuscript fragment appears to float,
         with depth, in this beautiful and elegant conversation centerpiece.
     </p>
+    <p class="product-translation-included">Custom double-sided translation card included with every order.</p>
+
 
     <a href="contact.html" class="btn">
         Order Now
@@ -155,20 +157,6 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
 </div>
 
 <!-- TRANSLATION CARD SECTION -->
-<div class="container" style="max-width: 500px;">
-    <h1>Translation Card</h1>
-    <p>Custom double-sided translation card included with every order.</p>
-
-    <!-- Translation Card Display -->
-    <div style="text-align: center;">
-        <img src="Translation Card Recto MockUp.png"
-             alt="Translation Card Main View"
-             style="width: 70%; max-width: 500px; border: 1px solid var(--gold); display: block; margin: 0 auto;">
-    </div>
-
-</div>
-
-
 <footer>
     <div class="footer-brand"><img class="footer-logo" src="Schubert_Scriptorium_Instagram_Profile_2400.png" alt="Schubert Scriptorium — A Witness to the Truth"></div>
     <p><a href="mailto:orders@schubertscriptorium.com" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">orders@schubertscriptorium.com</a></p>
@@ -176,27 +164,7 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
 </footer>
 
 
-<script>
-/* Desktop: place the existing translation-card section directly under Order Now.
-   Restore its original position on mobile so the mobile layout stays unchanged. */
-(()=>{
- const detail=document.querySelector('.product-detail-content');
- const card=[...document.querySelectorAll('.container')].find(el=>el.querySelector('h1')?.textContent.trim()==='Translation Card');
- if(!detail||!card)return;
- const anchor=document.createComment('Original translation card position');
- card.parentNode.insertBefore(anchor,card);
- const update=()=>{
-  if(window.matchMedia('(min-width:901px)').matches){
-   detail.appendChild(card);
-   card.classList.add('translation-card-inline');
-  }else{
-   anchor.parentNode.insertBefore(card,anchor.nextSibling);
-   card.classList.remove('translation-card-inline');
-  }
- };
- update();window.addEventListener('resize',update);
-})();
-</script>
+
 <script>
 /* Thumbnail switching with fade and keyboard support. */
 (function(){
