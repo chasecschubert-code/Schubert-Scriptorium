@@ -114,50 +114,21 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
     <h2 style="color:var(--gold);">$75</h2>
     <p class="price-disclaimer product-price-disclaimer">Taxes and shipping calculated separately.</p>
     <p>This upgraded version of our Gallery Edition features custom engraving on both sides of the wooden base. The engraving clearly identifies the manuscript as Papyrus 52 (P52) and the respective scripture references of each side. This version is durable and perfect for students of the Bible to enjoy over the years.</p>
+    <p class="product-translation-included">Custom double-sided translation card included with every order.</p>
+
     <div class="product-purchase"><a href="contact.html" class="btn">Order Now</a></div>
     
     
   </div>
 </div>
 
-<div class="container" style="max-width: 500px;">
-    <h1>Translation Card</h1>
-    <p>Custom double-sided translation card included with every order.</p>
-
-    <!-- Translation Card Display -->
-    <div style="text-align: center;">
-        <img src="Translation Card Recto MockUp.png"
-             alt="Translation Card Main View"
-             style="width: 70%; max-width: 500px; border: 1px solid var(--gold); display: block; margin: 0 auto;">
-  </div>
-</div>       
 <footer>
     <div class="footer-brand"><img class="footer-logo" src="Schubert_Scriptorium_Instagram_Profile_2400.png" alt="Schubert Scriptorium — A Witness to the Truth"></div>
     <p><a href="mailto:orders@schubertscriptorium.com" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">orders@schubertscriptorium.com</a></p>
     <a class="footer-instagram" href="https://www.instagram.com/schubertscriptorium/" target="_blank" rel="noopener noreferrer" aria-label="Schubert Scriptorium on Instagram" style="display:inline-flex;align-items:center;justify-content:center;margin-top:.3rem;color:#263C38;text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
 </footer>
 
-<script>
-/* Desktop: place the existing translation-card section directly under Order Now.
-   Restore its original position on mobile so the mobile layout stays unchanged. */
-(()=>{
- const detail=document.querySelector('.product-detail-content');
- const card=[...document.querySelectorAll('.container')].find(el=>el.querySelector('h1')?.textContent.trim()==='Translation Card');
- if(!detail||!card)return;
- const anchor=document.createComment('Original translation card position');
- card.parentNode.insertBefore(anchor,card);
- const update=()=>{
-  if(window.matchMedia('(min-width:901px)').matches){
-   detail.appendChild(card);
-   card.classList.add('translation-card-inline');
-  }else{
-   anchor.parentNode.insertBefore(card,anchor.nextSibling);
-   card.classList.remove('translation-card-inline');
-  }
- };
- update();window.addEventListener('resize',update);
-})();
-</script>
+
 <script>
 /* Thumbnail switching with fade and keyboard support. */
 (function(){
