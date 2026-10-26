@@ -462,14 +462,33 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
        OPEN THE LARGE IMAGE VIEWER
        ========================================= */
 
+    const photoCaptions = [
+        "Gallery Edition [Engraved]",
+        "Curator’s Prism [Engraved]",
+        "Curator’s Prism",
+        "Curator’s Prism [Engraved]",
+        "Translation Card",
+        "Curator’s Prism [Engraved]",
+        "Translation Card",
+        "Curator’s Prism [Engraved]",
+        "Gallery Edition [Engraved] | Translation Card",
+        "Curator’s Prism",
+        "Gallery Edition [Engraved]",
+        "Curator’s Prism [Engraved]",
+        "Curator’s Prism",
+        "Papyrus 52 (P52) Recto",
+        "Translation Card",
+        "Gallery Edition"
+];
+
     function openLightbox(imagePath, imageNumber, triggerElement) {
         lastFocusedElement = triggerElement;
 
         lightboxImage.classList.remove('is-loaded');
         lightboxImage.alt =
-            'Enlarged Schubert Scriptorium photograph ' + imageNumber;
+            photoCaptions[imageNumber - 1] || 'Schubert Scriptorium photograph ' + imageNumber;
 
-        lightboxCaption.textContent = 'Photograph ' + imageNumber;
+        lightboxCaption.textContent = photoCaptions[imageNumber - 1] || 'Photograph ' + imageNumber;
 
         lightbox.classList.add('is-open');
         lightbox.setAttribute('aria-hidden', 'false');
