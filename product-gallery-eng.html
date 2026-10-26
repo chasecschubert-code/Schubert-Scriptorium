@@ -81,6 +81,10 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
 @media(max-width:720px){.product-detail-media .thumbnail-ribbon .thumb{width:66px!important;height:66px!important;flex-basis:66px}}
 @media(prefers-reduced-motion:reduce){.product-detail-media .main-img-container #main-photo,.product-detail-media .thumbnail-ribbon .thumb{transition:none}}
 </style>
+<style>
+/* Reduce only the Gallery Edition Engraved main image height on desktop. */
+@media(min-width:721px){.product-detail-media .main-img-container #main-photo{height:390px!important;max-height:390px!important;object-fit:contain}}
+</style>
 </head>
 <body>
 <header>
@@ -101,7 +105,6 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
     <div class="main-img-container"><img id="main-photo" src="p52-wood-eng.png" alt="Main product photograph"></div>
     <!-- Product image ribbon -->
     <div class="thumbnail-ribbon"><img src="p52-wood-eng.png" alt="Main product photograph" class="thumb active-thumb" loading="lazy">
-    <img src="Real-1.png" alt="Gallery Edition Engraved" class="thumb" loading="lazy">
     <img src="Real-9.png" alt="Gallery Edition Engraved with Translation Card" class="thumb" loading="lazy">
     <img src="Real-11.png" alt="Gallery Edition Engraved" class="thumb" loading="lazy">
     <img src="Real-7.png" alt="Translation Card" class="thumb" loading="lazy"></div>
