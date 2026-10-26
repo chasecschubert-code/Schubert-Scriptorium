@@ -164,6 +164,11 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
   'Custom':['COMMISSION-4.png','Custom commissioned biblical manuscript facsimile']
  };
  function updatePhoto(){const selected=products[selector.value];if(!selected)return;photo.src=selected[0];photo.alt=selected[1];}
+ // Honor product selections passed from individual product page ORDER NOW buttons.
+ const requestedProduct=new URLSearchParams(window.location.search).get('product');
+ if(requestedProduct && products[requestedProduct]){
+  selector.value=requestedProduct;
+ }
  selector.addEventListener('change',updatePhoto);
  updatePhoto();
 })();
