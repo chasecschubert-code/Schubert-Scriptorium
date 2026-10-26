@@ -281,7 +281,8 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
 </g><g fill="#8c3f3a" stroke="#f7f3ea" stroke-width="2"><circle cx="111" cy="483" r="7"/><circle cx="309" cy="382" r="7"/><circle cx="398" cy="398" r="7"/><circle cx="249" cy="498" r="7"/><circle cx="352" cy="559" r="7"/></g>
 <text x="520" y="807" font-family="Lato,sans-serif" text-anchor="middle" font-size="16" fill="#263c38">Illustrative modern facsimile reach · original P52 remains in Manchester</text>
 </g></svg><div class="jm-map-badge"><span class="jm-badge-date">c. AD 33</span><span class="jm-badge-place">Jerusalem · Judea</span></div><span class="jm-north" aria-hidden="true">N ↑</span></div>
-<div class="jm-interface" hidden>
+<button type="button" class="jm-mobile-timeline-toggle" aria-controls="jm-mobile-timeline-panel" aria-expanded="true">Timeline &amp; milestones <span aria-hidden="true">▾</span></button>
+<div class="jm-interface" id="jm-mobile-timeline-panel" hidden>
 
 <label for="jm-range" class="jm-instruction">Drag through time, or choose a milestone</label><div class="jm-time-control"><input id="jm-range" type="range" min="0" max="5" step="0.01" value="0" aria-label="Explore the journey of P52" aria-valuetext="c. AD 33: Crucifixion and resurrection"><svg class="jm-time-break" viewBox="0 0 30 16" role="img" aria-label="Large gap in time; timeline not to scale"><path d="M0 8h5l4-6 6 12 6-12 4 6h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
 <div class="jm-stops" role="group" aria-label="Choose a historical milestone"></div>
@@ -337,6 +338,14 @@ slider.addEventListener('input',()=>{const v=+slider.value;const i=Math.round(v)
 </script>
 
 <style>
+/* Mobile timeline toggle: always available even when the geographic layer changes. */
+.jm-mobile-timeline-toggle{display:none}
+@media(max-width:600px){
+ .john-journey .jm-mobile-timeline-toggle{display:flex;width:100%;align-items:center;justify-content:space-between;gap:1rem;padding:13px 17px;background:#263c38;color:#f7f3ea;border:1px solid #b58a35;font:700 14px Lato,sans-serif;cursor:pointer;text-align:left}
+ .john-journey .jm-mobile-timeline-toggle:focus-visible{outline:3px solid #b58a35;outline-offset:2px}
+ .john-journey .jm-interface[hidden]{display:none!important}
+ .john-journey .jm-interface:not([hidden]){display:block!important}
+}
 /* Reversible geographic map layer. Original timeline SVG remains intact as offline fallback. */
 /* Hide all geographic labels on the map, including the preserved fallback map. */
 .jm-map-wrap .jm-accurate-map text,.jm-map-wrap .jm-map text{display:none!important}
@@ -479,6 +488,20 @@ fetch('https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@master/geojson/n
  wrap.classList.add('geo-ready');
  })
  .catch(err=>{console.warn('Accurate map data unavailable; original timeline map retained.',err)});
+})();
+</script>
+<script>
+(function(){
+const root=document.querySelector('.john-journey');if(!root)return;
+const toggle=root.querySelector('.jm-mobile-timeline-toggle');
+const panel=root.querySelector('#jm-mobile-timeline-panel');
+if(!toggle||!panel)return;
+toggle.addEventListener('click',()=>{
+const opening=panel.hidden;
+panel.hidden=!opening;
+toggle.setAttribute('aria-expanded',String(opening));
+toggle.querySelector('span').textContent=opening?'▾':'▸';
+});
 })();
 </script>
 </body>
