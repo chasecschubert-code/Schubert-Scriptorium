@@ -114,6 +114,18 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
  .product-detail-content>.translation-card-inline img{width:auto!important;max-width:min(100%,290px)!important;max-height:205px!important;height:auto!important;object-fit:contain;margin:.5rem 0!important;}
 }
 </style>
+<style>
+/* Consistent, accessible product image ribbon for all four product pages. */
+.product-detail-media .main-img-container{width:100%;margin-bottom:.75rem;text-align:left}
+.product-detail-media .main-img-container #main-photo{display:block;width:100%!important;max-width:100%;height:auto;object-fit:contain;border:1px solid var(--gold);box-sizing:border-box;transition:opacity .3s ease;margin:0!important}
+.product-detail-media .thumbnail-ribbon{display:flex;gap:10px;justify-content:flex-start;align-items:center;overflow-x:auto;max-width:100%;padding:10px 2px 12px;margin:0;scrollbar-width:thin}
+.product-detail-media .thumbnail-ribbon .thumb{display:block;width:80px!important;height:80px!important;flex:0 0 80px;object-fit:cover;border:1px solid rgba(212,175,55,.45);box-sizing:border-box;cursor:pointer;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+.product-detail-media .thumbnail-ribbon .thumb:hover{border-color:var(--gold);transform:scale(1.04)}
+.product-detail-media .thumbnail-ribbon .thumb.active-thumb{border:2px solid var(--gold);box-shadow:0 0 8px rgba(150,112,37,.5)}
+.product-detail-media .thumbnail-ribbon .thumb:focus-visible{outline:2px solid var(--forest-green);outline-offset:2px}
+@media(max-width:720px){.product-detail-media .thumbnail-ribbon .thumb{width:66px!important;height:66px!important;flex-basis:66px}}
+@media(prefers-reduced-motion:reduce){.product-detail-media .main-img-container #main-photo,.product-detail-media .thumbnail-ribbon .thumb{transition:none}}
+</style>
 </head>
 <body>
 
@@ -128,15 +140,18 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
         <img src="prism-eng-1.png" id="main-photo" alt="Curator's Prism Engraved Main View">
     </div>
 
-    <!-- Thumbnail Ribbon (6 Images) -->
-    <div class="thumbnail-ribbon">
-        <img src="prism-eng-1.png" class="thumb active-thumb" onclick="changePhoto(this)">
-        <img src="prism-eng-2.png" class="thumb" onclick="changePhoto(this)">
-        <img src="prism-eng-3.png" class="thumb" onclick="changePhoto(this)">
-        <img src="prism-eng-4.png" class="thumb" onclick="changePhoto(this)">
-        <img src="prism-eng-5.png" class="thumb" onclick="changePhoto(this)">
-        <img src="prism-eng-6.png" class="thumb" onclick="changePhoto(this)">
-    </div>
+    <!-- Product image ribbon -->
+    <div class="thumbnail-ribbon"><img src="prism-eng-1.png" alt="Curator's Prism Engraved" class="thumb active-thumb" loading="lazy">
+    <img src="prism-eng-2.png" alt="Curator's Prism Engraved" class="thumb" loading="lazy">
+    <img src="prism-eng-3.png" alt="Curator's Prism Engraved" class="thumb" loading="lazy">
+    <img src="prism-eng-4.png" alt="Curator's Prism Engraved" class="thumb" loading="lazy">
+    <img src="prism-eng-5.png" alt="Curator's Prism Engraved" class="thumb" loading="lazy">
+    <img src="Real-2.png" alt="Curator's Prism Engraved" class="thumb" loading="lazy">
+    <img src="Real-4.png" alt="Curator's Prism Engraved" class="thumb" loading="lazy">
+    <img src="Real-6.png" alt="Curator's Prism Engraved" class="thumb" loading="lazy">
+    <img src="Real-8.png" alt="Curator's Prism Engraved" class="thumb" loading="lazy">
+    <img src="Real-12.png" alt="Curator's Prism Engraved" class="thumb" loading="lazy">
+    <img src="Real-5.png" alt="Translation Card" class="thumb" loading="lazy"></div>
 
 
   </div>
@@ -169,25 +184,7 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
 </footer>
 
 <!-- Script to Swap Photos -->
-<script>
-    function changePhoto(element) {
-        const mainPhoto = document.getElementById('main-photo');
-        const thumbs = document.querySelectorAll('.thumb');
-        
-        // Remove active styling from all thumbnails
-        thumbs.forEach(t => t.classList.remove('active-thumb'));
-        
-        // Add active styling to clicked thumbnail
-        element.classList.add('active-thumb');
 
-        // Swap the photo with a fade effect
-        mainPhoto.style.opacity = '0'; 
-        setTimeout(() => {
-            mainPhoto.src = element.src;
-            mainPhoto.style.opacity = '1'; 
-        }, 300);
-    }
-</script>
 
 <script>
 (()=>{
@@ -201,6 +198,30 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
   else{anchor.parentNode.insertBefore(card,anchor.nextSibling);card.classList.remove('translation-card-inline');}
  };
  update();window.addEventListener('resize',update);
+})();
+</script>
+<script>
+/* Thumbnail switching with fade and keyboard support. */
+(function(){
+ const main=document.querySelector('.product-detail-media #main-photo');
+ const ribbon=document.querySelector('.product-detail-media .thumbnail-ribbon');
+ if(!main||!ribbon)return;
+ let timer;
+ const thumbs=[...ribbon.querySelectorAll('.thumb')];
+ function select(thumb){
+  if(!thumb||thumb.classList.contains('active-thumb'))return;
+  thumbs.forEach(t=>{t.classList.toggle('active-thumb',t===thumb);t.setAttribute('aria-pressed',String(t===thumb))});
+  clearTimeout(timer);
+  main.style.opacity='0';
+  const swap=()=>{main.src=thumb.getAttribute('src');main.alt=thumb.alt;main.style.opacity='1'};
+  timer=setTimeout(swap,window.matchMedia('(prefers-reduced-motion:reduce)').matches?0:300);
+ }
+ thumbs.forEach(t=>{
+  t.setAttribute('role','button');t.setAttribute('tabindex','0');
+  t.setAttribute('aria-pressed',String(t.classList.contains('active-thumb')));
+  t.addEventListener('click',()=>select(t));
+  t.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(t)}});
+ });
 })();
 </script>
 </body>
