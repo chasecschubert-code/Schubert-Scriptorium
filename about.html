@@ -338,6 +338,9 @@ slider.addEventListener('input',()=>{const v=+slider.value;const i=Math.round(v)
 
 <style>
 /* Reversible geographic map layer. Original timeline SVG remains intact as offline fallback. */
+/* Hide all geographic labels on the map, including the preserved fallback map. */
+.jm-map-wrap .jm-accurate-map text,.jm-map-wrap .jm-map text{display:none!important}
+
 .jm-map-wrap.geo-ready > .jm-map{visibility:hidden}
 .jm-accurate-map{position:absolute;inset:0;width:100%;height:100%;display:block;background:#c6d9d5}
 .jm-accurate-map .geo-land{fill:#eee3cb;stroke:#a99c7f;stroke-width:.75;vector-effect:non-scaling-stroke;stroke-linejoin:round}
