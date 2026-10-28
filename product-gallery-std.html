@@ -90,6 +90,13 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
 @media(max-width:720px){.product-detail-media .thumbnail-ribbon .thumb{width:66px!important;height:66px!important;flex-basis:66px}}
 @media(prefers-reduced-motion:reduce){.product-detail-media .main-img-container #main-photo,.product-detail-media .thumbnail-ribbon .thumb{transition:none}}
 </style>
+
+<style>
+/* Footer-only FAQ link, preserving centered footer branding. */
+footer{position:relative}
+footer .footer-faq-link{position:absolute;right:clamp(18px,3vw,48px);top:50%;transform:translateY(-50%);font:700 14px Lato,sans-serif;color:#263C38;text-decoration:underline;text-underline-offset:4px}
+@media(max-width:600px){footer .footer-faq-link{position:static;display:block;transform:none;margin-top:1rem;text-align:center}}
+</style>
 </head>
 <body>
 
@@ -146,6 +153,7 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
     <div class="footer-brand"><img class="footer-logo" src="Schubert_Scriptorium_Instagram_Profile_2400.png" alt="Schubert Scriptorium — A Witness to the Truth"></div>
     <p><a href="mailto:orders@schubertscriptorium.com" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">orders@schubertscriptorium.com</a></p>
     <a class="footer-instagram" href="https://www.instagram.com/schubertscriptorium/" target="_blank" rel="noopener noreferrer" aria-label="Schubert Scriptorium on Instagram" style="display:inline-flex;align-items:center;justify-content:center;margin-top:.3rem;color:#263C38;text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+    <a class="footer-faq-link" href="faq.html">FAQ</a>
 </footer>
 
 
