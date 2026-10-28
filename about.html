@@ -390,6 +390,26 @@ footer .footer-faq-link{position:absolute;right:clamp(18px,3vw,48px);top:50%;tra
  .about-content .about-truth-reflection .about-truth-reflection-copy{width:100%!important;max-width:none!important;margin-left:0!important;margin-right:0!important;padding-left:0!important;padding-right:0!important;text-align:left!important;line-height:1.7!important;}
 }
 </style>
+
+<style>
+/* Use the exact same parent content box for every prose paragraph in Why P52 Matters. */
+@media(min-width:901px){
+ .about-content > p.about-mobile-justify:first-of-type,
+ .about-content > section.about-truth-reflection{
+  display:block!important;width:100%!important;max-width:none!important;
+  box-sizing:border-box!important;margin-left:0!important;margin-right:0!important;
+  padding-left:0!important;padding-right:0!important;
+ }
+ .about-content > p.about-mobile-justify:first-of-type,
+ .about-content > section.about-truth-reflection > p.about-truth-transition,
+ .about-content > section.about-truth-reflection > p.about-truth-reflection-copy{
+  text-align:left!important;text-align-last:auto!important;
+  text-indent:0!important;max-width:none!important;width:100%!important;
+ }
+ .about-content > section.about-truth-reflection > blockquote.about-truth-scripture,
+ .about-content > section.about-truth-reflection > p.about-truth-question{text-align:center!important;}
+}
+</style>
 </head>
 <body>
 
