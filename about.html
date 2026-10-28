@@ -254,7 +254,7 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
  padding:clamp(20px,5%,48px);box-sizing:border-box;pointer-events:none;
  opacity:0;visibility:hidden;transform:translateY(18px);
  transition:opacity .7s ease,transform .7s ease,visibility 0s linear .7s;
- background:rgba(228,232,221,.94);
+ background:#f1e7d2;
 }
 .john-journey .jm-today-photo img{
  display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;
@@ -266,6 +266,7 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
  transition:opacity .7s ease,transform .7s ease,visibility 0s;
 }
 .john-journey .jm-map-badge,.john-journey .jm-north{z-index:3}
+.john-journey[data-step="5"] .jm-north{display:none!important}
 @media(max-width:600px){
  .john-journey .jm-map-wrap .jm-today-photo{padding:18px 12px}
  .john-journey .jm-today-photo img{-webkit-mask-image:radial-gradient(ellipse 76% 76% at center,#000 64%,transparent 100%);mask-image:radial-gradient(ellipse 76% 76% at center,#000 64%,transparent 100%)}
