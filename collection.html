@@ -55,18 +55,44 @@
             display: inline-block;
         }
 
-        /* Desktop: larger commission thumbnails with a tighter frame. */
+        /* Desktop-only interactive commission gallery: all photos fit, no scrollbar. */
         @media (min-width: 801px) {
             .commission-section { padding: 3rem 2.5rem; }
             .commission-photo-ribbon {
                 max-width: 100%;
-                justify-content: flex-start;
-                overflow-x: auto;
-                gap: 1rem;
-                padding-bottom: 0.5rem;
+                justify-content: center;
+                gap: clamp(.45rem, 1vw, 1rem);
+                overflow: visible;
+                perspective: 1100px;
+                padding: 1rem 0;
             }
-            .commission-photo-trigger { flex: 0 0 260px; }
-            .commission-photo-ribbon img { width: 260px; height: 178px; }
+            .commission-photo-trigger {
+                flex: 1 1 0;
+                min-width: 0;
+                transform-style: preserve-3d;
+                transform: translateX(0) translateY(0) rotateY(0) scale(1);
+                transition: transform 300ms ease, filter 300ms ease;
+                position: relative;
+                z-index: 1;
+            }
+            .commission-photo-ribbon img {
+                width: 100%;
+                height: clamp(125px, 13vw, 195px);
+                object-fit: cover;
+                box-sizing: border-box;
+            }
+            .commission-photo-ribbon.is-interacting .commission-photo-trigger:not(.is-active) {
+                transform: rotateY(var(--side-angle, 0deg)) scale(.94);
+                filter: brightness(.88);
+            }
+            .commission-photo-ribbon .commission-photo-trigger.is-active {
+                transform: translateX(var(--center-nudge, 0px)) translateY(-9px) rotateY(0deg) scale(1.12);
+                z-index: 5;
+                filter: brightness(1.05);
+            }
+            @media (prefers-reduced-motion: reduce) {
+                .commission-photo-trigger { transition: none; }
+            }
         }
 
         /* Responsive layout for smaller screens */
@@ -348,6 +374,31 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
 
 <script>
 (()=>{const dialog=document.getElementById('commission-lightbox');const image=dialog.querySelector('img');const caption=dialog.querySelector('.commission-lightbox-caption');const close=dialog.querySelector('.commission-lightbox-close');let opener=null;document.querySelectorAll('.commission-photo-trigger').forEach(button=>button.addEventListener('click',()=>{opener=button;const thumb=button.querySelector('img');image.src=thumb.currentSrc||thumb.src;image.alt=thumb.alt;caption.textContent=button.dataset.caption||'Caption coming soon.';dialog.showModal();close.focus();}));close.addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});dialog.addEventListener('close',()=>{image.removeAttribute('src');if(opener)opener.focus();});})();
+</script>
+
+<script>
+/* Desktop-only Rolodex hover: no scrolling, mobile gallery and click-to-enlarge untouched. */
+(()=>{
+  const ribbon=document.querySelector('.commission-photo-ribbon');
+  if(!ribbon)return;
+  const desktop=window.matchMedia('(min-width: 801px) and (hover: hover)');
+  const buttons=Array.from(ribbon.querySelectorAll('.commission-photo-trigger'));
+  const reset=()=>{ribbon.classList.remove('is-interacting');buttons.forEach(b=>{b.classList.remove('is-active');b.style.removeProperty('--side-angle');b.style.removeProperty('--center-nudge');});};
+  buttons.forEach((button,index)=>{
+    button.addEventListener('mouseenter',()=>{
+      if(!desktop.matches)return;
+      ribbon.classList.add('is-interacting');
+      buttons.forEach((other,j)=>{
+        other.classList.toggle('is-active',j===index);
+        other.style.setProperty('--side-angle',j<index?'11deg':j>index?'-11deg':'0deg');
+      });
+      const offset=(buttons.length-1)/2-index;
+      button.style.setProperty('--center-nudge',`${Math.max(-18,Math.min(18,offset*8))}px`);
+    });
+  });
+  ribbon.addEventListener('mouseleave',reset);
+  desktop.addEventListener('change',reset);
+})();
 </script>
 </body>
 </html>
