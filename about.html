@@ -300,11 +300,11 @@ body:has(.about-me-layout) footer{margin-top:1rem}
   gap:clamp(18px,2.5vw,36px);width:min(1320px,calc(100vw - 3rem));
   max-width:1320px;left:50%;transform:translateX(-50%);align-items:center;
  }
- .about-me-layout .about-me-copy {display:block;grid-column:2;grid-row:1;min-width:0;}
- .about-me-layout .about-me-copy > h2.about-header {text-align:center!important;margin:0 0 1.25rem!important;}
- .about-me-layout .about-me-copy > p {text-align:left;}
- .about-me-layout .ortelius-trigger {grid-column:1;grid-row:1;align-self:center;justify-self:center;width:100%;max-width:340px;height:355px;}
- .about-me-layout .about-family-photo {display:block;grid-column:3;grid-row:1;align-self:center;justify-self:center;width:100%;max-width:340px;height:auto;max-height:355px;object-fit:contain;margin:0;}
+ .about-content .about-me-layout .about-me-copy {display:contents;}
+ .about-content .about-me-layout .about-me-copy > h2.about-header {grid-column:2;grid-row:1;text-align:center!important;justify-self:stretch;align-self:auto;margin:0 0 1.25rem!important;}
+ .about-content .about-me-layout .about-me-copy > p {grid-column:2;grid-row:auto;text-align:left;min-width:0;}
+ .about-content .about-me-layout .ortelius-trigger {grid-column:1;grid-row:1 / span 6;align-self:center;justify-self:center;width:100%;max-width:340px;height:355px;}
+ .about-content .about-me-layout .about-family-photo {display:block;grid-column:3;grid-row:1 / span 6;align-self:center;justify-self:center;width:100%;max-width:340px;height:auto;max-height:355px;object-fit:contain;margin:0;}
 }
 </style>
 
