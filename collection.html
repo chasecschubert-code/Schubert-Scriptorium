@@ -55,6 +55,20 @@
             display: inline-block;
         }
 
+        /* Desktop: larger commission thumbnails with a tighter frame. */
+        @media (min-width: 801px) {
+            .commission-section { padding: 3rem 2.5rem; }
+            .commission-photo-ribbon {
+                max-width: 100%;
+                justify-content: flex-start;
+                overflow-x: auto;
+                gap: 1rem;
+                padding-bottom: 0.5rem;
+            }
+            .commission-photo-trigger { flex: 0 0 260px; }
+            .commission-photo-ribbon img { width: 260px; height: 178px; }
+        }
+
         /* Responsive layout for smaller screens */
         @media (max-width: 800px) {
             .commission-section {
