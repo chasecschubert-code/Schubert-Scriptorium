@@ -251,7 +251,7 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
 /* Today's product photo is a self-contained overlay; all earlier map milestones remain unchanged. */
 .john-journey .jm-map-wrap .jm-today-photo{
  position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;
- padding:clamp(20px,5%,48px);box-sizing:border-box;pointer-events:none;
+ padding:clamp(10px,2.5%,24px);box-sizing:border-box;pointer-events:none;
  opacity:0;visibility:hidden;transform:translateY(18px);
  transition:opacity .7s ease,transform .7s ease,visibility 0s linear .7s;
  background:#f1e7d2;
@@ -275,7 +275,23 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
  .john-journey .jm-today-photo{transition:none!important;transform:none!important}
 }
 </style>
-</head>
+<style>
+.ortelius-trigger,.ortelius-lightbox{display:none}
+@media(min-width:901px){
+.about-me-layout{width:min(1320px,calc(100vw - 3rem));max-width:1320px;grid-template-columns:minmax(0,1fr) minmax(0,1.45fr) minmax(0,1fr);gap:1.2rem}
+.about-me-copy>h2,.about-me-copy>p{grid-column:2}
+.about-me-layout .about-family-photo{grid-column:3;grid-row:1 / 5;width:85%;max-width:340px;max-height:355px;justify-self:center}
+.ortelius-trigger{display:block;grid-column:1;grid-row:1 / 5;align-self:center;justify-self:center;width:85%;max-width:340px;height:355px;padding:0;border:0;background:transparent;cursor:zoom-in;overflow:hidden;-webkit-mask-image:linear-gradient(to left,transparent 0%,black 22%,black 100%);mask-image:linear-gradient(to left,transparent 0%,black 22%,black 100%)}
+.ortelius-trigger img{display:block;width:100%;height:100%;object-fit:contain}
+body:has(.about-me-layout) footer{margin-top:1rem}
+.ortelius-lightbox[open]{display:flex;position:fixed;inset:0;z-index:10000;max-width:none;max-height:none;width:100vw;height:100dvh;margin:0;padding:2rem;box-sizing:border-box;border:0;background:rgba(18,27,25,.92);align-items:center;justify-content:center}
+.ortelius-lightbox::backdrop{background:rgba(18,27,25,.92)}
+.ortelius-lightbox figure{margin:0;max-width:min(950px,94vw);max-height:90dvh;display:flex;flex-direction:column;align-items:center;gap:1rem}
+.ortelius-lightbox figure img{max-width:100%;max-height:65dvh;object-fit:contain}
+.ortelius-lightbox figcaption{font:normal .85rem/1.6 Lato,sans-serif;color:#f1e7d2;text-align:center;max-width:850px;overflow-y:auto}
+.ortelius-close{position:fixed;right:2rem;top:1.2rem;color:white;background:transparent;border:1px solid #f1e7d2;border-radius:50%;width:42px;height:42px;font-size:1.6rem;cursor:pointer}
+}
+</style></head>
 <body>
 
 <header>
@@ -322,13 +338,14 @@ body > header .header-brand-mark:focus-visible {outline:2px solid #B58A35;outlin
     <p class="about-mobile-justify">My fascination with biblical manuscripts isn't simply about history—it's about the faithfulness of God.</p>
     <p class="about-mobile-justify">I started this personal project to help bridge the gap between seeing a photograph of a manuscript in a book and experiencing the physical reality of history. A manuscript is more than ink on an old piece of material. It is a tangible connection to the people, places, and faith that carried the words of Scripture across the centuries.</p>
     <p class="about-mobile-justify">My hope with each facsimile I make is that it would allow people to hold a small, powerful echo of the past—and to remember the countless faithful believers who carefully handwrote and handed-down God's Word to us, one generation at a time. We can see that God's Word remains reliable and trustworthy, matching what our Bibles still say today.</p>
-    <div class="about-me-layout"><div class="about-me-copy"><h2 class="about-header mobile-single-line">More than a Hobby</h2>
+    <div class="about-me-layout"><button type="button" class="ortelius-trigger" aria-label="Enlarge Ortelius atlas photograph" onclick="document.getElementById('ortelius-lightbox').showModal()"><img src="2014%20LOC%20Ortelius%20Atlas.png" alt="Examining an original Ortelius atlas at the Library of Congress" loading="lazy"></button><div class="about-me-copy"><h2 class="about-header mobile-single-line">More than a Hobby</h2>
     <img class="about-family-photo" src="schubert-family.jpeg" alt="Chase Schubert with his family outdoors" width="1471" height="2048" loading="lazy" decoding="async">
     <p class="about-mobile-justify">Hey there! Thanks for visiting my odd and unique site.</p>
     <p class="about-mobile-justify">My name is Chase Schubert, and I'm a lifelong learner and student of Scripture, history, antique maps, manuscripts, and the stories that connect us to the past. With a degree in History Education from Abilene Christian University and a former U.S. history teacher, I've always loved making history tangible, memorable, and meaningful.</p>
     <p class="about-mobile-justify">I'd love to connect with you soon!</p></div></div>
     </div>
 
+<dialog id="ortelius-lightbox" class="ortelius-lightbox" aria-label="Ortelius atlas photograph"><button class="ortelius-close" type="button" aria-label="Close enlarged photograph" onclick="this.closest('dialog').close()">×</button><figure><img src="2014%20LOC%20Ortelius%20Atlas.png" alt="2014 Library of Congress Ortelius atlas photograph"><figcaption>A moment I'll never forget from my final semester of ACU in 2014: deep within the James Madison Building at the Library of Congress in Washington D.C., I had the privilege of examining [with my own eyes <em>and hands</em>] an original 1570 atlas by Abraham Ortelius, titled <em>Theatrum Orbis Terrarum</em> - often referred to as the first modern atlas. More than four centuries of history, craftsmanship, and geographical discovery were right before me. For someone who loves history and old maps, it doesn't get much better than this. I was a nerdy kid in a candy shop.</figcaption></figure></dialog>
 <footer>
     <div class="footer-brand"><img class="footer-logo" src="Schubert_Scriptorium_Instagram_Profile_2400.png" alt="Schubert Scriptorium — A Witness to the Truth"></div>
     <p><a href="mailto:orders@schubertscriptorium.com" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">orders@schubertscriptorium.com</a></p>
