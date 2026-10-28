@@ -317,6 +317,43 @@ footer{position:relative}
 footer .footer-faq-link{position:absolute;right:clamp(18px,3vw,48px);top:50%;transform:translateY(-50%);font:700 14px Lato,sans-serif;color:#263C38;text-decoration:underline;text-underline-offset:4px}
 @media(max-width:600px){footer .footer-faq-link{position:static;display:block;transform:none;margin-top:1rem;text-align:center}}
 </style>
+
+<style>
+/* About-page Scripture reflection: restrained manuscript-inspired typography. */
+.about-content .about-truth-reflection {
+  max-width:820px;
+  margin:clamp(2.5rem,5vw,4rem) auto;
+  padding:clamp(1.5rem,3vw,2.5rem) clamp(1.2rem,3vw,2.75rem);
+  text-align:center;
+  border-top:1px solid #B58A35;
+  border-bottom:1px solid #B58A35;
+}
+.about-content .about-truth-scripture {margin:0 auto 1.4rem;padding:0;}
+.about-content .about-truth-scripture p {
+  font:italic 500 clamp(1.35rem,2.35vw,1.95rem)/1.55 'Playfair Display',Georgia,serif;
+  color:#263C38;
+  margin:0 auto .65rem;
+}
+.about-content .about-truth-scripture cite {
+  display:block;
+  font:700 .8rem/1.5 'Lato',sans-serif;
+  color:#98732F;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.about-content .about-truth-transition {margin:0 auto .4rem;line-height:1.7;text-align:center;}
+.about-content .about-truth-reflection .about-truth-question {
+  font:italic 600 clamp(1.5rem,2.6vw,2.1rem)/1.4 'Playfair Display',Georgia,serif;
+  color:#98732F;
+  margin:.35rem auto 1.35rem;
+  text-align:center;
+}
+.about-content .about-truth-reflection-copy {max-width:760px;margin:0 auto;line-height:1.8;text-align:center;}
+@media(max-width:600px) {
+ .about-content .about-truth-reflection {padding:1.4rem .8rem;}
+ .about-content .about-truth-reflection-copy {text-align:left;}
+}
+</style>
 </head>
 <body>
 
@@ -347,19 +384,15 @@ footer .footer-faq-link{position:absolute;right:clamp(18px,3vw,48px);top:50%;tra
 <div class="jm-navigation"><button type="button" class="jm-prev">← Previous</button><span class="jm-count"></span><button type="button" class="jm-next">Next →</button></div></div>
 <noscript><p>From Jesus’s crucifixion and resurrection (c. AD 30–33), to John’s Gospel (traditionally c. AD 90), to its early copies: P52 preserves John 18. Purchased in Egypt for the John Rylands Library in 1920, the original is preserved in Manchester. A facsimile brings its story within reach today.</p></noscript>
 </section>
-    <!-- Jesus' Quote: Enlarged and Styled -->
-    <p class="about-scripture-quote">
-        "For this I was born and for this I have come into the world—to bear witness to the truth."
-    </p>
-    
-    <p class="about-mobile-justify">Immediately afterward comes Pilate's timeless question:</p>
-    
-    <!-- Pilate's Question: Enlarged, Gold, and on its Own Line -->
-    <p class="about-truth-question">
-        "What is truth?"
-    </p>
-
-    <p class="about-mobile-justify">There is something profoundly fitting about this particular passage surviving on the earliest fragment of the New Testament. Jesus speaks of bearing witness to the truth, and two thousand years later, this tiny piece of papyrus continues to bear witness to Him as the Way, the Life, and the Truth.</p>
+    <section class="about-truth-reflection" aria-label="A witness to the truth">
+      <blockquote class="about-truth-scripture">
+        <p>“For this I was born and for this I have come into the world—to bear witness to the truth.”</p>
+        <cite>John 18:37</cite>
+      </blockquote>
+      <p class="about-truth-transition">Just moments later, Pilate responds with a question that has echoed through the centuries:</p>
+      <p class="about-truth-question">“What is truth?”</p>
+      <p class="about-truth-reflection-copy">It is remarkable that these words are preserved on Papyrus 52, one of our earliest surviving witnesses to the New Testament. Nearly two thousand years later, this small fragment still preserves the testimony of Jesus Christ, who came into the world to bear witness to the truth—and who declared Himself to be the Way, the Truth, and the Life.</p>
+    </section>
     <div class="about-me-layout"><button type="button" class="ortelius-trigger" aria-label="Enlarge Ortelius atlas photograph" onclick="document.getElementById('ortelius-lightbox').showModal()"><img src="2014%20LOC%20Ortelius%20Atlas.png" alt="Examining an original Ortelius atlas at the Library of Congress" loading="lazy"></button><div class="about-me-copy">
     <h2 class="about-header mobile-single-line">More than a Hobby</h2>
     <img class="about-family-photo" src="schubert-family.jpeg" alt="Chase Schubert with his family outdoors" width="1471" height="2048" loading="lazy" decoding="async">
