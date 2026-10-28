@@ -366,6 +366,14 @@ footer .footer-faq-link{position:absolute;right:clamp(18px,3vw,48px);top:50%;tra
  .about-content .about-truth-transition{margin-top:1rem;}
 }
 </style>
+
+<style>
+/* Mobile header: keep all five navigation items on one centered line. */
+@media(max-width:700px){
+ body>header nav[aria-label="Main navigation"]{display:flex!important;flex-flow:row nowrap!important;justify-content:center!important;align-items:center!important;gap:clamp(2px,.7vw,5px)!important;width:100%!important;max-width:100%!important;padding:0 3px!important;box-sizing:border-box!important;overflow:visible!important;}
+ body>header nav[aria-label="Main navigation"]>a{display:inline-block!important;flex:0 1 auto!important;min-width:0!important;white-space:nowrap!important;margin:0!important;padding:5px clamp(2px,.65vw,4px)!important;font-size:clamp(9px,2.55vw,12px)!important;letter-spacing:0!important;line-height:1.3!important;}
+}
+</style>
 </head>
 <body>
 
