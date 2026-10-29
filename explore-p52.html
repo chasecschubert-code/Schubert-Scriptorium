@@ -1738,11 +1738,10 @@ footer.site-footer .footer-links a:focus-visible {outline:2px solid #B58A35;outl
     >
 
 
-<p id="folioStatus" class="folio-status" role="status" hidden>Illustrative recto reconstruction · Original fragment outlined in gold</p>
         <!-- TOOLBAR -->
 
         <div class="viewer-toolbar">
-            <label class="folio-toggle"><input id="showReconstructedFolio" type="checkbox" aria-describedby="folioStatus folioAvailability"><span class="folio-copy"><span>See Reconstructed Folio</span><small id="folioAvailability">Only Recto Available at this time</small></span></label>
+            <label class="folio-toggle"><input id="showReconstructedFolio" type="checkbox" aria-describedby="folioAvailability"><span class="folio-copy"><span>See Reconstructed Folio</span><small id="folioAvailability">Only Recto Available at this time</small></span></label>
             <div class="viewer-zoom-group" role="group" aria-label="Zoom controls">
                 <button type="button" id="zoomOut">− Zoom Out</button>
                 <button type="button" id="resetView">Reset View</button>
@@ -2758,7 +2757,6 @@ footer.site-footer .footer-links a:focus-visible {outline:2px solid #B58A35;outl
     const folioToggle = document.getElementById('showReconstructedFolio');
     folioToggle.addEventListener('change', () => {
         manuscriptFlip.classList.toggle('folio-visible', folioToggle.checked);
-        document.getElementById('folioStatus').hidden = !folioToggle.checked;
         closeAllPanels();
         resetView();
     });
@@ -2784,7 +2782,6 @@ footer.site-footer .footer-links a:focus-visible {outline:2px solid #B58A35;outl
         if (side === 'verso' && folioToggle.checked) {
             folioToggle.checked = false;
             manuscriptFlip.classList.remove('folio-visible');
-            document.getElementById('folioStatus').hidden = true;
             resetView();
         }
 
