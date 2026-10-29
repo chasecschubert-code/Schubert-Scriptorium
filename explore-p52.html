@@ -1585,6 +1585,26 @@ footer.site-footer .footer-links a:focus-visible {outline:2px solid #B58A35;outl
 .viewer-toolbar { grid-template-columns:minmax(170px,1fr) auto auto auto auto; }
 @media(max-width:1050px) { .viewer-toolbar { display:flex; flex-wrap:wrap; justify-content:space-between; } .viewer-toolbar .folio-toggle { margin-right:auto; } .viewer-side-group { margin-left:auto; } }
 @media(max-width:850px) { .viewer-toolbar { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px 6px; } .viewer-toolbar .folio-toggle { grid-column:1;grid-row:1; } .viewer-side-group { grid-column:2;grid-row:1; } .viewer-zoom-group { grid-column:1;grid-row:2; } .viewer-fullscreen-group { grid-column:2;grid-row:2; } .viewer-background-group { grid-column:1 / -1;grid-row:3;justify-self:center; } }
+
+/* Final responsive control arrangement: separated desktop groups and mobile two-row layout. */
+.viewer-toolbar { display:grid !important; grid-template-columns:minmax(195px,1fr) auto minmax(130px,.65fr) auto auto; gap:clamp(16px,2.5vw,42px); align-items:center; }
+.viewer-toolbar .folio-toggle { grid-column:1; grid-row:1; justify-self:start; }
+.viewer-zoom-group { grid-column:2; grid-row:1; justify-self:center; }
+.viewer-background-group { grid-column:3; grid-row:1; display:flex; flex-wrap:wrap; justify-content:center; gap:6px; max-width:155px; }
+.viewer-background-group > span { flex:0 0 100%; text-align:center; }
+.viewer-fullscreen-group { grid-column:4; grid-row:1; justify-self:center; margin-inline:clamp(8px,1.8vw,26px); }
+.viewer-side-group { grid-column:5; grid-row:1; justify-self:end; }
+@media(max-width:1100px) and (min-width:701px) { .viewer-toolbar { display:flex !important; flex-wrap:wrap; justify-content:space-between; gap:18px 25px; } .viewer-background-group { max-width:none; } .viewer-fullscreen-group { margin-inline:18px; } }
+@media(max-width:700px) {
+ .viewer-toolbar { display:grid !important; grid-template-columns:minmax(0,1fr) auto auto; gap:20px 8px; padding:18px 12px; align-items:center; }
+ .viewer-background-group { grid-column:1; grid-row:1; justify-self:start; justify-content:flex-start; max-width:none; }
+ .viewer-background-group > span { text-align:left; }
+ .viewer-fullscreen-group { grid-column:2; grid-row:1; justify-self:center; margin-inline:10px; }
+ .viewer-side-group { grid-column:3; grid-row:1; justify-self:end; margin:0; }
+ .viewer-toolbar .folio-toggle { grid-column:1; grid-row:2; justify-self:start; margin:0; }
+ .viewer-zoom-group { grid-column:2 / 4; grid-row:2; justify-self:end; }
+}
+@media(max-width:480px) { .viewer-toolbar { gap:15px 5px; padding:13px 7px; } .viewer-toolbar button { font-size:.53rem; padding:7px 5px; } .viewer-background-group { gap:3px; } .viewer-background-group > span { font-size:.6rem; } .viewer-fullscreen-group { margin-inline:3px; } .viewer-zoom-group { gap:2px; } .viewer-toolbar .folio-toggle { gap:4px; } .folio-copy { font-size:.61rem; } .folio-copy small { font-size:.51rem; } }
 </style>
 </head>
 
