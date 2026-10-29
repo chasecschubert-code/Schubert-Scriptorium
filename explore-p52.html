@@ -1574,6 +1574,17 @@ footer.site-footer .footer-links a:focus-visible {outline:2px solid #B58A35;outl
 @media (max-width:900px), (hover:none) {
   .hotspot:hover:not(:focus) { transform:translate(-50%,-50%); }
 }
+
+/* Larger manuscript markers and an optional dark exhibit backdrop. */
+.viewer-stage { transition:background .25s ease; }
+.viewer-stage.background-dark { background:#080909 !important; }
+.hotspot { width:82px !important; height:82px !important; font-size:1.55rem !important; transition:transform .22s ease,background .22s ease,color .22s ease,box-shadow .22s ease !important; }
+@media(min-width:901px) and (hover:hover) and (pointer:fine) { .hotspot:hover { transform:translate(-50%,-50%) scale(1.18) !important; z-index:35; } }
+.viewer-background-group { display:flex; align-items:center; gap:5px; white-space:nowrap; color:#F7F3EA; font:700 .66rem 'Lato',sans-serif; text-transform:uppercase; letter-spacing:.4px; }
+.viewer-background-group button[aria-pressed="true"] { background:#B58A35; color:#111; }
+.viewer-toolbar { grid-template-columns:minmax(170px,1fr) auto auto auto auto; }
+@media(max-width:1050px) { .viewer-toolbar { display:flex; flex-wrap:wrap; justify-content:space-between; } .viewer-toolbar .folio-toggle { margin-right:auto; } .viewer-side-group { margin-left:auto; } }
+@media(max-width:850px) { .viewer-toolbar { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px 6px; } .viewer-toolbar .folio-toggle { grid-column:1;grid-row:1; } .viewer-side-group { grid-column:2;grid-row:1; } .viewer-zoom-group { grid-column:1;grid-row:2; } .viewer-fullscreen-group { grid-column:2;grid-row:2; } .viewer-background-group { grid-column:1 / -1;grid-row:3;justify-self:center; } }
 </style>
 </head>
 
@@ -1711,6 +1722,7 @@ footer.site-footer .footer-links a:focus-visible {outline:2px solid #B58A35;outl
                 <button type="button" id="resetView">Reset View</button>
                 <button type="button" id="zoomIn">+ Zoom In</button>
             </div>
+            <div class="viewer-background-group" role="group" aria-label="Manuscript background"><span>Background</span><button type="button" id="backgroundLight" aria-pressed="true">Light</button><button type="button" id="backgroundDark" aria-pressed="false">Dark</button></div>
             <div class="viewer-fullscreen-group"><button type="button" id="fullscreen">Fullscreen</button></div>
             <div class="viewer-side-group" role="group" aria-label="Manuscript side">
                 <button type="button" id="rectoButton" aria-pressed="true">Recto</button>
@@ -3486,6 +3498,19 @@ const buttons=steps.map((s,i)=>{const b=document.createElement('button');b.type=
 function frame(i){let view='0 0 1044 864';if(mobile.matches){view=i===0?'500 440 540 450':i<4?'370 330 674 560':'0 0 1044 864'}else{const desktopViews=['575 360 440 370','495 300 500 420','360 285 660 555','500 375 510 430','55 45 1000 815'];view=desktopViews[i]||view}root.querySelector('svg').setAttribute('viewBox',view)}
 function select(i){i=Math.max(0,Math.min(steps.length-1,i));slider.value=i;slider.setAttribute('aria-valuetext',steps[i][0]+': '+steps[i][2]);if(i===current){frame(i);return}current=i;root.dataset.step=i;const s=steps[i];root.querySelector('.jm-badge-date').textContent=s[0];root.querySelector('.jm-badge-place').textContent=s[1];root.querySelector('.jm-story-date').textContent=s[0]+' · '+s[1];root.querySelector('.jm-story h3').textContent=s[2];root.querySelector('.jm-story-copy').textContent=s[3];root.querySelector('.jm-collection').hidden=i!==steps.length-1;buttons.forEach((b,k)=>b.setAttribute('aria-pressed',String(k===i)));root.querySelectorAll('.jm-marker').forEach(m=>m.classList.toggle('is-active',s[5].split(',').includes(m.dataset.place)));root.querySelector('.jm-prev').disabled=i===0;root.querySelector('.jm-next').disabled=i===steps.length-1;root.querySelector('.jm-count').textContent=String(i+1).padStart(2,'0')+' / '+String(steps.length).padStart(2,'0');frame(i);if(!reduced.matches)root.querySelector('.jm-story').animate([{opacity:.25,transform:'translateY(5px)'},{opacity:1,transform:'translateY(0)'}],{duration:350,easing:'ease-out'})}
 slider.addEventListener('input',()=>{const v=+slider.value;const i=Math.round(v);if(i!==current)select(i);slider.value=v});slider.addEventListener('change',()=>select(Math.round(+slider.value)));slider.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowDown','ArrowRight','ArrowUp','Home','End'].includes(e.key)){e.preventDefault();select(e.key==='Home'?0:e.key==='End'?steps.length-1:current+(['ArrowLeft','ArrowDown'].includes(e.key)?-1:1))}});root.querySelector('.jm-prev').addEventListener('click',()=>select(current-1));root.querySelector('.jm-next').addEventListener('click',()=>select(current+1));mobile.addEventListener('change',()=>frame(current));root.querySelector('.jm-interface').hidden=false;select(0);
+})();
+</script>
+
+<script>
+/* Backdrop preference is independent of manuscript side, zoom, and reconstruction. */
+(function(){
+ const stage=document.getElementById('viewerStage');
+ const light=document.getElementById('backgroundLight');
+ const dark=document.getElementById('backgroundDark');
+ if(!stage||!light||!dark)return;
+ function setBackground(mode){const isDark=mode==='dark';stage.classList.toggle('background-dark',isDark);light.setAttribute('aria-pressed',String(!isDark));dark.setAttribute('aria-pressed',String(isDark));}
+ light.addEventListener('click',()=>setBackground('light'));
+ dark.addEventListener('click',()=>setBackground('dark'));
 })();
 </script>
 </body>
