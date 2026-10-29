@@ -1605,6 +1605,12 @@ footer.site-footer .footer-links a:focus-visible {outline:2px solid #B58A35;outl
  .viewer-zoom-group { grid-column:2 / 4; grid-row:2; justify-self:end; }
 }
 @media(max-width:480px) { .viewer-toolbar { gap:15px 5px; padding:13px 7px; } .viewer-toolbar button { font-size:.53rem; padding:7px 5px; } .viewer-background-group { gap:3px; } .viewer-background-group > span { font-size:.6rem; } .viewer-fullscreen-group { margin-inline:3px; } .viewer-zoom-group { gap:2px; } .viewer-toolbar .folio-toggle { gap:4px; } .folio-copy { font-size:.61rem; } .folio-copy small { font-size:.51rem; } }
+
+/* Keep the reconstructed-folio availability note on one line on mobile. */
+@media (max-width:700px) {
+ .viewer-toolbar .folio-copy small#folioAvailability { white-space:nowrap; font-size:clamp(.46rem,1.65vw,.58rem); }
+ .viewer-toolbar .folio-toggle { min-width:0; }
+}
 </style>
 </head>
 
