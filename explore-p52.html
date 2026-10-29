@@ -1261,6 +1261,17 @@ footer p { margin: .15rem 0 0; line-height: 1.2; }
  body > header nav a { padding:.25rem .65rem; }
 }
 .flip-card .flip-front { background:linear-gradient(135deg,rgba(255,255,255,.16),transparent 43%),linear-gradient(155deg,#F9F5EC 0%,#EDE2CF 58%,#DCC9A9 100%) !important; }
+
+        /* Grouped manuscript controls, responsive without changing viewer mechanics. */
+        .viewer-toolbar { display: grid; grid-template-columns: minmax(190px,1fr) auto minmax(110px,1fr) auto; align-items:center; gap: 14px; justify-content:stretch; }
+        .viewer-toolbar .folio-toggle { display:flex; align-items:center; justify-self:start; gap:8px; color:#F7F3EA; cursor:pointer; font-family:'Lato',sans-serif; font-size:.75rem; }
+        .folio-copy { display:flex; flex-direction:column; gap:3px; }
+        .folio-copy small { font-size:.62rem; font-weight:400; letter-spacing:0; opacity:.8; }
+        .viewer-zoom-group, .viewer-side-group { display:flex; align-items:center; gap:5px; white-space:nowrap; }
+        .viewer-side-group { justify-self:end; }
+        .viewer-fullscreen-group { justify-self:center; }
+        @media(max-width:850px) { .viewer-toolbar { grid-template-columns:1fr auto; gap:12px 8px; padding:12px 9px; } .viewer-toolbar .folio-toggle { grid-column:1; grid-row:1; } .viewer-side-group { grid-column:2; grid-row:1; } .viewer-zoom-group { grid-column:1; grid-row:2; justify-self:start; } .viewer-fullscreen-group { grid-column:2; grid-row:2; justify-self:end; } .viewer-toolbar button { padding:8px 7px; font-size:.62rem; letter-spacing:0; } }
+        @media(max-width:420px) { .viewer-toolbar { grid-template-columns:minmax(0,1fr) auto; } .viewer-zoom-group { gap:3px; } .viewer-toolbar button { padding:7px 5px; font-size:.56rem; } .folio-copy { font-size:.66rem; } .folio-copy small { font-size:.55rem; } }
 </style>
 
 <style>
@@ -1685,55 +1696,17 @@ footer.site-footer .footer-links a:focus-visible {outline:2px solid #B58A35;outl
         <!-- TOOLBAR -->
 
         <div class="viewer-toolbar">
-<label class="folio-toggle"><input id="showReconstructedFolio" type="checkbox" aria-describedby="folioStatus">See Reconstructed Folio</label>
-
-            <button
-                type="button"
-                id="zoomOut"
-            >
-                − Zoom Out
-            </button>
-
-
-            <button
-                type="button"
-                id="resetView"
-            >
-                Reset View
-            </button>
-
-
-            <button
-                type="button"
-                id="zoomIn"
-            >
-                + Zoom In
-            </button>
-
-
-            <button
-                type="button"
-                id="fullscreen"
-            >
-                Fullscreen
-            </button>
-
-            <button
-                type="button"
-                id="rectoButton"
-                aria-pressed="true"
-            >
-                Recto
-            </button>
-
-            <button
-                type="button"
-                id="versoButton"
-                aria-pressed="false"
-            >
-                Verso
-            </button>
-
+            <label class="folio-toggle"><input id="showReconstructedFolio" type="checkbox" aria-describedby="folioStatus folioAvailability"><span class="folio-copy"><span>See Reconstructed Folio</span><small id="folioAvailability">Only Recto Available at this time</small></span></label>
+            <div class="viewer-zoom-group" role="group" aria-label="Zoom controls">
+                <button type="button" id="zoomOut">− Zoom Out</button>
+                <button type="button" id="resetView">Reset View</button>
+                <button type="button" id="zoomIn">+ Zoom In</button>
+            </div>
+            <div class="viewer-fullscreen-group"><button type="button" id="fullscreen">Fullscreen</button></div>
+            <div class="viewer-side-group" role="group" aria-label="Manuscript side">
+                <button type="button" id="rectoButton" aria-pressed="true">Recto</button>
+                <button type="button" id="versoButton" aria-pressed="false">Verso</button>
+            </div>
         </div>
 
 
@@ -2759,6 +2732,14 @@ footer.site-footer .footer-links a:focus-visible {outline:2px solid #B58A35;outl
         closeAllPanels();
 
         currentSide = side;
+
+        // Reconstruction is recto-only: clear it whenever the verso is shown.
+        if (side === 'verso' && folioToggle.checked) {
+            folioToggle.checked = false;
+            manuscriptFlip.classList.remove('folio-visible');
+            document.getElementById('folioStatus').hidden = true;
+            resetView();
+        }
 
         if (side === 'verso') {
 
