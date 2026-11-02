@@ -1,0 +1,14 @@
+/* Schubert Scriptorium newsletter footer integration */
+footer.site-footer .footer-inner{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);}
+footer.site-footer .footer-subscribe{grid-column:1;grid-row:1;min-width:0;width:100%;max-width:360px;justify-self:center;text-align:center;font-family:'Lato',sans-serif;line-height:1.35;}
+footer.site-footer .footer-subscribe h2{font-family:'Playfair Display',serif;font-size:clamp(15px,1.2vw,19px);color:#263C38;margin:0 0 3px;letter-spacing:.025em;}
+footer.site-footer .footer-subscribe p{font-size:12px;color:#46534b;margin:0 0 7px;}
+footer.site-footer .footer-subscribe .ctct-inline-form{width:100%;min-height:48px;}
+footer.site-footer .footer-subscribe .ctct-form-defaults{background:transparent!important;padding:0!important;min-width:0!important;}
+footer.site-footer .footer-subscribe .ctct-form-header,footer.site-footer .footer-subscribe .ctct-form-text,footer.site-footer .footer-subscribe .ctct-form-footer{display:none!important;}
+footer.site-footer .footer-subscribe .ctct-form-field{margin-bottom:6px!important;}
+footer.site-footer .footer-subscribe input[type=email]{box-sizing:border-box!important;width:100%!important;min-height:36px!important;padding:8px 10px!important;border:1px solid #B58A35!important;border-radius:3px!important;background:#fff!important;color:#263C38!important;font:13px 'Lato',sans-serif!important;}
+footer.site-footer .footer-subscribe button,footer.site-footer .footer-subscribe .ctct-form-button{width:100%!important;min-height:35px!important;padding:7px 12px!important;border:1px solid #263C38!important;border-radius:3px!important;background:#263C38!important;color:white!important;font:700 12px 'Lato',sans-serif!important;letter-spacing:.07em!important;cursor:pointer;}
+footer.site-footer .footer-subscribe button:hover,footer.site-footer .footer-subscribe button:focus-visible{background:#B58A35!important;border-color:#B58A35!important;}
+footer.site-footer .footer-subscribe .ctct-form-errorMessage{font-size:12px!important;text-align:left;}
+@media(max-width:1050px){footer.site-footer .footer-inner{grid-template-columns:1fr!important;gap:8px!important;}footer.site-footer .footer-subscribe{grid-column:1;grid-row:auto;max-width:350px;margin:12px auto 4px;}footer.site-footer .footer-brand,footer.site-footer .footer-links{grid-column:1;grid-row:auto;}}
