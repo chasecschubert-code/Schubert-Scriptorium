@@ -1,17 +1,45 @@
-/* Set an accessible placeholder on the Constant Contact-generated email field. */
+/* Enhance Constant Contact's asynchronously rendered footer signup form. */
 (function(){
   function enhance(){
-    document.querySelectorAll('.footer-subscribe input[type="email"], .footer-subscribe input[name="email"]').forEach(function(input){
-      input.setAttribute('placeholder','YOUR EMAIL ADDRESS');
-      input.setAttribute('aria-label','Your email address');
+    document.querySelectorAll('.footer-subscribe').forEach(function(footer){
+      var form=footer.querySelector('form');
+      var email=footer.querySelector('input[type="email"], input[name="email"]');
+      if(email){
+        if(email.placeholder!=='YOUR EMAIL ADDRESS')email.placeholder='YOUR EMAIL ADDRESS';
+        if(email.getAttribute('aria-label')!=='Your email address')email.setAttribute('aria-label','Your email address');
+      }
+      if(!form)return;
+      var button=form.querySelector('button[type="submit"], input[type="submit"], .ctct-form-button');
+      if(!button)return;
+      /* Find the consent notice by its text, not a vendor-specific class. */
+      var notice=Array.from(form.querySelectorAll('p, div, small, span')).find(function(el){
+        return el.textContent.includes('By submitting this form') &&
+          !Array.from(el.children).some(function(child){return child.textContent.includes('By submitting this form');});
+      });
+      if(!notice)return;
+      var buttonNode=button, noticeNode=notice;
+      while(buttonNode.parentElement && buttonNode.parentElement!==form)buttonNode=buttonNode.parentElement;
+      while(noticeNode.parentElement && noticeNode.parentElement!==form)noticeNode=noticeNode.parentElement;
+      if(buttonNode===noticeNode){
+        var common=button.parentElement;
+        while(common && !common.contains(notice))common=common.parentElement;
+        if(!common)return;
+        buttonNode=button;
+        noticeNode=notice;
+        while(buttonNode.parentElement!==common && buttonNode.parentElement)buttonNode=buttonNode.parentElement;
+        while(noticeNode.parentElement!==common && noticeNode.parentElement)noticeNode=noticeNode.parentElement;
+      }
+      if(buttonNode!==noticeNode && buttonNode.parentElement===noticeNode.parentElement && buttonNode.nextElementSibling!==noticeNode){
+        buttonNode.insertAdjacentElement('afterend',noticeNode);
+      }
     });
   }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
   function start(){
-    enhance();
     var footer=document.querySelector('.footer-subscribe');
     if(!footer)return;
+    enhance();
     var observer=new MutationObserver(enhance);
     observer.observe(footer,{childList:true,subtree:true});
   }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
 })();
