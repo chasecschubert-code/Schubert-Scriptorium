@@ -22,6 +22,18 @@
       if (!form) return;
       var submit = form.querySelector('button[type="submit"], input[type="submit"], button.ctct-form-button, .ctct-form-button');
       if (!submit) return;
+      /* Keep the email field and submit button together in a single compact row. */
+      if (email && !form.querySelector('.ss-signup-row')) {
+        var field = email.closest('.ctct-form-field') || email.parentElement;
+        var submitWrapper = submit.closest('.ctct-form-button') || submit;
+        if (field && submitWrapper && field !== submitWrapper && form.contains(field) && form.contains(submitWrapper)) {
+          var row = document.createElement('div');
+          row.className = 'ss-signup-row';
+          field.parentNode.insertBefore(row, field);
+          row.appendChild(field);
+          row.appendChild(submitWrapper);
+        }
+      }
       /* Move the complete legal notice to the end of the actual form, after submit. */
       var candidates = Array.from(form.querySelectorAll('p, div, small, span'));
       var notice = candidates.find(function (node) {
