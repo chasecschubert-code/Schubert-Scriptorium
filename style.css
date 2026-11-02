@@ -783,3 +783,43 @@ footer.site-footer .footer-copyright {
 @media(max-width:1050px) {
  footer.site-footer .footer-copyright { text-align:center; }
 }
+
+/* Three centered, evenly spaced rows in the right-hand footer column. */
+footer.site-footer .footer-links {
+ display:flex;
+ flex-direction:column;
+ flex-wrap:nowrap;
+ align-items:stretch;
+ justify-content:center;
+ gap:7px;
+ min-width:0;
+ padding:0;
+}
+footer.site-footer .footer-links-primary {
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:clamp(12px,1.5vw,24px);
+ width:100%;
+ min-width:0;
+}
+footer.site-footer .footer-recaptcha-row,
+footer.site-footer .footer-copyright {
+ display:block;
+ flex:none;
+ width:100%;
+ min-width:0;
+ max-width:100%;
+ text-align:center;
+ margin:0;
+}
+footer.site-footer .footer-recaptcha-notice {
+ margin:0;
+ font:400 9px/1.3 'Lato',sans-serif;
+ overflow-wrap:normal;
+}
+@media(max-width:1050px) {
+ footer.site-footer .footer-links {gap:7px;padding-bottom:.3rem;}
+ footer.site-footer .footer-links-primary {gap:clamp(12px,3vw,24px);}
+}
