@@ -823,3 +823,6 @@ footer.site-footer .footer-recaptcha-notice {
  footer.site-footer .footer-links {gap:7px;padding-bottom:.3rem;}
  footer.site-footer .footer-links-primary {gap:clamp(12px,3vw,24px);}
 }
+
+/* Slightly separate copyright from the reCAPTCHA line. */
+footer.site-footer .footer-copyright { margin-top:5px; }
