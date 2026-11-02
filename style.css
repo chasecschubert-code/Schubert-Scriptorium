@@ -761,3 +761,13 @@ footer.site-footer .footer-recaptcha-notice a { font:inherit; color:inherit; whi
  footer.site-footer .footer-recaptcha-row { text-align:center; }
  footer.site-footer .footer-links { row-gap:7px; }
 }
+
+/* Copyright centered beneath the footer logo within its existing 91px height. */
+footer.site-footer .footer-brand { position:relative; }
+footer.site-footer .footer-logo { transform:translateY(-53px); }
+footer.site-footer .footer-copyright {
+ position:absolute; left:50%; bottom:2px; transform:translateX(-50%);
+ width:max-content; max-width:100%; margin:0;
+ font:400 10px/1.2 'Lato',sans-serif; color:#263C38;
+ text-align:center; white-space:nowrap;
+}
