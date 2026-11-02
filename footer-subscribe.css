@@ -36,3 +36,15 @@ footer.site-footer .footer-subscribe .ctct-form-errorMessage{font-size:12px!impo
  footer.site-footer .footer-subscribe .ctct-form-text,footer.site-footer .footer-subscribe .ctct-form-disclosure,footer.site-footer .footer-subscribe .ctct-form-footer{order:2!important;display:block!important;width:100%!important;max-width:100%!important;margin:4px auto 0!important;text-align:center!important;font-size:10px!important;line-height:1.25!important;}
  footer.site-footer .footer-subscribe .ctct-form-defaults,footer.site-footer .footer-subscribe form{width:100%!important;max-width:100%!important;margin:0 auto!important;}
 }
+
+/* Final signup visual refinements */
+footer.site-footer .footer-subscribe{max-width:540px!important;}
+footer.site-footer .footer-subscribe .ctct-form-field label{display:none!important;}
+footer.site-footer .footer-subscribe input[type=email]::placeholder{color:#777!important;opacity:1!important;letter-spacing:.045em!important;}
+footer.site-footer .footer-subscribe .ctct-form-button,footer.site-footer .footer-subscribe button[type=submit],footer.site-footer .footer-subscribe input[type=submit]{background:#B58A35!important;border-color:#B58A35!important;color:#fff!important;display:block!important;width:100%!important;margin:6px auto 0!important;}
+footer.site-footer .footer-subscribe .ctct-form-button:hover,footer.site-footer .footer-subscribe button[type=submit]:hover{background:#977127!important;border-color:#977127!important;}
+footer.site-footer .footer-subscribe .ctct-form-custom{display:flex!important;flex-direction:column!important;align-items:stretch!important;}
+footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-field{order:0!important;}
+footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-button,footer.site-footer .footer-subscribe .ctct-form-custom>button{order:1!important;}
+footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-disclosure,footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-text,footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-footer{order:2!important;}
+footer.site-footer .footer-subscribe .ctct-form-disclosure,footer.site-footer .footer-subscribe .ctct-form-footer,footer.site-footer .footer-subscribe .ctct-form-legal{display:block!important;text-align:center!important;width:100%!important;max-width:100%!important;font-size:10px!important;line-height:1.35!important;margin:6px auto 0!important;}
