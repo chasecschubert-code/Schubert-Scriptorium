@@ -826,3 +826,20 @@ footer.site-footer .footer-recaptcha-notice {
 
 /* Slightly separate copyright from the reCAPTCHA line. */
 footer.site-footer .footer-copyright { margin-top:5px; }
+
+/* Keep the shorter newsletter invitation on one line on desktop. */
+@media(min-width:1051px) {
+ footer.site-footer .footer-subscribe > p:first-of-type {
+  white-space:nowrap;
+  width:max-content;
+  max-width:none;
+  position:relative;
+  left:50%;
+  transform:translateX(-50%);
+  text-align:center;
+ }
+ footer.site-footer .footer-recaptcha-notice {
+  font-size:8px;
+  letter-spacing:-.1px;
+ }
+}
