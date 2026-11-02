@@ -843,3 +843,13 @@ footer.site-footer .footer-copyright { margin-top:5px; }
   letter-spacing:-.1px;
  }
 }
+
+/* Keep the entire reCAPTCHA disclosure, including linked words, uniform in size. */
+footer.site-footer .footer-recaptcha-notice,
+footer.site-footer .footer-recaptcha-notice a {
+ font-family:'Lato',sans-serif !important;
+ font-size:8px !important;
+ font-weight:400 !important;
+ line-height:1.3 !important;
+ letter-spacing:-.1px !important;
+}
