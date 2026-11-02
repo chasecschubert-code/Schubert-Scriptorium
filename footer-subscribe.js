@@ -8,6 +8,14 @@
         if(email.placeholder!=='YOUR EMAIL ADDRESS')email.placeholder='YOUR EMAIL ADDRESS';
         if(email.getAttribute('aria-label')!=='Your email address')email.setAttribute('aria-label','Your email address');
       }
+      /* Hide the redundant widget description, keeping our heading copy above. */
+      var repeated='Receive our bi-monthly newsletters exploring biblical manuscripts, the remarkable history of God';
+      footer.querySelectorAll('.ctct-inline-form p, .ctct-inline-form div, .ctct-inline-form span').forEach(function(el){
+        var txt=(el.textContent||'').trim();
+        if(txt.startsWith(repeated) && !Array.from(el.children).some(function(child){return (child.textContent||'').trim().startsWith(repeated);})){
+          if(el.style.display!=='none')el.style.display='none';
+        }
+      });
       if(!form)return;
       var button=form.querySelector('button[type="submit"], input[type="submit"], .ctct-form-button');
       if(!button)return;
