@@ -1,50 +1,17 @@
-/* Schubert Scriptorium newsletter footer integration */
-footer.site-footer .footer-inner{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);}
-footer.site-footer .footer-subscribe{grid-column:1;grid-row:1;min-width:0;width:100%;max-width:360px;justify-self:center;text-align:center;font-family:'Lato',sans-serif;line-height:1.35;}
-footer.site-footer .footer-subscribe h2{font-family:'Playfair Display',serif;font-size:clamp(15px,1.2vw,19px);color:#263C38;margin:0 0 3px;letter-spacing:.025em;}
-footer.site-footer .footer-subscribe p{font-size:12px;color:#46534b;margin:0 0 7px;}
-footer.site-footer .footer-subscribe .ctct-inline-form{width:100%;min-height:48px;}
-footer.site-footer .footer-subscribe .ctct-form-defaults{background:transparent!important;padding:0!important;min-width:0!important;}
-footer.site-footer .footer-subscribe .ctct-form-header,footer.site-footer .footer-subscribe .ctct-form-text,footer.site-footer .footer-subscribe .ctct-form-footer{display:none!important;}
-footer.site-footer .footer-subscribe .ctct-form-field{margin-bottom:6px!important;}
-footer.site-footer .footer-subscribe input[type=email]{box-sizing:border-box!important;width:100%!important;min-height:36px!important;padding:8px 10px!important;border:1px solid #B58A35!important;border-radius:3px!important;background:#fff!important;color:#263C38!important;font:13px 'Lato',sans-serif!important;}
-footer.site-footer .footer-subscribe button,footer.site-footer .footer-subscribe .ctct-form-button{width:100%!important;min-height:35px!important;padding:7px 12px!important;border:1px solid #263C38!important;border-radius:3px!important;background:#263C38!important;color:white!important;font:700 12px 'Lato',sans-serif!important;letter-spacing:.07em!important;cursor:pointer;}
-footer.site-footer .footer-subscribe button:hover,footer.site-footer .footer-subscribe button:focus-visible{background:#B58A35!important;border-color:#B58A35!important;}
-footer.site-footer .footer-subscribe .ctct-form-errorMessage{font-size:12px!important;text-align:left;}
-@media(max-width:1050px){footer.site-footer .footer-inner{grid-template-columns:1fr!important;gap:8px!important;}footer.site-footer .footer-subscribe{grid-column:1;grid-row:auto;max-width:350px;margin:12px auto 4px;}footer.site-footer .footer-brand,footer.site-footer .footer-links{grid-column:1;grid-row:auto;}}
-
-/* Compact horizontal form on desktop; preserve required consent and error messages. */
-@media(min-width:1051px){
- footer.site-footer .footer-subscribe{max-width:540px;}
- footer.site-footer .footer-subscribe .ctct-form-custom{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(175px,.8fr);gap:6px 8px;align-items:end;}
- footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-field{grid-column:1;grid-row:1;margin:0!important;min-width:0;}
- footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-button{grid-column:2;grid-row:1;align-self:end;}
- footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-button,footer.site-footer .footer-subscribe .ctct-form-custom>button{margin:0!important;min-height:36px!important;}
- footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-field:not(:first-child),footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-errorMessage{grid-column:1/-1;grid-row:auto;}
-}
-
-/* Desktop correction: Constant Contact uses a separate button wrapper and
-   a field container, so keep them in normal document order and centered. */
-@media(min-width:1051px){
- footer.site-footer .footer-subscribe{max-width:540px;width:100%;text-align:center;}
- footer.site-footer .footer-subscribe .ctct-form-custom{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:5px!important;width:100%!important;}
- footer.site-footer .footer-subscribe .ctct-form-custom>*{grid-column:auto!important;grid-row:auto!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;}
- footer.site-footer .footer-subscribe .ctct-form-field{order:0!important;width:100%!important;margin:0!important;text-align:center!important;}
- footer.site-footer .footer-subscribe .ctct-form-field label{display:block!important;text-align:center!important;margin:0 0 4px!important;}
- footer.site-footer .footer-subscribe .ctct-form-field input{display:block!important;width:100%!important;max-width:100%!important;margin:0 auto!important;}
- footer.site-footer .footer-subscribe .ctct-form-button{order:1!important;display:block!important;width:100%!important;max-width:100%!important;margin:3px auto 0!important;}
- footer.site-footer .footer-subscribe .ctct-form-text,footer.site-footer .footer-subscribe .ctct-form-disclosure,footer.site-footer .footer-subscribe .ctct-form-footer{order:2!important;display:block!important;width:100%!important;max-width:100%!important;margin:4px auto 0!important;text-align:center!important;font-size:10px!important;line-height:1.25!important;}
- footer.site-footer .footer-subscribe .ctct-form-defaults,footer.site-footer .footer-subscribe form{width:100%!important;max-width:100%!important;margin:0 auto!important;}
-}
-
-/* Final signup visual refinements */
-footer.site-footer .footer-subscribe{max-width:540px!important;}
+/* Compact Constant Contact footer form. Keep legal disclosure visible. */
+footer.site-footer .footer-inner{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;}
+footer.site-footer .footer-subscribe{grid-column:1;grid-row:1;justify-self:center;width:100%;max-width:500px;min-width:0;text-align:center;font-family:'Lato',sans-serif;}
+footer.site-footer .footer-subscribe h2{font-family:'Playfair Display',serif;color:#263C38;font-size:18px;line-height:1.15;margin:0 0 3px;}
+footer.site-footer .footer-subscribe>p{font-size:11px;line-height:1.25;color:#46534b;margin:0 0 6px;}
+footer.site-footer .footer-subscribe .ctct-inline-form,footer.site-footer .footer-subscribe form,footer.site-footer .footer-subscribe .ctct-form-defaults{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;background:transparent!important;padding:0!important;margin:0!important;}
+footer.site-footer .footer-subscribe .ctct-form-header{display:none!important;}
+footer.site-footer .footer-subscribe .ss-duplicate-description{display:none!important;}
+footer.site-footer .footer-subscribe .ctct-form-field{margin:0 0 5px!important;padding:0!important;}
 footer.site-footer .footer-subscribe .ctct-form-field label{display:none!important;}
-footer.site-footer .footer-subscribe input[type=email]::placeholder{color:#777!important;opacity:1!important;letter-spacing:.045em!important;}
-footer.site-footer .footer-subscribe .ctct-form-button,footer.site-footer .footer-subscribe button[type=submit],footer.site-footer .footer-subscribe input[type=submit]{background:#B58A35!important;border-color:#B58A35!important;color:#fff!important;display:block!important;width:100%!important;margin:6px auto 0!important;}
-footer.site-footer .footer-subscribe .ctct-form-button:hover,footer.site-footer .footer-subscribe button[type=submit]:hover{background:#977127!important;border-color:#977127!important;}
-footer.site-footer .footer-subscribe .ctct-form-custom{display:flex!important;flex-direction:column!important;align-items:stretch!important;}
-footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-field{order:0!important;}
-footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-button,footer.site-footer .footer-subscribe .ctct-form-custom>button{order:1!important;}
-footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-disclosure,footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-text,footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-footer{order:2!important;}
-footer.site-footer .footer-subscribe .ctct-form-disclosure,footer.site-footer .footer-subscribe .ctct-form-footer,footer.site-footer .footer-subscribe .ctct-form-legal{display:block!important;text-align:center!important;width:100%!important;max-width:100%!important;font-size:10px!important;line-height:1.35!important;margin:6px auto 0!important;}
+footer.site-footer .footer-subscribe input[type=email]{display:block!important;width:100%!important;box-sizing:border-box!important;height:36px!important;min-height:36px!important;padding:7px 10px!important;margin:0!important;border:1px solid #B58A35!important;border-radius:3px!important;background:#fff!important;color:#263C38!important;font:12px 'Lato',sans-serif!important;}
+footer.site-footer .footer-subscribe input[type=email]::placeholder{color:#777!important;opacity:1!important;}
+footer.site-footer .footer-subscribe button[type=submit],footer.site-footer .footer-subscribe input[type=submit],footer.site-footer .footer-subscribe .ctct-form-button{display:block!important;box-sizing:border-box!important;width:100%!important;max-width:100%!important;min-height:34px!important;margin:5px 0 0!important;padding:7px 10px!important;background:#B58A35!important;border:1px solid #B58A35!important;border-radius:3px!important;color:#fff!important;font:700 12px 'Lato',sans-serif!important;cursor:pointer;}
+footer.site-footer .footer-subscribe button[type=submit]:hover,footer.site-footer .footer-subscribe .ctct-form-button:hover{background:#977127!important;border-color:#977127!important;}
+footer.site-footer .footer-subscribe .ss-legal-notice{display:block!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;text-align:center!important;font:10px/1.2 'Lato',sans-serif!important;margin:6px 0 0!important;padding:0!important;}
+footer.site-footer .footer-subscribe .ctct-form-errorMessage{font-size:11px!important;}
+@media(max-width:1050px){footer.site-footer .footer-inner{grid-template-columns:1fr!important;justify-items:center;gap:8px!important;}footer.site-footer .footer-spacer{display:none;}footer.site-footer .footer-subscribe{grid-column:1;grid-row:auto;max-width:350px;margin:10px auto 4px;}footer.site-footer .footer-brand,footer.site-footer .footer-links{grid-column:1;grid-row:auto;}}
