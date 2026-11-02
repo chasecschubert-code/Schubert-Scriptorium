@@ -771,3 +771,15 @@ footer.site-footer .footer-copyright {
  font:400 10px/1.2 'Lato',sans-serif; color:#263C38;
  text-align:center; white-space:nowrap;
 }
+
+/* Footer correction: logo stands alone; copyright is in right-side link column. */
+footer.site-footer .footer-logo { transform:translateY(-45px); }
+footer.site-footer .footer-copyright {
+ position:static; left:auto; bottom:auto; transform:none;
+ flex:0 0 100%; width:100%; max-width:none;
+ margin:0; text-align:right; white-space:normal;
+ font:400 10px/1.2 'Lato',sans-serif; color:#263C38;
+}
+@media(max-width:1050px) {
+ footer.site-footer .footer-copyright { text-align:center; }
+}
