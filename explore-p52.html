@@ -1621,6 +1621,70 @@ footer.site-footer .footer-links a:focus-visible {outline:2px solid #B58A35;outl
   .explore-section .cta p { margin-top: 0; margin-bottom: .85rem; }
 }
 </style>
+
+<style>
+/* Match the shared footer's three-row right column on Explore P52. */
+/* Three centered, evenly spaced rows in the right-hand footer column. */
+footer.site-footer .footer-links {
+ display:flex;
+ flex-direction:column;
+ flex-wrap:nowrap;
+ align-items:stretch;
+ justify-content:center;
+ gap:7px;
+ min-width:0;
+ padding:0;
+}
+footer.site-footer .footer-links-primary {
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:clamp(12px,1.5vw,24px);
+ width:100%;
+ min-width:0;
+}
+footer.site-footer .footer-recaptcha-row,
+footer.site-footer .footer-copyright {
+ display:block;
+ flex:none;
+ width:100%;
+ min-width:0;
+ max-width:100%;
+ text-align:center;
+ margin:0;
+}
+footer.site-footer .footer-recaptcha-notice {
+ margin:0;
+ font:400 9px/1.3 'Lato',sans-serif;
+ overflow-wrap:normal;
+}
+@media(max-width:1050px) {
+ footer.site-footer .footer-links {gap:7px;padding-bottom:.3rem;}
+ footer.site-footer .footer-links-primary {gap:clamp(12px,3vw,24px);}
+}
+
+/* Slightly separate copyright from the reCAPTCHA line. */
+footer.site-footer .footer-copyright { margin-top:5px; }
+
+/* Keep the shorter newsletter invitation on one line on desktop. */
+@media(min-width:1051px) {
+ footer.site-footer .footer-subscribe > p:first-of-type {
+  white-space:nowrap;
+  width:max-content;
+  max-width:none;
+  position:relative;
+  left:50%;
+  transform:translateX(-50%);
+  text-align:center;
+ }
+ footer.site-footer .footer-recaptcha-notice {
+  font-size:8px;
+  letter-spacing:-.1px;
+ }
+}
+
+</style>
 </head>
 
 
