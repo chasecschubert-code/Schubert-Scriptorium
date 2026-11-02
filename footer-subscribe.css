@@ -15,3 +15,12 @@ footer.site-footer .footer-subscribe button[type=submit]:hover,footer.site-foote
 footer.site-footer .footer-subscribe .ss-legal-notice{display:block!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;text-align:center!important;font:10px/1.2 'Lato',sans-serif!important;margin:6px 0 0!important;padding:0!important;}
 footer.site-footer .footer-subscribe .ctct-form-errorMessage{font-size:11px!important;}
 @media(max-width:1050px){footer.site-footer .footer-inner{grid-template-columns:1fr!important;justify-items:center;gap:8px!important;}footer.site-footer .footer-spacer{display:none;}footer.site-footer .footer-subscribe{grid-column:1;grid-row:auto;max-width:350px;margin:10px auto 4px;}footer.site-footer .footer-brand,footer.site-footer .footer-links{grid-column:1;grid-row:auto;}}
+
+/* One-row signup: email left, gold submit right; legal disclosure below. */
+footer.site-footer .footer-subscribe{max-width:500px;}
+footer.site-footer .footer-subscribe .ss-signup-row{display:flex!important;flex-direction:row!important;align-items:stretch!important;gap:7px!important;width:100%!important;max-width:100%!important;margin:0!important;padding:0!important;}
+footer.site-footer .footer-subscribe .ss-signup-row>.ctct-form-field{flex:1 1 auto!important;min-width:0!important;width:auto!important;margin:0!important;}
+footer.site-footer .footer-subscribe .ss-signup-row>button,footer.site-footer .footer-subscribe .ss-signup-row>.ctct-form-button,footer.site-footer .footer-subscribe .ss-signup-row>input[type=submit]{flex:0 0 185px!important;width:185px!important;max-width:185px!important;height:36px!important;min-height:36px!important;margin:0!important;padding:6px!important;font-size:11px!important;white-space:nowrap!important;}
+footer.site-footer .footer-subscribe .ss-signup-row input[type=email]{height:36px!important;min-height:36px!important;}
+footer.site-footer .footer-subscribe .ss-legal-notice{margin:5px 0 0!important;}
+@media(max-width:420px){footer.site-footer .footer-subscribe .ss-signup-row{gap:5px!important;}footer.site-footer .footer-subscribe .ss-signup-row>button,footer.site-footer .footer-subscribe .ss-signup-row>.ctct-form-button,footer.site-footer .footer-subscribe .ss-signup-row>input[type=submit]{flex-basis:145px!important;width:145px!important;max-width:145px!important;font-size:9px!important;}}
