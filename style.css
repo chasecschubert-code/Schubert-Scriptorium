@@ -853,3 +853,6 @@ footer.site-footer .footer-recaptcha-notice a {
  line-height:1.3 !important;
  letter-spacing:-.1px !important;
 }
+
+/* Slightly larger copyright text across all footer pages. */
+footer.site-footer .footer-copyright { font-size:13px; }
