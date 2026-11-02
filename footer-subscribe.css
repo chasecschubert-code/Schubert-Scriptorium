@@ -12,3 +12,13 @@ footer.site-footer .footer-subscribe button,footer.site-footer .footer-subscribe
 footer.site-footer .footer-subscribe button:hover,footer.site-footer .footer-subscribe button:focus-visible{background:#B58A35!important;border-color:#B58A35!important;}
 footer.site-footer .footer-subscribe .ctct-form-errorMessage{font-size:12px!important;text-align:left;}
 @media(max-width:1050px){footer.site-footer .footer-inner{grid-template-columns:1fr!important;gap:8px!important;}footer.site-footer .footer-subscribe{grid-column:1;grid-row:auto;max-width:350px;margin:12px auto 4px;}footer.site-footer .footer-brand,footer.site-footer .footer-links{grid-column:1;grid-row:auto;}}
+
+/* Compact horizontal form on desktop; preserve required consent and error messages. */
+@media(min-width:1051px){
+ footer.site-footer .footer-subscribe{max-width:540px;}
+ footer.site-footer .footer-subscribe .ctct-form-custom{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(175px,.8fr);gap:6px 8px;align-items:end;}
+ footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-field{grid-column:1;grid-row:1;margin:0!important;min-width:0;}
+ footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-button{grid-column:2;grid-row:1;align-self:end;}
+ footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-button,footer.site-footer .footer-subscribe .ctct-form-custom>button{margin:0!important;min-height:36px!important;}
+ footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-field:not(:first-child),footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-errorMessage{grid-column:1/-1;grid-row:auto;}
+}
