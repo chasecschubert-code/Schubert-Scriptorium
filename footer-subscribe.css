@@ -22,3 +22,17 @@ footer.site-footer .footer-subscribe .ctct-form-errorMessage{font-size:12px!impo
  footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-button,footer.site-footer .footer-subscribe .ctct-form-custom>button{margin:0!important;min-height:36px!important;}
  footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-field:not(:first-child),footer.site-footer .footer-subscribe .ctct-form-custom>.ctct-form-errorMessage{grid-column:1/-1;grid-row:auto;}
 }
+
+/* Desktop correction: Constant Contact uses a separate button wrapper and
+   a field container, so keep them in normal document order and centered. */
+@media(min-width:1051px){
+ footer.site-footer .footer-subscribe{max-width:540px;width:100%;text-align:center;}
+ footer.site-footer .footer-subscribe .ctct-form-custom{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:5px!important;width:100%!important;}
+ footer.site-footer .footer-subscribe .ctct-form-custom>*{grid-column:auto!important;grid-row:auto!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;}
+ footer.site-footer .footer-subscribe .ctct-form-field{order:0!important;width:100%!important;margin:0!important;text-align:center!important;}
+ footer.site-footer .footer-subscribe .ctct-form-field label{display:block!important;text-align:center!important;margin:0 0 4px!important;}
+ footer.site-footer .footer-subscribe .ctct-form-field input{display:block!important;width:100%!important;max-width:100%!important;margin:0 auto!important;}
+ footer.site-footer .footer-subscribe .ctct-form-button{order:1!important;display:block!important;width:100%!important;max-width:100%!important;margin:3px auto 0!important;}
+ footer.site-footer .footer-subscribe .ctct-form-text,footer.site-footer .footer-subscribe .ctct-form-disclosure,footer.site-footer .footer-subscribe .ctct-form-footer{order:2!important;display:block!important;width:100%!important;max-width:100%!important;margin:4px auto 0!important;text-align:center!important;font-size:10px!important;line-height:1.25!important;}
+ footer.site-footer .footer-subscribe .ctct-form-defaults,footer.site-footer .footer-subscribe form{width:100%!important;max-width:100%!important;margin:0 auto!important;}
+}
