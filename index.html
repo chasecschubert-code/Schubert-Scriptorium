@@ -93,6 +93,41 @@ footer .footer-faq-link{position:absolute;right:clamp(18px,3vw,48px);top:50%;tra
   .home-hero-visual::before { background: linear-gradient(to left, var(--hero-beige) 0%, rgba(237, 227, 208, .76) 7%, rgba(237, 227, 208, .2) 18%, rgba(237, 227, 208, 0) 35%); }
 }
 </style>
+
+<style>
+/* Desktop-only, one-time progressive timeline reveal. */
+@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+ .home-timeline.timeline-reveal-ready .home-timeline-stop::before {
+   transform:scaleX(0); transform-origin:left center;
+ }
+ .home-timeline.timeline-reveal-ready .home-timeline-date,
+ .home-timeline.timeline-reveal-ready .home-timeline-point,
+ .home-timeline.timeline-reveal-ready .home-timeline-stop h3,
+ .home-timeline.timeline-reveal-ready .home-timeline-description {
+   opacity:0;
+ }
+ .home-timeline.timeline-reveal-ready.timeline-reveal-start .home-timeline-stop::before {
+   animation:timeline-draw 2.5s linear both;
+   animation-delay:calc(var(--timeline-index) * 2.5s);
+ }
+ .home-timeline.timeline-reveal-ready.timeline-reveal-start .home-timeline-date,
+ .home-timeline.timeline-reveal-ready.timeline-reveal-start .home-timeline-point {
+   animation:timeline-appear .7s ease-out both;
+   animation-delay:calc(var(--timeline-index) * 2.5s + .25s);
+ }
+ .home-timeline.timeline-reveal-ready.timeline-reveal-start .home-timeline-stop h3,
+ .home-timeline.timeline-reveal-ready.timeline-reveal-start .home-timeline-description {
+   animation:timeline-float-in .85s ease-out both;
+   animation-delay:calc(var(--timeline-index) * 2.5s + .8s);
+ }
+ .home-timeline.timeline-reveal-ready.timeline-reveal-start .home-timeline-description {
+   animation-delay:calc(var(--timeline-index) * 2.5s + 1.05s);
+ }
+ @keyframes timeline-draw {to {transform:scaleX(1)}}
+ @keyframes timeline-appear {to {opacity:1}}
+ @keyframes timeline-float-in {from {opacity:0;transform:translateY(16px)}to {opacity:1;transform:translateY(0)}}
+}
+</style>
 </head>
 <body>
 
@@ -291,6 +326,35 @@ footer .footer-faq-link{position:absolute;right:clamp(18px,3vw,48px);top:50%;tra
 <script>var _ctct_m = "2b00340d0dffae2609ed22a8a5fdf508";</script>
 <script id="signupScript" src="https://static.ctctcdn.com/js/signup-form-widget/current/signup-form-widget.min.js" async defer></script>
 <script src="footer-subscribe.js?v=20261102f" defer></script>
+
+<script>
+/* Progressive desktop reveal; mobile and reduced-motion layouts stay static. */
+(() => {
+ const section=document.querySelector('.home-timeline');
+ if(!section || !('IntersectionObserver' in window)) return;
+ const desktop=window.matchMedia('(min-width: 901px)');
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+ if(!desktop.matches || reduced.matches) return;
+ section.querySelectorAll('.home-timeline-stop').forEach((stop,index)=>{
+   stop.style.setProperty('--timeline-index',index);
+ });
+ section.classList.add('timeline-reveal-ready');
+ const observer=new IntersectionObserver(entries=>{
+   if(!entries.some(entry=>entry.isIntersecting)) return;
+   section.classList.add('timeline-reveal-start');
+   observer.disconnect();
+ },{threshold:0.12});
+ observer.observe(section);
+ const showAll=()=>{
+   if(!desktop.matches || reduced.matches) {
+     section.classList.remove('timeline-reveal-ready');
+     observer.disconnect();
+   }
+ };
+ desktop.addEventListener('change',showAll);
+ reduced.addEventListener('change',showAll);
+})();
+</script>
 </body>
 </html>
 
