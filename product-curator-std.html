@@ -136,6 +136,11 @@ footer .footer-faq-link{position:absolute;right:clamp(18px,3vw,48px);top:50%;tra
       }
     }
     </script>
+<style>
+#product-component-1794952907089 { margin-top:1.25rem; max-width:100%; }
+.product-detail-content #prism-order-fallback { margin:.75rem 0 0; font-size:.85rem; }
+#prism-order-fallback a { color:#263C38; text-underline-offset:3px; }
+</style>
 </head>
 
 <body>
@@ -178,9 +183,83 @@ footer .footer-faq-link{position:absolute;right:clamp(18px,3vw,48px);top:50%;tra
     <p class="product-translation-included">Custom double-sided translation card included with every order.</p>
 
 
-    <a href="contact.html?product=Curator%20Standard" class="btn">
-        Order Now
-    </a>
+    <div id="product-component-1794952907089" aria-label="Order Curator's Prism"></div>
+    <p id="prism-order-fallback"><a href="contact.html?product=Curator%20Standard">Need help ordering? Contact us.</a></p>
+<script>
+(function () {
+  var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+  function showError() {
+    document.getElementById('prism-order-fallback').textContent = 'Online checkout could not load. Please email orders@schubertscriptorium.com to order.';
+  }
+  function init() {
+    var client = ShopifyBuy.buildClient({
+      domain: 'x1jcun-5y.myshopify.com',
+      storefrontAccessToken: '5ff141a71c8be49d8871e1bab0c90dc8'
+    });
+    ShopifyBuy.UI.onReady(client).then(function (ui) {
+      return ui.createComponent('product', {
+        id: '10326976200960',
+        node: document.getElementById('product-component-1794952907089'),
+        moneyFormat: '%24%7B%7Bamount%7D%7D',
+        options: {
+          product: {
+            styles: {
+              product: {
+                'max-width': '100%',
+                'margin-left': '0',
+                'margin-bottom': '0',
+                'text-align': 'left',
+                '@media (min-width: 601px)': {
+                  'max-width': '100%',
+                  'margin-left': '0',
+                  'margin-bottom': '0'
+                }
+              },
+              button: {
+                'font-family': 'Playfair Display, serif',
+                'font-weight': 'bold',
+                'color': '#263c38',
+                'background-color': '#d4b665',
+                ':hover': {'color': '#263c38', 'background-color': '#bfa45b'},
+                ':focus': {'background-color': '#bfa45b'},
+                'border-radius': '6px',
+                'padding-left': '25px',
+                'padding-right': '25px'
+              }
+            },
+            buttonDestination: 'checkout',
+            layout: 'vertical',
+            contents: {
+              img: false,
+              imgWithCarousel: false,
+              title: false,
+              price: false,
+              options: false,
+              button: false,
+              buttonWithQuantity: true,
+              description: false
+            },
+            width: '100%',
+            text: {button: 'Order Now'},
+            googleFonts: ['Playfair Display']
+          },
+          option: {}
+        }
+      });
+    }).catch(showError);
+  }
+  if (window.ShopifyBuy && window.ShopifyBuy.UI) {
+    init();
+  } else {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = scriptURL;
+    script.onload = init;
+    script.onerror = showError;
+    document.head.appendChild(script);
+  }
+})();
+</script>
 
 </div>
 </div>
