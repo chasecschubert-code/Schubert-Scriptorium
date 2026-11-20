@@ -153,10 +153,15 @@ footer .footer-faq-link{position:absolute;right:clamp(18px,3vw,48px);top:50%;tra
 <div class="container product-detail-layout">
   <div class="product-detail-media">
     <div class="main-img-container"><img id="main-photo" src="p52-wood-std.png" alt="Papyrus 52 (P52) facsimile in the Gallery Edition acrylic display"></div>
+    <p id="papyrus-photo-caption" style="display:none;font-style:italic;font-size:.85rem;line-height:1.45;margin:.5rem 0 0;">This image shows P52 Facsimile on Egyptian Papyrus, which currently is not available at this price</p>
     <!-- Product image ribbon -->
     <div class="thumbnail-ribbon"><img src="p52-wood-std.png" alt="Papyrus 52 (P52) facsimile in the Gallery Edition acrylic display" class="thumb active-thumb" loading="lazy">
     <img src="Real-16.png" alt="Gallery Edition display of a Papyrus 52 (P52) manuscript facsimile" class="thumb" loading="lazy">
-    <img src="Real-5.png" alt="Double-sided translation card included with the Papyrus 52 (P52) facsimile" class="thumb" loading="lazy"></div>
+    <img src="Real-5.png" alt="Double-sided translation card included with the Papyrus 52 (P52) facsimile" class="thumb" loading="lazy">
+    <img src="GE-STD1.jpg" alt="Gallery Edition P52 facsimile against a dark background" class="thumb" loading="lazy">
+    <img src="IMG_9105.jpg" alt="Gallery Edition P52 facsimile with translation card" class="thumb" loading="lazy">
+    <img src="IMG_9112.jpg" alt="Gallery Edition display and translation card" class="thumb" loading="lazy">
+    <img src="PAP-GE-STD-3.jpg" alt="P52 facsimile on Egyptian papyrus" class="thumb" loading="lazy" data-papyrus-caption="true"></div>
 
 
   </div>
@@ -295,8 +300,11 @@ footer .footer-faq-link{position:absolute;right:clamp(18px,3vw,48px);top:50%;tra
  if(!main||!ribbon)return;
  let timer;
  const thumbs=[...ribbon.querySelectorAll('.thumb')];
+ const papyrusCaption=document.getElementById('papyrus-photo-caption');
  function select(thumb){
-  if(!thumb||thumb.classList.contains('active-thumb'))return;
+  if(!thumb)return;
+  if(papyrusCaption)papyrusCaption.style.display=thumb.dataset.papyrusCaption==='true'?'block':'none';
+  if(thumb.classList.contains('active-thumb'))return;
   thumbs.forEach(t=>{t.classList.toggle('active-thumb',t===thumb);t.setAttribute('aria-pressed',String(t===thumb))});
   clearTimeout(timer);
   main.style.opacity='0';
