@@ -861,3 +861,8 @@ footer.site-footer .footer-copyright { font-size:13px; }
 /* Footer logo fit: reveal more of the top while keeping the footer's existing height. */
 footer.site-footer .footer-brand { width:170px; height:91px; }
 footer.site-footer .footer-logo { width:170px; transform:translateY(-30px); }
+
+
+/* Footer logo: fit the complete square source image inside the footer mark area. */
+footer.site-footer .footer-brand { width:200px; height:100px; overflow:hidden; }
+footer.site-footer .footer-logo { display:block; width:100%; height:100%; max-width:100%; object-fit:contain; object-position:center; transform:none !important; margin:0 auto; }
