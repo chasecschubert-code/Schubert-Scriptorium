@@ -856,3 +856,8 @@ footer.site-footer .footer-recaptcha-notice a {
 
 /* Slightly larger copyright text across all footer pages. */
 footer.site-footer .footer-copyright { font-size:13px; }
+
+
+/* Footer logo fit: reveal more of the top while keeping the footer's existing height. */
+footer.site-footer .footer-brand { width:170px; height:91px; }
+footer.site-footer .footer-logo { width:170px; transform:translateY(-30px); }
